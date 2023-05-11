@@ -19,9 +19,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // routes: {
-      //   '/mobile': (context) => const Mymobile(),
-      // },
+      routes: {
+        '/evalu': (context) => const EvaluPages(),
+      },
       debugShowCheckedModeBanner: false,
       // builder: DevicePreview.appBuilder,
       home: Home(),

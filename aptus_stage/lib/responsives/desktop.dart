@@ -155,7 +155,9 @@ class MyDesktop extends StatelessWidget {
             fontSize: currentwidth >= 800 ? 12 : 8,
            ),
             ),
-             onPressed: () {},
+             onPressed: () {
+              Navigator.pushNamed(context, '/evalu');
+             },
           ),
 
               TextButton(

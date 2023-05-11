@@ -16,103 +16,7 @@ class Mymobile extends StatefulWidget {
 
 class _MymobileState extends State<Mymobile> {
 
-final List<Widget> _screens = [
-  
-      Container(
-    child: Text("Planning"),
-    alignment: Alignment.center,
-  
-  ),
 
-
-    Container(
-    child: Text("Absences"),
-    alignment: Alignment.center,
-  
-  ),
-
-     Center(
-       child: Container(
-         decoration: BoxDecoration(
-        border: Border.all(width: 1, color: Color.fromARGB(255, 209, 203, 203)),
-        color: Colors.white
-         ),
-         width: 420,
-         height: 420,
-         
-         
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          
-          children: [
-          Container(
-              margin: EdgeInsets.only(top: 50),
-              child:  Text("Session"),
-            ),
-          
-           SizedBox(width: 20,),
-           Container(
-          padding: EdgeInsets.only(bottom: 10),
-          margin: EdgeInsets.only(top: 50),
-          decoration: BoxDecoration(
-          border: Border.all(width: 0.5, color: Color.fromARGB(255, 224, 221, 221)),
-       
-         ),
-        width: 200,
-        height: 20,
-        child: DropdownButton(
-       
-       isExpanded: true,
-        items: [
-          
-          DropdownMenuItem(child: Text('Normale', style: TextStyle(fontSize: 10),), value: 'Normale',),
-           DropdownMenuItem(child: Text('Complementaire', style: TextStyle(fontSize: 10),), value: 'Complementaire',),
-        ],
-        
-        onChanged: (value) {
-          
-        },
-        
-         ),
-         ),
-           
-        
-        
-          ],
-        )
-
-     
-         
-       ),
-     ),
-
-    Container(
-    child: Text("Notes"),
-    alignment: Alignment.center,
-   
-  ),
-
-      Container(
-    child: Text("Ressources"),
-    alignment: Alignment.center,
-    
-  ),
-
-    Container(
-    child: Text("Participants"),
-    alignment: Alignment.center,
-    
-  ),
-
-    Container(
-    child: Text("Discussions"),
-    alignment: Alignment.center,
-    
-  ),
-
-];
-
-  int _selectedIndex = 0;
 
 
   Widget build(BuildContext context) {
@@ -208,57 +112,109 @@ final List<Widget> _screens = [
            ],
       ),
         
+        body: Container(
+      decoration: BoxDecoration(
+        border: Border(top: BorderSide(color: Colors.grey), bottom: BorderSide(color: Colors.grey)),
+        color: Colors.white
+      ),
+      width: double.infinity,
+      height: 40,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
 
-        bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.amber,
-        currentIndex: _selectedIndex,
-        type: BottomNavigationBarType.fixed,
+        TextButton(
+          child: Text(
+            'Planning',
+            style: TextStyle(
+            color: Colors.grey[600],
+            fontFamily: 'myfont',
+            fontSize: 8,
+           ),
+            ),
+          onPressed: () {},
+          
+          ),
 
-        onTap: (int index){
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-        
-        items: [
-         BottomNavigationBarItem(
-          icon: Text('Planning', style: TextStyle(fontFamily: 'myfont', fontSize: 10),),
-          label: ''
-         ),
+          TextButton(
+            
+            child : Text(
+          'Absences',
+            style: TextStyle(
+            color: Colors.grey[600],
+            fontFamily: 'myfont',
+           fontSize: 8,
+           ),
+            ),
+             onPressed: () {},
+          ),
 
-                 BottomNavigationBarItem(
-          icon: Text('Abseneces', style: TextStyle(fontFamily: 'myfont', fontSize: 10)),
-          label: ''
-         ),
+            TextButton(
+            child : Text(
+          'Évaluations',
+            style: TextStyle(
+            color: Colors.grey[600],
+            fontFamily: 'myfont',
+            fontSize: 8,
+           ),
+            ),
+             onPressed: () {
+              
+             },
+          ),
 
-                 BottomNavigationBarItem(
-          icon: Text('Evaluations', style: TextStyle(fontFamily: 'myfont', fontSize: 10)),
-          label: ''
-         ),
+              TextButton(
+            child : Text(
+            'Notes',
+            style: TextStyle(
+            color: Colors.grey[600],
+            fontFamily: 'myfont',
+            fontSize: 8,
+           ),
+            ),
+             onPressed: () {},
+          ),
 
-                 BottomNavigationBarItem(
-          icon: Text('Notes', style: TextStyle(fontFamily: 'myfont', fontSize: 10)),
-          label: ''
-         ),
+             TextButton(
+            child : Text(
+          'Ressources',
+            style: TextStyle(
+            color: Colors.grey[600],
+            fontFamily: 'myfont',
+           fontSize: 8,
+           ),
+            ),
+             onPressed: () {},
+          ),
 
-                 BottomNavigationBarItem(
-          icon: Text('Ressources', style: TextStyle(fontFamily: 'myfont', fontSize: 10)),
-          label: ''
-         ),
+      
 
-                 BottomNavigationBarItem(
-          icon: Text('Participants', style: TextStyle(fontFamily: 'myfont', fontSize: 10)),
-          label: ''
-         ),
+              TextButton(
+            child : Text(
+          'Participans',
+            style: TextStyle(
+            color: Colors.grey[600],
+            fontFamily: 'myfont',
+            fontSize: 8,
+           ),
+            ),
+             onPressed: () {},
+          ),
 
-                   BottomNavigationBarItem(
-          icon: Text('Discussions', style: TextStyle(fontFamily: 'myfont', fontSize: 10)),
-          label: ''
-         ),
+                TextButton(
+            child : Text(
+          'Discussions',
+            style: TextStyle(
+            color: Colors.grey[600],
+            fontFamily: 'myfont',
+            fontSize: 8,
+           ),
+            ),
+             onPressed: () {},
+          ),
         ],
       ),
-        
-        body: _screens[_selectedIndex],
+     ),
 
      
      
