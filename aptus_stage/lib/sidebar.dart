@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:aptus_stage/responsives/desktop.dart';
 import 'package:flutter/material.dart';
 
 
@@ -11,7 +12,8 @@ class Sidebar extends StatelessWidget {
     final currentwidth = MediaQuery.of(context).size.width;
     return Drawer(
       
-      width: currentwidth < 800 ? 220 : 300,
+      // width: currentwidth < 800 ? 220 : 300,
+      width : screenWidth(context) <= 800 ? 220 : 300,
       backgroundColor: Colors.grey[600],
       child: ListView(
         children: [
@@ -33,17 +35,28 @@ class Sidebar extends StatelessWidget {
         Divider(),
 
          ListTile(
-          title:  Text(
-            'Accueil',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: currentwidth < 800 ? 12 : 16,
+          title:  TextButton(
+        
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              'Accueil',
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'myfont',
+                fontSize: screenWidth(context) >= 800 ? 15 : 12,
+              ),
             ),
-            ),
+          ],
+        ),
+          onPressed: () {},
+          ),
+     
           leading: IconButton(
             onPressed: () {}, 
             icon: Icon(Icons.home),
-            iconSize: currentwidth < 800 ? 15 : 16,
+            iconSize: screenWidth(context) >= 800 ? 15 : 16,
             ),
            iconColor: Colors.white,
           
@@ -51,17 +64,26 @@ class Sidebar extends StatelessWidget {
       ),
 
          ListTile(
-          title:  Text(
-            'Mes cours',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: currentwidth < 800 ? 12 : 16,
+          title:  TextButton(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              'Mes cours',
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'myfont',
+                fontSize: screenWidth(context) >= 800 ? 15 : 12,
+              ),
             ),
-            ),
+          ],
+        ),
+          onPressed: () {},
+          ),
           leading: IconButton(
             onPressed: () {}, 
             icon: Icon(Icons.book),
-            iconSize: currentwidth < 800 ? 15 : 16,
+            iconSize: screenWidth(context) >= 800 ? 15 : 16,
             ),
           iconColor: Colors.white,
           
@@ -69,49 +91,77 @@ class Sidebar extends StatelessWidget {
          Divider(),
 
          ListTile(
-          title:  Text(
-            'Banque de ressources',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: currentwidth < 800 ? 12 : 16,
+          title:  TextButton(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              'Banque de ressources',
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'myfont',
+                fontSize: screenWidth(context) >= 800 ? 15 : 11.5,
+              ),
             ),
-            ),
+          ],
+        ),
+          onPressed: () {},
+          ),
           leading: IconButton(
             onPressed: () {}, 
             icon: Icon(Icons.data_saver_off_outlined),
-            iconSize: currentwidth < 800 ? 15 : 16,
+            iconSize: screenWidth(context) >= 800 ? 15 : 16,
+            
             ),
           iconColor: Colors.white,
           
       ),
          ListTile(
-          title:  Text(
-            "Banque d'evaluations",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: currentwidth < 800 ? 12 : 16,
+          title:  TextButton(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              "Banque d'evaluations",
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'myfont',
+                fontSize: screenWidth(context) >= 800 ? 15 : 12,
+              ),
             ),
-            ),
+          ],
+        ),
+          onPressed: () {},
+          ),
           leading: IconButton(
             onPressed: () {}, 
             icon: Icon(Icons.create),
-            iconSize: currentwidth < 800 ? 15 : 16,
+            iconSize: screenWidth(context) >= 800 ? 15 : 16,
             ),
           iconColor: Colors.white,
           
       ),
          ListTile(
-          title:  Text(
-            "Banque de questions",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: currentwidth < 800 ? 12 : 16,
+           title:  TextButton(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              'Banque de questions',
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'myfont',
+                fontSize: screenWidth(context) >= 800 ? 15 : 12,
+              ),
             ),
-            ),
+          ],
+        ),
+          onPressed: () {},
+          ),
           leading: IconButton(
             onPressed: () {}, 
             icon: Icon(Icons.question_mark),
-            iconSize: currentwidth < 800 ? 15 : 16,
+            iconSize: screenWidth(context) >= 800 ? 15 : 16,
             ),
           iconColor: Colors.white,
           
@@ -120,67 +170,103 @@ class Sidebar extends StatelessWidget {
          Divider(),
 
          ListTile(
-          title:  Text(
-            'Agenda',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: currentwidth < 800 ? 12 : 16,
+          title:  TextButton(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              'Agenda',
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'myfont',
+                fontSize: screenWidth(context) >= 800 ? 15 : 12,
+              ),
             ),
-            ),
+          ],
+        ),
+          onPressed: () {},
+          ),
           leading: IconButton(
             onPressed: () {}, 
             icon: Icon(Icons.calendar_month),
-            iconSize: currentwidth < 800 ? 15 : 16,
+            iconSize: screenWidth(context) >= 800 ? 15 : 16,
             ),
           iconColor: Colors.white,
          
       ),
          ListTile(
-          title:  Text(
-            'Boite de réception',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: currentwidth < 800 ? 12 : 16,
+          title:  TextButton(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              'Boite de réception',
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'myfont',
+                fontSize: screenWidth(context) >= 800 ? 15 : 12,
+              ),
             ),
-            ),
+          ],
+        ),
+          onPressed: () {},
+          ),
           leading: IconButton(
             onPressed: () {}, 
             icon: Icon(Icons.move_to_inbox),
-            iconSize: currentwidth < 800 ? 15 : 16,
+            iconSize: screenWidth(context) >= 800 ? 15 : 16,
             ),
           iconColor: Colors.white,
          
       ),
 
          ListTile(
-          title:  Text(
-            'Alertes',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: currentwidth < 800 ? 12 : 16,
+          title:  TextButton(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              'Alertes',
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'myfont',
+                fontSize: screenWidth(context) >= 800 ? 15 : 12,
+              ),
             ),
-            ),
+          ],
+        ),
+          onPressed: () {},
+          ),
           leading: IconButton(
             onPressed: () {}, 
             icon: Icon(Icons.notifications),
-            iconSize: currentwidth < 800 ? 15 : 16,
+            iconSize: screenWidth(context) >= 800 ? 15 : 16,
             ),
           iconColor: Colors.white,
           
       ),
 
          ListTile(
-          title:  Text(
-            'Aide',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: currentwidth < 800 ? 12 : 16,
+          title:  TextButton(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              'Aide',
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'myfont',
+                fontSize: screenWidth(context) >= 800 ? 15 : 12,
+              ),
             ),
-            ),
+          ],
+        ),
+          onPressed: () {},
+          ),
           leading: IconButton(
             onPressed: () {}, 
             icon: Icon(Icons.help),
-            iconSize: currentwidth < 800 ? 15 : 16,
+            iconSize: screenWidth(context) >= 800 ? 15 : 16,
             ),
           iconColor: Colors.white,
          
