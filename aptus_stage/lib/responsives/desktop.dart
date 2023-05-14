@@ -19,6 +19,7 @@ class MyDesktop extends StatefulWidget {
 
 class _MyDesktopState extends State<MyDesktop> {
   bool quest = true;
+  bool isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -478,6 +479,19 @@ class _MyDesktopState extends State<MyDesktop> {
                                                     border: InputBorder.none),
                                               ),
                                             ),
+                                          ],
+                                        ),
+
+                                        Column(
+                                          children: [
+                                            Checkbox(
+                                               value: isChecked,
+                                                onChanged: (bool? value) {
+                                                setState(() {
+                                              isChecked = value!;
+                                           });
+                                                }
+                                            )
                                           ],
                                         )
                                       ],

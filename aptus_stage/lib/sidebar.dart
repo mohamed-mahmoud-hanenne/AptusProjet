@@ -45,7 +45,7 @@ class Sidebar extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontFamily: 'myfont',
-                fontSize: screenWidth(context) >= 800 ? 15 : 12,
+                fontSize: screenWidth(context) >= 800 ? 15 : 11.5,
               ),
             ),
           ],
@@ -73,7 +73,7 @@ class Sidebar extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontFamily: 'myfont',
-                fontSize: screenWidth(context) >= 800 ? 15 : 12,
+                fontSize: screenWidth(context) >= 800 ? 15 : 11.5,
               ),
             ),
           ],
@@ -126,7 +126,7 @@ class Sidebar extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontFamily: 'myfont',
-                fontSize: screenWidth(context) >= 800 ? 15 : 12,
+                fontSize: screenWidth(context) >= 800 ? 15 : 11.5,
               ),
             ),
           ],
@@ -151,7 +151,7 @@ class Sidebar extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontFamily: 'myfont',
-                fontSize: screenWidth(context) >= 800 ? 15 : 12,
+                fontSize: screenWidth(context) >= 800 ? 15 : 11.5,
               ),
             ),
           ],
@@ -179,7 +179,7 @@ class Sidebar extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontFamily: 'myfont',
-                fontSize: screenWidth(context) >= 800 ? 15 : 12,
+                fontSize: screenWidth(context) >= 800 ? 15 : 11.5,
               ),
             ),
           ],
@@ -204,7 +204,7 @@ class Sidebar extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontFamily: 'myfont',
-                fontSize: screenWidth(context) >= 800 ? 15 : 12,
+                fontSize: screenWidth(context) >= 800 ? 15 : 11.5,
               ),
             ),
           ],
@@ -230,7 +230,7 @@ class Sidebar extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontFamily: 'myfont',
-                fontSize: screenWidth(context) >= 800 ? 15 : 12,
+                fontSize: screenWidth(context) >= 800 ? 15 : 11.5,
               ),
             ),
           ],
@@ -256,7 +256,7 @@ class Sidebar extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontFamily: 'myfont',
-                fontSize: screenWidth(context) >= 800 ? 15 : 12,
+                fontSize: screenWidth(context) >= 800 ? 15 : 11.5,
               ),
             ),
           ],
