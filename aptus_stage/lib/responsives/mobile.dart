@@ -1,10 +1,13 @@
 
 // ignore_for_file: unused_import
 
+import 'package:aptus_stage/controllers/providers.dart';
+import 'package:aptus_stage/responsives/desktop.dart';
 import 'package:aptus_stage/sidebar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:aptus_stage/responsives/resp_pages.dart';
+import 'package:provider/provider.dart';
 
 
 class Mymobile extends StatefulWidget {
@@ -15,7 +18,14 @@ class Mymobile extends StatefulWidget {
 }
 
 class _MymobileState extends State<Mymobile> {
-
+  bool quest = true;
+  bool isChecked = false;
+  bool isChecked2 = false;
+  bool isChecked3 = false;
+  bool isChecked4 = false;
+  bool isChecked5 = false;
+  bool isChecked6 = false;
+  bool isChecked7= false;
 
 
 
@@ -112,114 +122,833 @@ class _MymobileState extends State<Mymobile> {
            ],
       ),
         
-        body: Container(
-      decoration: BoxDecoration(
-        border: Border(top: BorderSide(color: Colors.grey), bottom: BorderSide(color: Colors.grey)),
-        color: Colors.white
-      ),
-      width: double.infinity,
-      height: 40,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
+        body: ChangeNotifierProvider(
+          create: (context) => EvaluProvider(),
+          builder: (context, child) => SingleChildScrollView(
+          child: Column(
+            children: [
+              SousMenu(),
+              Provider.of<EvaluProvider>(context).evalu ? 
+              Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey, width: 0.5)),
+                        margin: EdgeInsets.all(20),
+                        width: screenWidth(context) >= 800 ? 1250 : 800,
+                        height: screenWidth(context) >= 800 ? 900 : 900,
+                        child: Column(
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                          color: Colors.grey, width: 0.2)),
+                                  margin: EdgeInsets.fromLTRB(20, 10, 0, 0),
+                                  child: TextButton(
+                                    child: Text(
+                                      'Questions',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: 'myfont',
+                                        fontSize: screenWidth(context) >= 800
+                                            ? 12
+                                            : 8,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        quest = true;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                          color: Colors.grey, width: 0.2)),
+                                  margin: EdgeInsets.only(top: 10),
+                                  child: TextButton(
+                                    child: Text(
+                                      'Paramétrage',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: 'myfont',
+                                        fontSize: screenWidth(context) >= 800
+                                            ? 12
+                                            : 8,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        quest = false;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            quest
+                                ? Container(
+                                    child: Text(
+                                      "Questions",
+                                      style: TextStyle(color: Colors.amber),
+                                    ),
+                                  )
+                                : Container(
+                                    margin: EdgeInsets.fromLTRB(20, 20, 0, 0),
+                                    child: SingleChildScrollView(
+                                     
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Text("Session",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: "myfont",
+                                                      fontSize:
+                                                          screenWidth(context) >=
+                                                                  800
+                                                              ? 15
+                                                              : 10)),
+                                              SizedBox(
+                                                width: screenWidth(context) >= 800
+                                                    ? 115
+                                                    : 80,
+                                              ),
+                                              Container(
+                                                padding:
+                                                    EdgeInsets.only(bottom: 10),
+                                                margin: EdgeInsets.only(left: 10),
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: Colors.grey,
+                                                        width: 0.2)),
+                                                width: screenWidth(context) >= 800
+                                                    ? 140
+                                                    : 100,
+                                                height:
+                                                    screenWidth(context) >= 800
+                                                        ? 20
+                                                        : 20,
+                                                child: DropdownButton(
+                                                  isExpanded: true,
+                                                  items: [
+                                                    DropdownMenuItem(
+                                                      child: Text(
+                                                        'Normale',
+                                                        style: TextStyle(
+                                                            fontSize: 10,
+                                                            color: Colors.black,
+                                                            fontFamily: "myfont",
+                                                            ),
+                                                      ),
+                                                      value: 'Normale',
+                                                    ),
+                                                    DropdownMenuItem(
+                                                      child: Text(
+                                                        'Complementaire',
+                                                        style: TextStyle(
+                                                            fontSize: 10,
+                                                            color: Colors.black,
+                                                            fontFamily: "myfont",
+                                                            ),
+                                                      ),
+                                                      value: 'Complementaire',
+                                                    ),
+                                                  ],
+                                                  onChanged: (value) {},
+                                                ),
+                                              ),
+                                        
+                                              
+                                            ],
+                                          ),
+                                            SizedBox(
+                                            height: 30,
+                                          ),
+                                          Row(
+                                            children: [
+                                                    Text("Coeficient",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: "myfont",
+                                                      fontSize:
+                                                          screenWidth(context) >=
+                                                                  800
+                                                              ? 15
+                                                              : 10)),
+                                              SizedBox(
+                                                width: screenWidth(context) >= 800
+                                                    ? 115
+                                                    : 80,
+                                              ),
+                                              Container(
+                                                padding:
+                                                    EdgeInsets.only(bottom: 8),
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: Colors.grey,
+                                                        width: 0.2)),
+                                                width: screenWidth(context) >= 800
+                                                    ? 140
+                                                    : 100,
+                                                height:
+                                                    screenWidth(context) >= 800
+                                                        ? 20
+                                                        : 20,
+                                                child: TextField(
+                                                  decoration: InputDecoration(
+                                                      hintStyle: TextStyle(
+                                                        fontFamily: "myfont",
+                                                      ),
+                                                      suffixIcon: Icon(
+                                                        Icons.percent,
+                                                        size: 20,
+                                                      ),
+                                                      border: InputBorder.none),
+                                                )
+                                              )
+                                            ]
+                                          ),
+                                          SizedBox(
+                                            height: 30,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text("Date et heure de début",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: "myfont",
+                                                      fontSize:
+                                                          screenWidth(context) >=
+                                                                  800
+                                                              ? 15
+                                                              : 10)),
+                                              SizedBox(
+                                                width: screenWidth(context) >= 800
+                                                    ? 25
+                                                    : 20,
+                                              ),
+                                              Container(
+                                                padding:
+                                                    EdgeInsets.only(bottom: 8),
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: Colors.grey,
+                                                        width: 0.2)),
+                                                width: screenWidth(context) >= 800
+                                                    ? 140
+                                                    : 100,
+                                                height:
+                                                    screenWidth(context) >= 800
+                                                        ? 20
+                                                        : 20,
+                                                child: TextField(
+                                                  decoration: InputDecoration(
+                                                      border: InputBorder.none),
+                                                ),
+                                              ),
+                                       
+                             
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 30,
+                                          ),
+                                          Row(
+                                            children: [
+                                                  Text("Date et heure de fin",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: "myfont",
+                                                      fontSize:
+                                                          screenWidth(context) >=
+                                                                  800
+                                                              ? 15
+                                                              : 10)),
+                                              SizedBox(
+                                                width: screenWidth(context) >= 800
+                                                    ? 75
+                                                    : 40,
+                                              ),
+                                    
+                                              Container(
+                                                padding:
+                                                    EdgeInsets.only(bottom: 8),
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: Colors.grey,
+                                                        width: 0.2)),
+                                                width: screenWidth(context) >= 800
+                                                    ? 140
+                                                    : 100,
+                                                height:
+                                                    screenWidth(context) >= 800
+                                                        ? 20
+                                                        : 20,
+                                                child: TextField(
+                                                  decoration: InputDecoration(
+                                                      border: InputBorder.none),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                    
+                                          SizedBox(
+                                            height: 30,
+                                          ),
+                                    
+                                          Row(
+                                            children: [
+                                                  Text("Temps additionnel (min)",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: "myfont",
+                                                      fontSize:
+                                                          screenWidth(context) >=
+                                                                  800
+                                                              ? 15
+                                                              : 10)),
+                                    
+                                                SizedBox(
+                                                width: screenWidth(context) >= 800
+                                                    ? 15
+                                                    : 15,
+                                              ),
+                                    
+                                               Container(
+                                                padding:
+                                                    EdgeInsets.only(bottom: 8),
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: Colors.grey,
+                                                        width: 0.2)),
+                                                width: screenWidth(context) >= 800
+                                                    ? 140
+                                                    : 100,
+                                                height:
+                                                    screenWidth(context) >= 800
+                                                        ? 20
+                                                        : 20,
+                                                child: TextField(
+                                                  decoration: InputDecoration(
+                                                      border: InputBorder.none),
+                                                ),
+                                              ),
+                                    
+                                                SizedBox(
+                                                width: screenWidth(context) >= 800
+                                                    ? 60
+                                                    : 25,
+                                              ),
+                                    
+                                            ],
+                                          ),
 
-        TextButton(
-          child: Text(
-            'Planning',
-            style: TextStyle(
-            color: Colors.grey[600],
-            fontFamily: 'myfont',
-            fontSize: 8,
-           ),
-            ),
-          onPressed: () {},
-          
+                                          SizedBox(
+                                            height: 30,
+                                          ),
+
+                                          Row(
+                                            children: [
+                                              
+                                              Text("Date et heure de publication",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: "myfont",
+                                                      fontSize:
+                                                          screenWidth(context) >=
+                                                                  800
+                                                              ? 15
+                                                              : 10)),
+                                    
+                                                SizedBox(
+                                                width: screenWidth(context) >= 800
+                                                    ? 15
+                                                    : 10,
+                                              ),
+                                    
+                                                Container(
+                                                padding:
+                                                    EdgeInsets.only(bottom: 8),
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: Colors.grey,
+                                                        width: 0.2)),
+                                                width: screenWidth(context) >= 800
+                                                    ? 140
+                                                    : 100,
+                                                height:
+                                                    screenWidth(context) >= 800
+                                                        ? 20
+                                                        : 20,
+                                                child: TextField(
+                                                  decoration: InputDecoration(
+                                                      border: InputBorder.none),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 30,
+                                          ),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Checkbox(
+                                                 value: isChecked,
+                                                  onChanged: (bool? value) {
+                                                  setState(() {
+                                                isChecked = value!;
+                                             });
+                                                  }
+                                              ),
+                                               SizedBox(
+                                                width: screenWidth(context) >= 800
+                                                    ? 15
+                                                    : 10,
+                                              ),
+                                              Text(
+                                                "Autoriser la modification aprés envoi",
+                                                       style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: "myfont",
+                                                      fontSize:
+                                                          screenWidth(context) >=
+                                                               800
+                                                              ? 15
+                                                              : 10)),
+                                                       
+                                                ],
+                                              ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                    "Afficher",
+                                                           style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontFamily: "myfont",
+                                                          fontSize:
+                                                              screenWidth(context) >=
+                                                                   800
+                                                                  ? 15
+                                                                  : 10)),
+                                                SizedBox(
+                                                width: screenWidth(context) >= 800
+                                                    ? 15
+                                                    : 10,
+                                              ),
+                                                  ElevatedButton(
+                                                    onPressed: () {}, 
+                                                    child: Text(""),
+                                                    style: ButtonStyle(
+                                                      backgroundColor: MaterialStateProperty.all(Colors.grey[300])
+                                                    ),
+                                                    ),
+                                                 SizedBox(
+                                                width: screenWidth(context) >= 800
+                                                    ? 15
+                                                    : 10,
+                                              ),
+                                                    Text(
+                                                      "questions par page",
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontFamily: "myfont",
+                                                          fontSize:
+                                                              screenWidth(context) >=
+                                                                   800
+                                                                  ? 15
+                                                                  : 10))
+                                                      
+                                                  ],
+                                                ),
+                                               
+                                            SizedBox(
+                                            height: 10,
+                                            ),
+                                              
+                                              Row(
+                                                children: [
+                                                 Checkbox(
+                                                  
+                                                 value: isChecked2,
+                                                  onChanged: (bool? value) {
+                                                  setState(() {
+                                                isChecked2 = value!;
+                                             });
+                                                  }
+                                              ),
+                                    
+                                               SizedBox(
+                                                width: screenWidth(context) >= 800
+                                                    ? 15
+                                                    : 10,
+                                              ),
+                                    
+                                                  Text(
+                                                    "Mélanger les questions",
+                                                       style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: "myfont",
+                                                      fontSize:
+                                                          screenWidth(context) >=
+                                                               800
+                                                              ? 15
+                                                              : 10)),
+                                                ],
+                                              ),
+                                    
+                                             SizedBox(
+                                            height: 10,
+                                            ),
+                                              
+                                              Row(
+                                                children: [
+                                                 Checkbox(
+                                                  
+                                                 value: isChecked3,
+                                                  onChanged: (bool? value) {
+                                                  setState(() {
+                                                isChecked3 = value!;
+                                             });
+                                                  }
+                                              ),
+                                    
+                                               SizedBox(
+                                                width: screenWidth(context) >= 800
+                                                    ? 15
+                                                    : 10,
+                                              ),
+                                    
+                                                  Text(
+                                                    "Mélanger les reponses",
+                                                       style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: "myfont",
+                                                      fontSize:
+                                                          screenWidth(context) >=
+                                                               800
+                                                              ? 15
+                                                              : 10)),
+                                                ],
+                                              ),
+                                    
+                                            SizedBox(
+                                            height: 10,
+                                            ),
+                                              
+                                              Row(
+                                                children: [
+                                                 Checkbox(
+                                                  
+                                                 value: isChecked4,
+                                                  onChanged: (bool? value) {
+                                                  setState(() {
+                                                isChecked4 = value!;
+                                             });
+                                                  }
+                                              ),
+                                    
+                                               SizedBox(
+                                                width: screenWidth(context) >= 800
+                                                    ? 15
+                                                    : 10,
+                                              ),
+                                    
+                                                  Text(
+                                                    "Distrubition aléatoire des questions",
+                                                       style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: "myfont",
+                                                      fontSize:
+                                                          screenWidth(context) >=
+                                                               800
+                                                              ? 15
+                                                              : 10)),
+                                    
+                                                 
+                                                ],
+                                             
+                                              ),
+
+                                            SizedBox(
+                                            height: 10,
+                                            ),
+
+                                              Row(
+                                                children: [
+                                                   ElevatedButton(
+                                                    onPressed: () {}, 
+                                                    child: Text(""),
+                                                    style: ButtonStyle(
+                                                      backgroundColor: MaterialStateProperty.all(Colors.grey[300])
+                                                    ),
+                                                    ),
+                                    
+                                                  
+                                                  SizedBox(
+                                                  width: screenWidth(context) >= 800
+                                                    ? 15
+                                                    : 10,
+                                                 ),
+                                                    Text(
+                                                    "questions par étudiant",
+                                                           style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontFamily: "myfont",
+                                                          fontSize:
+                                                              screenWidth(context) >=
+                                                                   800
+                                                                  ? 15
+                                                                  : 10)),
+                                                ],
+                                              ),
+                                              
+                                            SizedBox(
+                                            height: 10,
+                                            ),
+
+                                            Row(
+                                                children: [
+                                                Checkbox(
+                                                  
+                                                 value: isChecked5,
+                                                  onChanged: (bool? value) {
+                                                  setState(() {
+                                                isChecked5 = value!;
+                                             });
+                                                  }
+                                              ),
+                                    
+                                               SizedBox(
+                                                width: screenWidth(context) >= 800
+                                                    ? 15
+                                                    : 10,
+                                              ),
+                                    
+                                                  Text(
+                                                    "Interdire la navigation libre",
+                                                       style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: "myfont",
+                                                      fontSize:
+                                                          screenWidth(context) >=
+                                                               800
+                                                              ? 15
+                                                              : 10)),
+                                                ],
+                                              ),
+                                             
+                                            SizedBox(
+                                            height: 10,
+                                            ),
+
+                                             Row(
+                                                children: [
+                                                Checkbox(
+                                                  
+                                                 value: isChecked6,
+                                                  onChanged: (bool? value) {
+                                                  setState(() {
+                                                isChecked6 = value!;
+                                             });
+                                                  }
+                                              ),
+                                    
+                                               SizedBox(
+                                                width: screenWidth(context) >= 800
+                                                    ? 15
+                                                    : 10,
+                                              ),
+                                    
+                                                  Text(
+                                                    "Désactiver la correction automatique",
+                                                       style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: "myfont",
+                                                      fontSize:
+                                                          screenWidth(context) >=
+                                                               800
+                                                              ? 15
+                                                              : 10)),
+                                                ],
+                                              ),
+                                            
+                                            SizedBox(
+                                            height: 10,
+                                            ),
+
+                                             Row(
+                                                children: [
+                                                Checkbox(
+                                                  
+                                                 value: isChecked7,
+                                                  onChanged: (bool? value) {
+                                                  setState(() {
+                                                isChecked7 = value!;
+                                             });
+                                                  }
+                                              ),
+                                    
+                                               SizedBox(
+                                                width: screenWidth(context) >= 800
+                                                    ? 15
+                                                    : 10,
+                                              ),
+                                    
+                                                  Text(
+                                                    "Activer la correction par systéme canadien",
+                                                       style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: "myfont",
+                                                      fontSize:
+                                                          screenWidth(context) >=
+                                                               800
+                                                              ? 15
+                                                              : 10)),
+                                                      
+                                                  SizedBox(
+                                                  width: screenWidth(context) >= 800
+                                                    ? 25
+                                                    : 20,
+                                              ),
+
+                    
+                                                ],
+                                              ),
+
+                                            SizedBox(
+                                            height: 10,
+                                            ),
+
+                                              Row(
+                                                children: [
+                                                SizedBox(
+                                                width: 10,
+                                            ),
+                                                     Text(
+                                                    "Point négatif",
+                                                       style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: "myfont",
+                                                      fontSize:
+                                                          screenWidth(context) >=
+                                                               800
+                                                              ? 15
+                                                              : 10)),
+                                                    
+                                                  SizedBox(
+                                                  width: screenWidth(context) >= 800
+                                                    ? 15
+                                                    : 10,
+                                              ),
+
+                                                    ElevatedButton(
+                                                    onPressed: () {}, 
+                                                    child: Text(""),
+                                                    style: ButtonStyle(
+                                                      backgroundColor: MaterialStateProperty.all(Colors.grey[300])
+                                                    ),
+                                                    ),
+                                                ],
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ))
+                          ],
+                        ),
+                      )
+              : SizedBox()
+            ],
           ),
-
-          TextButton(
-            
-            child : Text(
-          'Absences',
-            style: TextStyle(
-            color: Colors.grey[600],
-            fontFamily: 'myfont',
-           fontSize: 8,
-           ),
-            ),
-             onPressed: () {},
-          ),
-
-            TextButton(
-            child : Text(
-          'Évaluations',
-            style: TextStyle(
-            color: Colors.grey[600],
-            fontFamily: 'myfont',
-            fontSize: 8,
-           ),
-            ),
-             onPressed: () {
-              
-             },
-          ),
-
-              TextButton(
-            child : Text(
-            'Notes',
-            style: TextStyle(
-            color: Colors.grey[600],
-            fontFamily: 'myfont',
-            fontSize: 8,
-           ),
-            ),
-             onPressed: () {},
-          ),
-
-             TextButton(
-            child : Text(
-          'Ressources',
-            style: TextStyle(
-            color: Colors.grey[600],
-            fontFamily: 'myfont',
-           fontSize: 8,
-           ),
-            ),
-             onPressed: () {},
-          ),
-
-      
-
-              TextButton(
-            child : Text(
-          'Participans',
-            style: TextStyle(
-            color: Colors.grey[600],
-            fontFamily: 'myfont',
-            fontSize: 8,
-           ),
-            ),
-             onPressed: () {},
-          ),
-
-                TextButton(
-            child : Text(
-          'Discussions',
-            style: TextStyle(
-            color: Colors.grey[600],
-            fontFamily: 'myfont',
-            fontSize: 8,
-           ),
-            ),
-             onPressed: () {},
-          ),
-        ],
-      ),
-     ),
+        )
 
      
      
+    )
     );
   }
 
   
+}
+
+
+class SousMenu extends StatelessWidget {
+  const SousMenu({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          border: Border(
+              top: BorderSide(color: Colors.grey),
+              bottom: BorderSide(color: Colors.grey)),
+          color: Colors.white),
+      width: double.infinity,
+      height: 40,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            SousMenuItem(name: 'Planning', callBack: () {}),
+            SousMenuItem(name: 'Absences', callBack: () {}),
+            SousMenuItem(
+                name: 'Évaluations',
+                callBack: () {
+                  Provider.of<EvaluProvider>(context, listen: false).setEvalu(
+                    !Provider.of<EvaluProvider>(context, listen: false).evalu
+                  );
+                }),
+            SousMenuItem(name: 'Notes', callBack: () {}),
+            SousMenuItem(name: 'Ressources', callBack: () {}),
+            SousMenuItem(name: 'Participants', callBack: () {}),
+            SousMenuItem(name: 'Discussions', callBack: () {}),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SousMenuItem extends StatelessWidget {
+  const SousMenuItem({super.key, required this.name, required this.callBack});
+  final String name;
+  final Function callBack;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+        child: Text(
+          name,
+          style: TextStyle(
+            color: Colors.black,
+            fontFamily: 'myfont',
+            fontSize: screenWidth(context) >= 800 ? 12 : 8,
+          ),
+        ),
+        onPressed: () {
+          callBack();
+        });
+  }
 }
