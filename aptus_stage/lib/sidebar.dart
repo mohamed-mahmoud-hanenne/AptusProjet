@@ -13,7 +13,7 @@ class Sidebar extends StatelessWidget {
     return Drawer(
       
       // width: currentwidth < 800 ? 220 : 300,
-      width : screenWidth(context) <= 800 ? 220 : 300,
+      width : screenWidth(context) <= 800 ? 260 : 300,
       backgroundColor: Colors.grey[600],
       child: ListView(
         children: [

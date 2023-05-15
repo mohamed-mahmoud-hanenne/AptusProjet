@@ -134,7 +134,7 @@ class _MymobileState extends State<Mymobile> {
                             border: Border.all(color: Colors.grey, width: 0.5)),
                         margin: EdgeInsets.all(20),
                         width: screenWidth(context) >= 800 ? 1250 : 800,
-                        height: screenWidth(context) >= 800 ? 900 : 900,
+                        height: screenWidth(context) >= 800 ? 900 : 1200,
                         child: Column(
                           children: [
                             Row(
@@ -225,24 +225,29 @@ class _MymobileState extends State<Mymobile> {
                                               SizedBox(
                                                 width: screenWidth(context) >= 800
                                                     ? 115
-                                                    : 80,
+                                                    : 95,
                                               ),
                                               Container(
+                                                
                                                 padding:
                                                     EdgeInsets.only(bottom: 10),
                                                 margin: EdgeInsets.only(left: 10),
                                                 decoration: BoxDecoration(
                                                     border: Border.all(
                                                         color: Colors.grey,
-                                                        width: 0.2)),
+                                                        width: 0.2,),
+                                                        color: Colors.grey[400]
+                                                        ),
                                                 width: screenWidth(context) >= 800
                                                     ? 140
                                                     : 100,
                                                 height:
                                                     screenWidth(context) >= 800
                                                         ? 20
-                                                        : 20,
+                                                        : 40,
                                                 child: DropdownButton(
+                                                  dropdownColor: Color.fromARGB(255, 20, 237, 226),
+                                                 iconEnabledColor: Color.fromARGB(255, 20, 237, 226),
                                                   isExpanded: true,
                                                   items: [
                                                     DropdownMenuItem(
@@ -292,11 +297,10 @@ class _MymobileState extends State<Mymobile> {
                                               SizedBox(
                                                 width: screenWidth(context) >= 800
                                                     ? 115
-                                                    : 80,
+                                                    : 95,
                                               ),
                                               Container(
-                                                padding:
-                                                    EdgeInsets.only(bottom: 8),
+                                               
                                                 decoration: BoxDecoration(
                                                     border: Border.all(
                                                         color: Colors.grey,
@@ -307,7 +311,7 @@ class _MymobileState extends State<Mymobile> {
                                                 height:
                                                     screenWidth(context) >= 800
                                                         ? 20
-                                                        : 20,
+                                                        : 40,
                                                 child: TextField(
                                                   decoration: InputDecoration(
                                                       hintStyle: TextStyle(
@@ -316,6 +320,7 @@ class _MymobileState extends State<Mymobile> {
                                                       suffixIcon: Icon(
                                                         Icons.percent,
                                                         size: 20,
+                                                        color: Color.fromARGB(255, 20, 237, 226),
                                                       ),
                                                       border: InputBorder.none),
                                                 )
@@ -339,11 +344,10 @@ class _MymobileState extends State<Mymobile> {
                                               SizedBox(
                                                 width: screenWidth(context) >= 800
                                                     ? 25
-                                                    : 20,
+                                                    : 35,
                                               ),
                                               Container(
-                                                padding:
-                                                    EdgeInsets.only(bottom: 8),
+                                               
                                                 decoration: BoxDecoration(
                                                     border: Border.all(
                                                         color: Colors.grey,
@@ -354,7 +358,7 @@ class _MymobileState extends State<Mymobile> {
                                                 height:
                                                     screenWidth(context) >= 800
                                                         ? 20
-                                                        : 20,
+                                                        : 40,
                                                 child: TextField(
                                                   decoration: InputDecoration(
                                                       border: InputBorder.none),
@@ -381,12 +385,11 @@ class _MymobileState extends State<Mymobile> {
                                               SizedBox(
                                                 width: screenWidth(context) >= 800
                                                     ? 75
-                                                    : 40,
+                                                    : 50,
                                               ),
                                     
                                               Container(
-                                                padding:
-                                                    EdgeInsets.only(bottom: 8),
+                                               
                                                 decoration: BoxDecoration(
                                                     border: Border.all(
                                                         color: Colors.grey,
@@ -397,7 +400,7 @@ class _MymobileState extends State<Mymobile> {
                                                 height:
                                                     screenWidth(context) >= 800
                                                         ? 20
-                                                        : 20,
+                                                        : 40,
                                                 child: TextField(
                                                   decoration: InputDecoration(
                                                       border: InputBorder.none),
@@ -425,12 +428,11 @@ class _MymobileState extends State<Mymobile> {
                                                 SizedBox(
                                                 width: screenWidth(context) >= 800
                                                     ? 15
-                                                    : 15,
+                                                    : 28,
                                               ),
                                     
                                                Container(
-                                                padding:
-                                                    EdgeInsets.only(bottom: 8),
+                                            
                                                 decoration: BoxDecoration(
                                                     border: Border.all(
                                                         color: Colors.grey,
@@ -441,7 +443,7 @@ class _MymobileState extends State<Mymobile> {
                                                 height:
                                                     screenWidth(context) >= 800
                                                         ? 20
-                                                        : 20,
+                                                        : 40,
                                                 child: TextField(
                                                   decoration: InputDecoration(
                                                       border: InputBorder.none),
@@ -481,8 +483,7 @@ class _MymobileState extends State<Mymobile> {
                                               ),
                                     
                                                 Container(
-                                                padding:
-                                                    EdgeInsets.only(bottom: 8),
+                                               
                                                 decoration: BoxDecoration(
                                                     border: Border.all(
                                                         color: Colors.grey,
@@ -493,7 +494,7 @@ class _MymobileState extends State<Mymobile> {
                                                 height:
                                                     screenWidth(context) >= 800
                                                         ? 20
-                                                        : 20,
+                                                        : 40,
                                                 child: TextField(
                                                   decoration: InputDecoration(
                                                       border: InputBorder.none),
