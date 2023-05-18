@@ -6,6 +6,7 @@ import 'package:aptus_stage/sidebar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert' ;
 
 
 double screenWidth(BuildContext context) {
@@ -37,26 +38,33 @@ class _MyDesktopState extends State<MyDesktop> {
   var selected = "QCM - Une seule réponse";
   var select = "Oui";
 
-   static const urlquiz = 'http://srv4.aptusmaroc.com:8000/courses/quizzes';
-  Future<void> makeGetRequest() async {
-  print('Hello');
-  final url = Uri.parse('$urlquiz');
-  print("in");
-  http.get(url).then((response) {
-    print("flutter");
-    print('Status code: ${response.statusCode}');
-    print('Body: ${response.body}');
-  }).catchError((error) {
-    print('Error: $error');
-  });
-}
+//    static const urlquiz = 'http://srv4.aptusmaroc.com:8000/courses/quizzes';
+//   Future<void> makeGetRequest() async {
+//   print('Hello');
+//   final url = Uri.parse('$urlquiz');
+//   print("in");
+//   http.get(url).then((response) {
+//     print("flutter");
+//     print('Status code: ${response.statusCode}');
+//     print('Body: ${response.body}');
+//   }).catchError((error) {
+//     print('Error: $error');
+//   });
+// }
 
-  @override
-  void initState(){
-    super.initState();
-    makeGetRequest();
-    
+  Future<void> getquestion() async{
+
+    final url = Uri.parse('https://jsonplaceholder.typicode.com/todos/');
+    final response = await http.get(url);
+    final responsebody = jsonDecode(response.body);
+    return responsebody;
   }
+  // @override
+  // void initState(){
+  //   super.initState();
+  //   makeGetRequest();
+    
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -559,18 +567,21 @@ class _MyDesktopState extends State<MyDesktop> {
                                               decoration: BoxDecoration(
                                                 color: Colors.grey[200],
                                               ),
-                                              child: Text(
-                                                "Aucun question n'est associée à ce questionnaire",
-                                                style: TextStyle(
-                                                  fontFamily: "myfont",
-                                                  fontSize:
-                                                      screenWidth(context) >=
-                                                              800
-                                                          ? 12
-                                                          : 8,
+                                              child: FutureBuilder(
+                                                future: getquestion(),
+                                                builder: (BuildContext context,  AsyncSnapshot snapshot) {
+                                                  if(snapshot.hasData){
+                                                      return Container(
+                                                    child: Text(
+                                                      snapshot.data[0]['title']
+                                                    ),
+                                                  );
+                                                  }
+                                                  else return CircularProgressIndicator();
+                                                
+                                                }),
                                                 ),
-                                              ),
-                                            ),
+                                            
                                       SizedBox(
                                         height: 15,
                                       ),

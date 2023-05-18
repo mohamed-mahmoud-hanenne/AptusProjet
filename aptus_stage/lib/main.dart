@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:aptus_stage/Home.dart';
+import 'package:aptus_stage/login.dart';
 import 'package:aptus_stage/responsives/evalu.dart';
 import 'package:aptus_stage/responsives/mobile.dart';
 import 'package:device_preview/device_preview.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
       },
       debugShowCheckedModeBanner: false,
       // builder: DevicePreview.appBuilder,
-      home: Home(),
+      home: Login(),
     );
 
   }
