@@ -6,7 +6,8 @@ import 'package:aptus_stage/sidebar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert' ;
+import 'dart:convert';
+import 'package:localstorage/localstorage.dart';
 
 
 double screenWidth(BuildContext context) {
@@ -24,6 +25,8 @@ class MyDesktop extends StatefulWidget {
 }
 
 class _MyDesktopState extends State<MyDesktop> {
+  final LocalStorage storage = new LocalStorage('todo_app.json');
+  late String mytokens ;
   bool quest = true;
   bool ajouter = false;
   bool importer = false;
@@ -38,33 +41,38 @@ class _MyDesktopState extends State<MyDesktop> {
   var selected = "QCM - Une seule réponse";
   var select = "Oui";
 
-//    static const urlquiz = 'http://srv4.aptusmaroc.com:8000/courses/quizzes';
-//   Future<void> makeGetRequest() async {
-//   print('Hello');
-//   final url = Uri.parse('$urlquiz');
-//   print("in");
-//   http.get(url).then((response) {
-//     print("flutter");
-//     print('Status code: ${response.statusCode}');
-//     print('Body: ${response.body}');
-//   }).catchError((error) {
-//     print('Error: $error');
-//   });
-// }
+  // Future<void> getquestion() async{
 
-  Future<void> getquestion() async{
-
-    final url = Uri.parse('https://jsonplaceholder.typicode.com/todos/');
-    final response = await http.get(url);
-    final responsebody = jsonDecode(response.body);
-    return responsebody;
-  }
-  // @override
-  // void initState(){
-  //   super.initState();
-  //   makeGetRequest();
-    
+  //   final url = Uri.parse('https://jsonplaceholder.typicode.com/todos/');
+  //   final response = await http.get(url);
+  //   final responsebody = jsonDecode(response.body);
+  //   return responsebody;
   // }
+  
+  static const urlquiz = 'http://srv4.aptusmaroc.com:8000/courses/quizzes';
+  Future<void> makeGetRequest() async {
+   
+    var res;
+    final url = Uri.parse('$urlquiz');
+    await http.get(url, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'token $mytokens',
+    }).then((response) {
+      res = jsonDecode(response.body);
+      
+      // print(responsebody[1]['title']) ;
+    }).catchError((error) {
+      print('Error: $error');
+    });
+    return res;
+  }
+  @override
+  void initState(){
+    super.initState();
+    mytokens =  storage.getItem('token') ;
+    
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -250,8 +258,8 @@ class _MyDesktopState extends State<MyDesktop> {
                                         child: Column(children: [
                                       ajouter
                                           ? Container(
-                                            alignment: Alignment.center,
-                                            padding: EdgeInsets.all(15),
+                                              alignment: Alignment.center,
+                                              padding: EdgeInsets.all(15),
                                               decoration: BoxDecoration(
                                                   border: Border.all(
                                                       color: Colors.grey,
@@ -265,7 +273,6 @@ class _MyDesktopState extends State<MyDesktop> {
                                                       ? 400
                                                       : 400,
                                               child: Column(
-                                                
                                                 children: [
                                                   Row(
                                                     mainAxisAlignment:
@@ -431,8 +438,8 @@ class _MyDesktopState extends State<MyDesktop> {
                                                           alignment: Alignment
                                                               .center,
                                                           decoration: BoxDecoration(
-                                                              color: Colors
-                                                                  .white,
+                                                              color:
+                                                                  Colors.white,
                                                               border: Border
                                                                   .all(
                                                                       color: Colors
@@ -441,7 +448,8 @@ class _MyDesktopState extends State<MyDesktop> {
                                                                           0.5)),
                                                           margin:
                                                               EdgeInsets
-                                                                  .only(left: 50),
+                                                                  .only(
+                                                                      left: 50),
                                                           width: screenWidth(
                                                                       context) >=
                                                                   800
@@ -460,99 +468,132 @@ class _MyDesktopState extends State<MyDesktop> {
                                                           ))
                                                     ],
                                                   ),
-
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                                border: Border.all(
-                                                    color: Color.fromARGB(
-                                                        255, 84, 211, 239),
-                                                    width: 0.5)),
-                                            margin: EdgeInsets.fromLTRB(
-                                                20, 10, 0, 0),
-                                            child: Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.picture_as_pdf,
-                                                  color: Color.fromARGB(
-                                                      255, 84, 211, 239),
-                                                  size: 15,
-                                                ),
-                                                TextButton(
-                                                  child: Text(
-                                                    'Enregistrer la question',
-                                                    style: TextStyle(
-                                                      color: Color.fromARGB(
-                                                          255, 84, 211, 239),
-                                                      fontFamily: 'myfont',
-                                                      fontSize: screenWidth(
-                                                                  context) >=
-                                                              800
-                                                          ? 12
-                                                          : 8,
-                                                    ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      Container(
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5),
+                                                            border: Border.all(
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        255,
+                                                                        84,
+                                                                        211,
+                                                                        239),
+                                                                width: 0.5)),
+                                                        margin:
+                                                            EdgeInsets.fromLTRB(
+                                                                20, 10, 0, 0),
+                                                        child: Row(
+                                                          children: [
+                                                            Icon(
+                                                              Icons
+                                                                  .picture_as_pdf,
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      255,
+                                                                      84,
+                                                                      211,
+                                                                      239),
+                                                              size: 15,
+                                                            ),
+                                                            TextButton(
+                                                              child: Text(
+                                                                'Enregistrer la question',
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          84,
+                                                                          211,
+                                                                          239),
+                                                                  fontFamily:
+                                                                      'myfont',
+                                                                  fontSize:
+                                                                      screenWidth(context) >=
+                                                                              800
+                                                                          ? 12
+                                                                          : 8,
+                                                                ),
+                                                              ),
+                                                              onPressed: () {
+                                                                setState(() {});
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5),
+                                                            border: Border.all(
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        255,
+                                                                        84,
+                                                                        211,
+                                                                        239),
+                                                                width: 0.5)),
+                                                        margin:
+                                                            EdgeInsets.fromLTRB(
+                                                                20, 10, 0, 0),
+                                                        child: Row(
+                                                          children: [
+                                                            SizedBox(
+                                                              width: 10,
+                                                            ),
+                                                            Icon(
+                                                              Icons.clear,
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      255,
+                                                                      84,
+                                                                      211,
+                                                                      239),
+                                                              size: 15,
+                                                            ),
+                                                            TextButton(
+                                                              child: Text(
+                                                                'Annuler',
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          84,
+                                                                          211,
+                                                                          239),
+                                                                  fontFamily:
+                                                                      'myfont',
+                                                                  fontSize:
+                                                                      screenWidth(context) >=
+                                                                              800
+                                                                          ? 12
+                                                                          : 8,
+                                                                ),
+                                                              ),
+                                                              onPressed: () {
+                                                                setState(() {
+                                                                  ajouter =
+                                                                      false;
+                                                                });
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      
-                                                    });
-                                                  },
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                                border: Border.all(
-                                                    color: Color.fromARGB(
-                                                        255, 84, 211, 239),
-                                                    width: 0.5)),
-                                            margin: EdgeInsets.fromLTRB(
-                                                20, 10, 0, 0),
-                                            child: Row(
-                                              children: [
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Icon(
-                                                  Icons.clear,
-                                                  color: Color.fromARGB(
-                                                      255, 84, 211, 239),
-                                                  size: 15,
-                                                ),
-                                                TextButton(
-                                                  child: Text(
-                                                    'Annuler',
-                                                    style: TextStyle(
-                                                      color: Color.fromARGB(
-                                                          255, 84, 211, 239),
-                                                      fontFamily: 'myfont',
-                                                      fontSize: screenWidth(
-                                                                  context) >=
-                                                              800
-                                                          ? 12
-                                                          : 8,
-                                                    ),
-                                                  ),
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      ajouter = false;
-                                                    });
-                                                  },
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
                                                 ],
-                                                
                                               ),
                                             )
                                           : Container(
@@ -568,20 +609,43 @@ class _MyDesktopState extends State<MyDesktop> {
                                                 color: Colors.grey[200],
                                               ),
                                               child: FutureBuilder(
-                                                future: getquestion(),
-                                                builder: (BuildContext context,  AsyncSnapshot snapshot) {
-                                                  if(snapshot.hasData){
-                                                      return Container(
-                                                    child: Text(
-                                                      snapshot.data[0]['title']
-                                                    ),
-                                                  );
-                                                  }
-                                                  else return CircularProgressIndicator();
-                                                
-                                                }),
-                                                ),
-                                            
+                                                  future: makeGetRequest(),
+                                                  builder: (BuildContext
+                                                          context,
+                                                      AsyncSnapshot snapshot) {
+                                                    if (snapshot.hasData) {
+                                                      return ListView.builder(
+                                                          itemCount: 5,
+                                                          itemBuilder:
+                                                              (context, i) {
+                                                            return Row(
+                                                              children: [
+                                                                Container(
+
+                                                                  margin: EdgeInsets.fromLTRB(70, 50, 0, 0),
+                                                                    child: Text(
+                                                                        snapshot.data[i]
+                                                                            [
+                                                                            'title'])),
+                                                                Container(
+                                                                   margin: EdgeInsets.fromLTRB(70, 50, 0, 0),
+                                                                    child: Text(
+                                                                        snapshot.data[i]
+                                                                            [
+                                                                            'description'])),
+
+                                                                  Container(
+                                                                   margin: EdgeInsets.fromLTRB(70, 50, 0, 0),
+                                                                    child: Text(
+                                                                        snapshot.data[i]
+                                                                            [
+                                                                            'coeff'].toString())),
+                                                              ],
+                                                            );
+                                                          });
+                                                    } else
+                                                      return CircularProgressIndicator();
+                                                  })),
                                       SizedBox(
                                         height: 15,
                                       ),

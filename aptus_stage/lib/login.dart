@@ -4,6 +4,7 @@ import 'package:aptus_stage/Home.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:localstorage/localstorage.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -13,16 +14,23 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final LocalStorage storage = new LocalStorage('todo_app.json');
   final TextEditingController _username = TextEditingController();
   final TextEditingController _password = TextEditingController();
   var statu = 0;
-
+  var token = '';
+  
+    _saveToStorage() {
+     storage.setItem('token', token);
+  }
+  
+  
   Future<void> login() async {
     final String username = _username.text;
     final String password = _password.text;
 
     final url = Uri.parse('http://srv4.aptusmaroc.com:8000/auth/login/');
-
+   
     final response = await http.post(
       url,
       body: {
@@ -30,10 +38,18 @@ class _LoginState extends State<Login> {
         "password": password,
       },
     );
+     final responsebody = jsonDecode(response.body);
     setState(() {
       statu = response.statusCode;
+      token = responsebody['token'];
+      _saveToStorage();
+
+       
+      
+    
+     
     });
-    print(response.body);
+    
   }
 
   @override
@@ -98,7 +114,12 @@ class _LoginState extends State<Login> {
                       MaterialPageRoute(builder: (context) => const Home()),
                     );
                   } else {
-                    print("login failed");
+                    showDialog(
+                      context: context, 
+                      builder: (context) => AlertDialog(
+                        title: Text("login failed"),
+                      )
+                      );
                   }
                 },
                 child: Text("login"),
