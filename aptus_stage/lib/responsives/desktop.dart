@@ -5,6 +5,8 @@ import 'package:aptus_stage/responsives/evalu.dart';
 import 'package:aptus_stage/sidebar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+
 
 double screenWidth(BuildContext context) {
   return MediaQuery.of(context).size.width;
@@ -35,6 +37,26 @@ class _MyDesktopState extends State<MyDesktop> {
   var selected = "QCM - Une seule réponse";
   var select = "Oui";
 
+   static const urlquiz = 'http://srv4.aptusmaroc.com:8000/courses/quizzes';
+  Future<void> makeGetRequest() async {
+  print('Hello');
+  final url = Uri.parse('$urlquiz');
+  print("in");
+  http.get(url).then((response) {
+    print("flutter");
+    print('Status code: ${response.statusCode}');
+    print('Body: ${response.body}');
+  }).catchError((error) {
+    print('Error: $error');
+  });
+}
+
+  @override
+  void initState(){
+    super.initState();
+    makeGetRequest();
+    
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -220,6 +242,8 @@ class _MyDesktopState extends State<MyDesktop> {
                                         child: Column(children: [
                                       ajouter
                                           ? Container(
+                                            alignment: Alignment.center,
+                                            padding: EdgeInsets.all(15),
                                               decoration: BoxDecoration(
                                                   border: Border.all(
                                                       color: Colors.grey,
@@ -230,9 +254,10 @@ class _MyDesktopState extends State<MyDesktop> {
                                                   : 600,
                                               height:
                                                   screenWidth(context) >= 800
-                                                      ? 300
-                                                      : 200,
+                                                      ? 400
+                                                      : 400,
                                               child: Column(
+                                                
                                                 children: [
                                                   Row(
                                                     mainAxisAlignment:
@@ -408,11 +433,11 @@ class _MyDesktopState extends State<MyDesktop> {
                                                                           0.5)),
                                                           margin:
                                                               EdgeInsets
-                                                                  .all(20),
+                                                                  .only(left: 50),
                                                           width: screenWidth(
                                                                       context) >=
                                                                   800
-                                                              ? 800
+                                                              ? 620
                                                               : 500,
                                                           height: screenWidth(
                                                                       context) >=
@@ -426,8 +451,100 @@ class _MyDesktopState extends State<MyDesktop> {
                                                                         "myfont")),
                                                           ))
                                                     ],
-                                                  )
+                                                  ),
+
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                border: Border.all(
+                                                    color: Color.fromARGB(
+                                                        255, 84, 211, 239),
+                                                    width: 0.5)),
+                                            margin: EdgeInsets.fromLTRB(
+                                                20, 10, 0, 0),
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.picture_as_pdf,
+                                                  color: Color.fromARGB(
+                                                      255, 84, 211, 239),
+                                                  size: 15,
+                                                ),
+                                                TextButton(
+                                                  child: Text(
+                                                    'Enregistrer la question',
+                                                    style: TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 84, 211, 239),
+                                                      fontFamily: 'myfont',
+                                                      fontSize: screenWidth(
+                                                                  context) >=
+                                                              800
+                                                          ? 12
+                                                          : 8,
+                                                    ),
+                                                  ),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      
+                                                    });
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                border: Border.all(
+                                                    color: Color.fromARGB(
+                                                        255, 84, 211, 239),
+                                                    width: 0.5)),
+                                            margin: EdgeInsets.fromLTRB(
+                                                20, 10, 0, 0),
+                                            child: Row(
+                                              children: [
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Icon(
+                                                  Icons.clear,
+                                                  color: Color.fromARGB(
+                                                      255, 84, 211, 239),
+                                                  size: 15,
+                                                ),
+                                                TextButton(
+                                                  child: Text(
+                                                    'Annuler',
+                                                    style: TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 84, 211, 239),
+                                                      fontFamily: 'myfont',
+                                                      fontSize: screenWidth(
+                                                                  context) >=
+                                                              800
+                                                          ? 12
+                                                          : 8,
+                                                    ),
+                                                  ),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      ajouter = false;
+                                                    });
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                                 ],
+                                                
                                               ),
                                             )
                                           : Container(
