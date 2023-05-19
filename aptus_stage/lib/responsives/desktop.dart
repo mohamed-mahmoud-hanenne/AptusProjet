@@ -25,8 +25,7 @@ class MyDesktop extends StatefulWidget {
 }
 
 class _MyDesktopState extends State<MyDesktop> {
-  final LocalStorage storage = new LocalStorage('todo_app.json');
-  late String mytokens ;
+
   bool quest = true;
   bool ajouter = false;
   bool importer = false;
@@ -48,7 +47,10 @@ class _MyDesktopState extends State<MyDesktop> {
   //   final responsebody = jsonDecode(response.body);
   //   return responsebody;
   // }
-  
+
+  final LocalStorage storage = new LocalStorage('todo_app.json');
+  late String mytokens ;
+
   static const urlquiz = 'http://srv4.aptusmaroc.com:8000/courses/quizzes';
   Future<void> makeGetRequest() async {
    
@@ -618,29 +620,53 @@ class _MyDesktopState extends State<MyDesktop> {
                                                           itemCount: 5,
                                                           itemBuilder:
                                                               (context, i) {
-                                                            return Row(
-                                                              children: [
-                                                                Container(
+                                                            return Padding(
+                                                              padding: EdgeInsets.all(20),
+                                                              child: Table(
+                                                                border: TableBorder.all(color: Colors.white),
+                                                                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                                                                children: [
+                                                                  TableRow(
+                                                                    decoration: BoxDecoration(
+                                                                      color: Colors.grey
+                                                                    ),
+                                                                    children: [
+                                                                      TableCell(
+                                                                        verticalAlignment: TableCellVerticalAlignment.middle,
+                                                                        child: Padding(
+                                                                          padding: EdgeInsets.all(10),
+                                                                          child: Text(snapshot.data[i]['title']),
+                                                                          ),
+                                                                        ),
 
-                                                                  margin: EdgeInsets.fromLTRB(70, 50, 0, 0),
-                                                                    child: Text(
-                                                                        snapshot.data[i]
-                                                                            [
-                                                                            'title'])),
-                                                                Container(
-                                                                   margin: EdgeInsets.fromLTRB(70, 50, 0, 0),
-                                                                    child: Text(
-                                                                        snapshot.data[i]
-                                                                            [
-                                                                            'description'])),
+                                                                            TableCell(
+                                                                        verticalAlignment: TableCellVerticalAlignment.middle,
+                                                                        child: Padding(
+                                                                          padding: EdgeInsets.all(10),
+                                                                          child: Text(snapshot.data[i]['description']),
+                                                                          ),
+                                                                        ),
+                                                                            TableCell(
+                                                                        verticalAlignment: TableCellVerticalAlignment.middle,
+                                                                        child: Padding(
+                                                                          padding: EdgeInsets.all(10),
+                                                                          child: Text(snapshot.data[i]['coeff'].toString()),
+                                                                          ),
+                                                                        ),
 
-                                                                  Container(
-                                                                   margin: EdgeInsets.fromLTRB(70, 50, 0, 0),
-                                                                    child: Text(
-                                                                        snapshot.data[i]
-                                                                            [
-                                                                            'coeff'].toString())),
-                                                              ],
+                                                                        TableCell(
+                                                                        verticalAlignment: TableCellVerticalAlignment.middle,
+                                                                        child: Padding(
+                                                                          padding: EdgeInsets.all(10),
+                                                                          child: Text(snapshot.data[i]['publication_date'].toString()),
+                                                                          ),
+                                                                        ),
+                                                                    ]
+                                                                  ),
+                                                                  
+                                                                ],
+                                                                
+                                                              ),
                                                             );
                                                           });
                                                     } else
