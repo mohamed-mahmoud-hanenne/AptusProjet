@@ -9,7 +9,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:localstorage/localstorage.dart';
 
-
 double screenWidth(BuildContext context) {
   return MediaQuery.of(context).size.width;
 }
@@ -25,10 +24,10 @@ class MyDesktop extends StatefulWidget {
 }
 
 class _MyDesktopState extends State<MyDesktop> {
-
   bool quest = true;
   bool ajouter = false;
   bool importer = false;
+  bool creer = false;
   bool isChecked = false;
   bool isChecked2 = false;
   bool isChecked3 = false;
@@ -37,23 +36,18 @@ class _MyDesktopState extends State<MyDesktop> {
   bool isChecked6 = false;
   bool isChecked7 = false;
 
+  var statucode = 0;
+
   var selected = "QCM - Une seule réponse";
   var select = "Oui";
 
-  // Future<void> getquestion() async{
-
-  //   final url = Uri.parse('https://jsonplaceholder.typicode.com/todos/');
-  //   final response = await http.get(url);
-  //   final responsebody = jsonDecode(response.body);
-  //   return responsebody;
-  // }
-
   final LocalStorage storage = new LocalStorage('todo_app.json');
-  late String mytokens ;
+  late String mytokens;
+  late String msg;
+  var name = "créer";
 
   static const urlquiz = 'http://srv4.aptusmaroc.com:8000/courses/quizzes';
   Future<void> makeGetRequest() async {
-   
     var res;
     final url = Uri.parse('$urlquiz');
     await http.get(url, headers: {
@@ -62,19 +56,43 @@ class _MyDesktopState extends State<MyDesktop> {
       'Authorization': 'token $mytokens',
     }).then((response) {
       res = jsonDecode(response.body);
-      
+
       // print(responsebody[1]['title']) ;
     }).catchError((error) {
       print('Error: $error');
     });
     return res;
   }
-  @override
-  void initState(){
-    super.initState();
-    mytokens =  storage.getItem('token') ;
-    
+
+  static const urlcreate = 'http://srv4.aptusmaroc.com:8000/courses/quizzes/';
+
+  Future<void> createQuizze() async {
+    var result;
+    final url = Uri.parse('$urlcreate');
+
+    await http.post(url, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'token $mytokens',
+    }).then((respon) {
+      
+      result = jsonDecode(respon.body);
+      setState(() {
+        msg = result['msg'];
+        statucode = respon.statusCode;
+      });
+    }).catchError((error) {
+      print(error);
+    });
+    return (result);
   }
+
+  @override
+  void initState() {
+    super.initState();
+    mytokens = storage.getItem('token');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -188,65 +206,280 @@ class _MyDesktopState extends State<MyDesktop> {
                             border: Border.all(color: Colors.grey, width: 0.5)),
                         margin: EdgeInsets.all(20),
                         width: screenWidth(context) >= 800 ? 1250 : 800,
-                        height: screenWidth(context) >= 800 ? 900 : 700,
+                        height: screenWidth(context) >= 800 ? 1500 : 1000,
                         child: Column(
                           children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                          color: Colors.grey, width: 0.2)),
-                                  margin: EdgeInsets.fromLTRB(20, 10, 0, 0),
-                                  child: TextButton(
-                                    child: Text(
-                                      'Questions',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: 'myfont',
-                                        fontSize: screenWidth(context) >= 800
-                                            ? 12
-                                            : 8,
+                            creer
+                                ? Column(
+                                    children: [
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                border: Border.all(
+                                                    color: Colors.grey,
+                                                    width: 0.2)),
+                                            margin: EdgeInsets.fromLTRB(
+                                                20, 10, 0, 0),
+                                            child: TextButton(
+                                              child: Text(
+                                                'Quizzes',
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontFamily: 'myfont',
+                                                  fontSize:
+                                                      screenWidth(context) >=
+                                                              800
+                                                          ? 12
+                                                          : 8,
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  quest = true;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 20,
+                                          ),
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                border: Border.all(
+                                                    color: Colors.grey,
+                                                    width: 0.2)),
+                                            margin: EdgeInsets.only(top: 10),
+                                            child: TextButton(
+                                              child: Text(
+                                                'Paramétrage',
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontFamily: 'myfont',
+                                                  fontSize:
+                                                      screenWidth(context) >=
+                                                              800
+                                                          ? 12
+                                                          : 8,
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  quest = false;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ],
                                       ),
+                                    
+                                  
+                                     Row(
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                border: Border.all(
+                                                    color: Color.fromARGB(
+                                                        255, 84, 211, 239),
+                                                    width: 0.5)),
+                                            margin: EdgeInsets.fromLTRB(
+                                                20, 10, 0, 0),
+                                            child: Row(
+                                              children: [
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Icon(
+                                                  Icons.add,
+                                                  color: Color.fromARGB(
+                                                      255, 84, 211, 239),
+                                                  size: 15,
+                                                ),
+                                                TextButton(
+                                                  child: Text(
+                                                    'Ajouter',
+                                                    style: TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 84, 211, 239),
+                                                      fontFamily: 'myfont',
+                                                      fontSize: screenWidth(
+                                                                  context) >=
+                                                              800
+                                                          ? 12
+                                                          : 8,
+                                                    ),
+                                                  ),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      importer = true;
+                                                    });
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ]
+                                )
+                                : Container(
+                                    alignment: Alignment.center,
+                                    width: screenWidth(context) >= 800
+                                        ? 1100
+                                        : 600,
+                                    height:
+                                        screenWidth(context) >= 800 ? 200 : 200,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey[200],
                                     ),
-                                    onPressed: () {
-                                      setState(() {
-                                        quest = true;
-                                      });
-                                    },
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                          color: Colors.grey, width: 0.2)),
-                                  margin: EdgeInsets.only(top: 10),
-                                  child: TextButton(
-                                    child: Text(
-                                      'Paramétrage',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: 'myfont',
-                                        fontSize: screenWidth(context) >= 800
-                                            ? 12
-                                            : 8,
+                                    child: FutureBuilder(
+                                        future: makeGetRequest(),
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot snapshot) {
+                                          if (snapshot.hasData) {
+                                            return ListView.builder(
+                                                itemCount: 7,
+                                                itemBuilder: (context, i) {
+                                                  return Padding(
+                                                    padding: EdgeInsets.all(20),
+                                                    child: Table(
+                                                      border: TableBorder.all(
+                                                          color: Colors.white),
+                                                      defaultVerticalAlignment:
+                                                          TableCellVerticalAlignment
+                                                              .middle,
+                                                      children: [
+                                                        TableRow(
+                                                            decoration:
+                                                                BoxDecoration(
+                                                                    color: Colors
+                                                                        .grey),
+                                                            children: [
+                                                              TableCell(
+                                                                verticalAlignment:
+                                                                    TableCellVerticalAlignment
+                                                                        .middle,
+                                                                child: Padding(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              10),
+                                                                  child: Text(snapshot
+                                                                          .data[i]
+                                                                      [
+                                                                      'title']),
+                                                                ),
+                                                              ),
+                                                              TableCell(
+                                                                verticalAlignment:
+                                                                    TableCellVerticalAlignment
+                                                                        .middle,
+                                                                child: Padding(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              10),
+                                                                  child: Text(snapshot
+                                                                          .data[i]
+                                                                      [
+                                                                      'description']),
+                                                                ),
+                                                              ),
+                                                              TableCell(
+                                                                verticalAlignment:
+                                                                    TableCellVerticalAlignment
+                                                                        .middle,
+                                                                child: Padding(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              10),
+                                                                  child: Text(snapshot
+                                                                      .data[i][
+                                                                          'coeff']
+                                                                      .toString()),
+                                                                ),
+                                                              ),
+                                                              TableCell(
+                                                                verticalAlignment:
+                                                                    TableCellVerticalAlignment
+                                                                        .middle,
+                                                                child: Padding(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              10),
+                                                                  child: Text(snapshot
+                                                                      .data[i][
+                                                                          'publication_date']
+                                                                      .toString()),
+                                                                ),
+                                                              ),
+                                                            ]),
+                                                      ],
+                                                    ),
+                                                  );
+                                                });
+                                          } else
+                                            return CircularProgressIndicator();
+                                        })),
+
+                                        Row(
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                border: Border.all(
+                                                    color: Color.fromARGB(
+                                                        255, 84, 211, 239),
+                                                    width: 0.5)),
+                                            margin: EdgeInsets.fromLTRB(
+                                                20, 10, 0, 0),
+                                            child: Row(
+                                              children: [
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Icon(
+                                                  Icons.cloud_download,
+                                                  color: Color.fromARGB(
+                                                      255, 84, 211, 239),
+                                                  size: 15,
+                                                ),
+                                                TextButton(
+                                                  child: Text(
+                                                    'Importer',
+                                                    style: TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 84, 211, 239),
+                                                      fontFamily: 'myfont',
+                                                      fontSize: screenWidth(
+                                                                  context) >=
+                                                              800
+                                                          ? 12
+                                                          : 8,
+                                                    ),
+                                                  ),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      importer = true;
+                                                    });
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        quest = false;
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
                             SizedBox(
                               width: 20,
                             ),
@@ -598,171 +831,84 @@ class _MyDesktopState extends State<MyDesktop> {
                                                 ],
                                               ),
                                             )
-                                          : Container(
-                                              alignment: Alignment.center,
-                                              width: screenWidth(context) >= 800
-                                                  ? 1100
-                                                  : 600,
-                                              height:
-                                                  screenWidth(context) >= 800
-                                                      ? 200
-                                                      : 200,
-                                              decoration: BoxDecoration(
-                                                color: Colors.grey[200],
+                                          : SizedBox(),
+
+                                      Container(
+                                        width: 100,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            border: Border.all(
+                                                color: Color.fromARGB(
+                                                    255, 84, 211, 239),
+                                                width: 0.5)),
+                                        margin: EdgeInsets.fromLTRB(
+                                            1000, 0, 0, 500),
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            if(name== "créer")
+                                            Icon(
+                                              Icons.create,
+                                              color: Color.fromARGB(
+                                                  255, 84, 211, 239),
+                                              size: 15,
+                                            ),
+                                            if(name== "Ajouter")
+                                                Icon(
+                                              Icons.add,
+                                              color: Color.fromARGB(
+                                                  255, 84, 211, 239),
+                                              size: 15,
+                                            ),
+                                            TextButton(
+                                              child: Text(
+                                                '$name',
+                                                style: TextStyle(
+                                                  color: Color.fromARGB(
+                                                      255, 84, 211, 239),
+                                                  fontFamily: 'myfont',
+                                                  fontSize:
+                                                      screenWidth(context) >=
+                                                              800
+                                                          ? 12
+                                                          : 8,
+                                                ),
                                               ),
-                                              child: FutureBuilder(
-                                                  future: makeGetRequest(),
-                                                  builder: (BuildContext
-                                                          context,
-                                                      AsyncSnapshot snapshot) {
-                                                    if (snapshot.hasData) {
-                                                      return ListView.builder(
-                                                          itemCount: 5,
-                                                          itemBuilder:
-                                                              (context, i) {
-                                                            return Padding(
-                                                              padding: EdgeInsets.all(20),
-                                                              child: Table(
-                                                                border: TableBorder.all(color: Colors.white),
-                                                                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                                                                children: [
-                                                                  TableRow(
-                                                                    decoration: BoxDecoration(
-                                                                      color: Colors.grey
-                                                                    ),
-                                                                    children: [
-                                                                      TableCell(
-                                                                        verticalAlignment: TableCellVerticalAlignment.middle,
-                                                                        child: Padding(
-                                                                          padding: EdgeInsets.all(10),
-                                                                          child: Text(snapshot.data[i]['title']),
-                                                                          ),
-                                                                        ),
-
-                                                                            TableCell(
-                                                                        verticalAlignment: TableCellVerticalAlignment.middle,
-                                                                        child: Padding(
-                                                                          padding: EdgeInsets.all(10),
-                                                                          child: Text(snapshot.data[i]['description']),
-                                                                          ),
-                                                                        ),
-                                                                            TableCell(
-                                                                        verticalAlignment: TableCellVerticalAlignment.middle,
-                                                                        child: Padding(
-                                                                          padding: EdgeInsets.all(10),
-                                                                          child: Text(snapshot.data[i]['coeff'].toString()),
-                                                                          ),
-                                                                        ),
-
-                                                                        TableCell(
-                                                                        verticalAlignment: TableCellVerticalAlignment.middle,
-                                                                        child: Padding(
-                                                                          padding: EdgeInsets.all(10),
-                                                                          child: Text(snapshot.data[i]['publication_date'].toString()),
-                                                                          ),
-                                                                        ),
-                                                                    ]
+                                              onPressed: () async {
+                                                
+                                                await createQuizze();
+                                                setState(() {
+                                                  creer = true;
+                                                 
+                                                  if (statucode == 201) {
+                                                    showDialog(
+                                                        context: context,
+                                                        builder: (context) =>
+                                                            AlertDialog(
+                                                              title: Text(
+                                                                  "Quizz à été crée avec success",
+                                                                  style: TextStyle(color: Colors.green),
                                                                   ),
-                                                                  
-                                                                ],
-                                                                
-                                                              ),
-                                                            );
-                                                          });
-                                                    } else
-                                                      return CircularProgressIndicator();
-                                                  })),
-                                      SizedBox(
-                                        height: 15,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                                border: Border.all(
-                                                    color: Color.fromARGB(
-                                                        255, 84, 211, 239),
-                                                    width: 0.5)),
-                                            margin: EdgeInsets.fromLTRB(
-                                                20, 10, 0, 0),
-                                            child: Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.add,
-                                                  color: Color.fromARGB(
-                                                      255, 84, 211, 239),
-                                                  size: 15,
-                                                ),
-                                                TextButton(
-                                                  child: Text(
-                                                    'Ajouter',
-                                                    style: TextStyle(
-                                                      color: Color.fromARGB(
-                                                          255, 84, 211, 239),
-                                                      fontFamily: 'myfont',
-                                                      fontSize: screenWidth(
-                                                                  context) >=
-                                                              800
-                                                          ? 12
-                                                          : 8,
-                                                    ),
-                                                  ),
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      ajouter = true;
-                                                    });
-                                                  },
-                                                ),
-                                              ],
+                                                            ));
+                                                  }
+                                                  else {
+                                                         showDialog(
+                                                        context: context,
+                                                        builder: (context) =>
+                                                            AlertDialog(
+                                                              title: Text(
+                                                                  "Quizz n'est pas crée"),
+                                                            ));
+                                                  }
+                                                });
+                                              },
                                             ),
-                                          ),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                                border: Border.all(
-                                                    color: Color.fromARGB(
-                                                        255, 84, 211, 239),
-                                                    width: 0.5)),
-                                            margin: EdgeInsets.fromLTRB(
-                                                20, 10, 0, 0),
-                                            child: Row(
-                                              children: [
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Icon(
-                                                  Icons.cloud_download,
-                                                  color: Color.fromARGB(
-                                                      255, 84, 211, 239),
-                                                  size: 15,
-                                                ),
-                                                TextButton(
-                                                  child: Text(
-                                                    'Importer',
-                                                    style: TextStyle(
-                                                      color: Color.fromARGB(
-                                                          255, 84, 211, 239),
-                                                      fontFamily: 'myfont',
-                                                      fontSize: screenWidth(
-                                                                  context) >=
-                                                              800
-                                                          ? 12
-                                                          : 8,
-                                                    ),
-                                                  ),
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      importer = true;
-                                                    });
-                                                  },
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ])))
                                 : Container(

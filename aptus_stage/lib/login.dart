@@ -42,12 +42,12 @@ class _LoginState extends State<Login> {
      final responsebody = jsonDecode(response.body);
     setState(() {
       statu = response.statusCode;
-      token = responsebody['token'];
+      if(statu==200){
+        setState(() {
+          token = responsebody['token'];
+        });
+      }
       _saveToStorage();
-
-       
-      
-    
      
     });
     
