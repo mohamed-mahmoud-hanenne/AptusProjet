@@ -2,7 +2,7 @@
 
 import 'package:aptus_stage/controllers/providers.dart';
 import 'package:aptus_stage/responsives/desktop.dart';
-import 'package:aptus_stage/sidebar.dart';
+import 'package:aptus_stage/views/screens/sidebar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:aptus_stage/responsives/resp_pages.dart';
