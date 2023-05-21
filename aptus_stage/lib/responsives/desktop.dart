@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, prefer_const_literals_to_create_immutables, prefer_typing_uninitialized_variables, unused_local_variable, unnecessary_string_interpolations
 
 import 'package:aptus_stage/controllers/providers.dart';
+import 'package:aptus_stage/views/components/edit_quizz.dart';
 import 'package:aptus_stage/views/components/home_screen_components.dart';
 import 'package:aptus_stage/views/screens/sidebar.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +14,6 @@ double screenWidth(BuildContext context) {
   return MediaQuery.of(context).size.width;
 }
 
-
-
 class MyDesktop extends StatefulWidget {
   const MyDesktop({super.key});
 
@@ -23,10 +22,6 @@ class MyDesktop extends StatefulWidget {
 }
 
 class _MyDesktopState extends State<MyDesktop> {
-//     final TextEditingController _title = TextEditingController();
-//     final TextEditingController _descp = TextEditingController();
-//     final TextEditingController _inst = TextEditingController();
-
 //   bool quest = true;
 //   bool ajouter = false;
 //   bool importer = false;
@@ -51,8 +46,6 @@ class _MyDesktopState extends State<MyDesktop> {
 //   late String msg;
 //   var name = "créer";
 
-
-  
 //   //function create quizz
 //   static const urlcreate = 'http://srv4.aptusmaroc.com:8000/courses/quizzes/';
 //   Future<void> createQuizze() async {
@@ -88,7 +81,7 @@ class _MyDesktopState extends State<MyDesktop> {
 //       'Content-Type': 'application/json',
 //       'Accept': 'application/json',
 //       'Authorization': 'token $mytokens',
-      
+
 //     },
 //     body:{
 //       "title": titlequizz,
@@ -106,7 +99,7 @@ class _MyDesktopState extends State<MyDesktop> {
 //       print(error);
 //     });
 //      return(update);
-    
+
 //   }
 
 // //function get deatil quizz
@@ -130,13 +123,12 @@ class _MyDesktopState extends State<MyDesktop> {
 //   @override
 //   void initState() {
 //     super.initState();
-//     mytokens = storage.getItem('token');
+//     mytokens
 //     getdetail();
 //   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         drawer: Sidebar(),
         appBar: AppBar(
@@ -158,7 +150,6 @@ class _MyDesktopState extends State<MyDesktop> {
             SizedBox(
               width: 20,
             ),
-
             Text(
               "Marketing Digital",
               style: TextStyle(
@@ -236,19 +227,19 @@ class _MyDesktopState extends State<MyDesktop> {
           ],
         ),
         body: ChangeNotifierProvider(
-          create: (context) => EvaluProvider(),
-          builder: (context, child) => SingleChildScrollView(
-            child: Column(
-              children: [
-                SousMenu(),
-                Provider.of<EvaluProvider>(context).evalu
-                    ? QuizzList() : SizedBox()
-                    
-              ]
-            )
-          )
-        )
-        );
+            create: (context) => EvaluProvider(),
+            builder: (context, child) => SingleChildScrollView(
+                    child: Column(children: [
+                  SousMenu(),
+                  Provider.of<EvaluProvider>(context).evalu
+                      ? QuizzList()
+                      : SizedBox(),
+                  Provider.of<EvaluProvider>(context).creer
+                      ? Column(
+                          children: [EditQuizz()],
+                        )
+                      : SizedBox()
+                ]))));
   }
 }
 

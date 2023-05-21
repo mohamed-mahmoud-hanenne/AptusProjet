@@ -1,13 +1,24 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_import, implementation_imports, unused_import
 
+import 'package:aptus_stage/controllers/providers.dart';
+import 'package:aptus_stage/models/models.dart';
 import 'package:aptus_stage/responsives/desktop.dart';
+import 'package:aptus_stage/services/api.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:provider/provider.dart';
 
-class QuizzList extends StatelessWidget {
+class QuizzList extends StatefulWidget {
   const QuizzList({super.key});
 
+  @override
+  State<QuizzList> createState() => _QuizzListState();
+}
+
+class _QuizzListState extends State<QuizzList> {
+  bool creer = false;
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -19,27 +30,58 @@ class QuizzList extends StatelessWidget {
             color: Colors.grey[200],
           ),
          child: FutureBuilder(
-          
-          builder: builder
+          future: getQuizzes(
+         
+           storage.getItem('token')
+          ),
+          builder: (context,snapshot){
+  if (snapshot.hasData && snapshot.data !=null) {
+    List<Quizz> quizzes = snapshot.data!;
+     return ListView.builder(
+      itemCount: quizzes.length,
+      itemBuilder:(context,index){
+      return Text(quizzes[index].title);
+     });
+  } else {
+    return CupertinoActivityIndicator();
+  }
+          }
           ),
       ),
 
         Row(
           children: [
-            IconsWidget(icon: Icons.create, name: 'Créer',),
-            IconsWidget(icon: Icons.download_for_offline, name: 'Importer',),
+            IconsWidget(icon: Icons.create, name: 'Créer', callBack: () async{
+              Provider.of<EvaluProvider>(context,listen: false).setEvalu(
+                !Provider.of<EvaluProvider>(context,listen: false).evalu
+              );
+               Provider.of<EvaluProvider>(context,listen: false).setCreer(
+                !Provider.of<EvaluProvider>(context,listen: false).creer
+              );
+
+              // await createQuizze(
+              //   storage.getItem('token')
+              // );
+             
+            }),
+            IconsWidget(icon: Icons.download_for_offline, name: 'Importer', callBack: () {
+
+            }),
           ],
-        )
+        ),
+
+   
 
     ]);
   }
 }
 
 class IconsWidget extends StatelessWidget {
-  const IconsWidget({super.key, required this.icon, required this.name});
+  const IconsWidget({super.key, required this.icon, required this.name, required this.callBack});
 
   final IconData icon ;
   final String name;
+  final Function callBack;
   @override
   Widget build(BuildContext context) {
     return  Row(children: [
@@ -68,7 +110,9 @@ class IconsWidget extends StatelessWidget {
                         fontSize: screenWidth(context) >= 800 ? 12 : 8,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () async{
+                     await callBack();
+                    },
                   ),
                 ],
               ),

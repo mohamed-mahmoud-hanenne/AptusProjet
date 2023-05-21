@@ -22,8 +22,8 @@ class MyApp extends StatelessWidget {
  
       debugShowCheckedModeBanner: false,
       // builder: DevicePreview.appBuilder,
-      // home: Login(),
-      home: Home(),
+      home: Login(),
+     
     );
 
   }
