@@ -23,11 +23,12 @@ class _QuizzListState extends State<QuizzList> {
   Widget build(BuildContext context) {
     return Column(children: [
       Container(
+        margin: EdgeInsets.only(top: 10),
           alignment: Alignment.center,
           width: screenWidth(context) >= 800 ? 1100 : 600,
           height: screenWidth(context) >= 800 ? 200 : 200,
           decoration: BoxDecoration(
-            color: Colors.grey[200],
+            color: Colors.white,
           ),
          child: FutureBuilder(
           future: getQuizzes(
@@ -40,7 +41,73 @@ class _QuizzListState extends State<QuizzList> {
      return ListView.builder(
       itemCount: quizzes.length,
       itemBuilder:(context,index){
-      return Text(quizzes[index].title);
+      return Container(
+        margin: EdgeInsets.only(top: 10),
+        child: Table(
+            border: TableBorder.all(color: Colors.white),
+            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+            children: [
+              TableRow(
+                decoration: BoxDecoration(
+                  color:  Colors.white
+                ),
+                children: [
+                  TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Text(quizzes[index].title, style: TextStyle(fontFamily: "myfont"),)
+                      )
+                    ),
+      
+                     TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Text(quizzes[index].description, style: TextStyle(fontFamily: "myfont"),)
+                      )
+                    ),
+      
+                    TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Text(quizzes[index].coeff.toString(), style: TextStyle(fontFamily: "myfont"),)
+                      )
+                    ),
+
+                    TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.edit, 
+                          color: Color.fromARGB(255, 33, 236, 243),
+                          size: 15,
+                          ), 
+                          onPressed: (){},)
+                      )
+                    ),
+
+                    TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.delete, color: Color.fromARGB(255, 33, 236, 243),
+                          size: 15,
+                          ),
+                           onPressed: (){},)
+                      )
+                    ),
+                ]
+              )
+            ],
+          ),
+      );
+        
      });
   } else {
     return CupertinoActivityIndicator();
@@ -49,25 +116,28 @@ class _QuizzListState extends State<QuizzList> {
           ),
       ),
 
-        Row(
-          children: [
-            IconsWidget(icon: Icons.create, name: 'Créer', callBack: () async{
-              Provider.of<EvaluProvider>(context,listen: false).setEvalu(
-                !Provider.of<EvaluProvider>(context,listen: false).evalu
-              );
-               Provider.of<EvaluProvider>(context,listen: false).setCreer(
-                !Provider.of<EvaluProvider>(context,listen: false).creer
-              );
-
-              // await createQuizze(
-              //   storage.getItem('token')
-              // );
-             
-            }),
-            IconsWidget(icon: Icons.download_for_offline, name: 'Importer', callBack: () {
-
-            }),
-          ],
+        Container(
+          margin: EdgeInsets.only(left: 50),
+          child: Row(
+            children: [
+              IconsWidget(icon: Icons.create, name: 'Créer', callBack: () async{
+                Provider.of<EvaluProvider>(context,listen: false).setEvalu(
+                  !Provider.of<EvaluProvider>(context,listen: false).evalu
+                );
+                 Provider.of<EvaluProvider>(context,listen: false).setCreer(
+                  !Provider.of<EvaluProvider>(context,listen: false).creer
+                );
+        
+                // await createQuizze(
+                //   storage.getItem('token')
+                // );
+               
+              }),
+              IconsWidget(icon: Icons.download_for_offline, name: 'Importer', callBack: () {
+        
+              }),
+            ],
+          ),
         ),
 
    

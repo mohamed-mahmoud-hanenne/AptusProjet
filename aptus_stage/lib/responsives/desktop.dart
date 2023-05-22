@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, prefer_const_literals_to_create_immutables, prefer_typing_uninitialized_variables, unused_local_variable, unnecessary_string_interpolations
 
 import 'package:aptus_stage/controllers/providers.dart';
+import 'package:aptus_stage/services/api.dart';
 import 'package:aptus_stage/views/components/edit_quizz.dart';
 import 'package:aptus_stage/views/components/home_screen_components.dart';
 import 'package:aptus_stage/views/screens/sidebar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -22,51 +24,17 @@ class MyDesktop extends StatefulWidget {
 }
 
 class _MyDesktopState extends State<MyDesktop> {
-//   bool quest = true;
+  bool quest = true;
 //   bool ajouter = false;
 //   bool importer = false;
-//   bool creer = false;
-//   bool isChecked = false;
-//   bool isChecked2 = false;
-//   bool isChecked3 = false;
-//   bool isChecked4 = false;
-//   bool isChecked5 = false;
-//   bool isChecked6 = false;
+
 //   bool isChecked7 = false;
 //   bool param = false;
 //   var statucode = 0;
 //   var statdetail = 0;
-//   var quizzlenght = 0;
 
 //   var selected = "QCM - Une seule réponse";
 //   var select = "Oui";
-
-  // final LocalStorage storage = new LocalStorage('todo_app.json');
-  // late String mytokens;
-//   late String msg;
-//   var name = "créer";
-
-//   //function create quizz
-//   static const urlcreate = 'http://srv4.aptusmaroc.com:8000/courses/quizzes/';
-//   Future<void> createQuizze() async {
-//     var result;
-//     final url = Uri.parse('$urlcreate');
-
-//     await http.post(url, headers: {
-//       'Content-Type': 'application/json',
-//       'Accept': 'application/json',
-//       'Authorization': 'token $mytokens',
-//     }).then((respon) {
-//       result = jsonDecode(respon.body);
-//       setState(() {
-//         msg = result['msg'];
-//         statucode = respon.statusCode;
-//       });
-//     }).catchError((error) {
-//       print(error);
-//     });
-//     return (result);
-//   }
 
 //   //function update quizz
 //   static const urlupdate = 'http://srv4.aptusmaroc.com:8000/courses/quizzes/10';
@@ -102,24 +70,6 @@ class _MyDesktopState extends State<MyDesktop> {
 
 //   }
 
-// //function get deatil quizz
-//  static const urldeatil = 'http://srv4.aptusmaroc.com:8000/courses/quizzes/317';
-//   Future<void> getdetail() async {
-//     var detail;
-//     final url = Uri.parse('$urlquiz');
-//     await http.get(url, headers: {
-//       'Content-Type': 'application/json',
-//       'Accept': 'application/json',
-//       'Authorization': 'token $mytokens',
-//     }).then((response) {
-//       detail = jsonDecode(response.body);
-//       print(response.statusCode);
-//       print(detail);
-//     }).catchError((error) {
-//       print('Error: $error');
-//     });
-//     return detail;
-//   }
 //   @override
 //   void initState() {
 //     super.initState();
@@ -236,7 +186,41 @@ class _MyDesktopState extends State<MyDesktop> {
                       : SizedBox(),
                   Provider.of<EvaluProvider>(context).creer
                       ? Column(
-                          children: [EditQuizz()],
+                          children: [
+                            Row(
+                              children: [
+                                ParamQuestions(
+                                    name: 'Questions',
+                                    paramQues: () {
+                                      setState(() {
+                                        quest = true;
+                                      });
+                                    }),
+                                ParamQuestions(
+                                    name: 'Paramétrages',
+                                    paramQues: () {
+                                      setState(() {
+                                        quest = false;
+                                      });
+                                    }),
+                              ],
+                            ),
+                            quest
+                                ? Container(
+                                    child: Text("Questions"),
+                                  )
+                                : FutureBuilder(
+                                    future: getdetail(storage.getItem('token')),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        return EditQuizz(
+                                          detail: snapshot.data!,
+                                        );
+                                      } else
+                                        return CupertinoActivityIndicator();
+                                    },
+                                  )
+                          ],
                         )
                       : SizedBox()
                 ]))));
@@ -297,5 +281,32 @@ class SousMenuItem extends StatelessWidget {
         onPressed: () {
           callBack();
         });
+  }
+}
+
+class ParamQuestions extends StatelessWidget {
+  const ParamQuestions(
+      {super.key, required this.name, required this.paramQues});
+
+  final String name;
+  final Function paramQues;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          margin: EdgeInsets.fromLTRB(20, 10, 0, 0),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              border: Border.all(color: Colors.grey, width: 0.2)),
+          child: TextButton(
+            child: Text(name),
+            onPressed: () {
+              paramQues();
+            },
+          ),
+        ),
+      ],
+    );
   }
 }

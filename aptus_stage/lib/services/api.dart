@@ -2,6 +2,7 @@ import 'package:aptus_stage/models/models.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:localstorage/localstorage.dart';
+import 'package:aptus_stage/views/components/edit_quizz.dart';
 
   final LocalStorage storage = new LocalStorage('todo_app.json');
   late String mytokens;
@@ -57,3 +58,25 @@ import 'package:localstorage/localstorage.dart';
     });
     return (result);
   }
+
+  // //function get deatil quizz
+  const String urldeatil = 'http://srv4.aptusmaroc.com:8000/courses/quizzes/317';
+  Future<Detail?> getdetail(String mytokens) async {
+    Detail? detail;
+    final url = Uri.parse('$urldeatil');
+    await http.get(url, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'token $mytokens',
+    }).then((response) {
+      detail = Detail.fromJson(jsonDecode(response.body));
+      
+      print(response.statusCode);
+      print(detail);
+    }).catchError((error) {
+      print('Error: $error');
+    });
+    return detail;
+  }
+
+    
