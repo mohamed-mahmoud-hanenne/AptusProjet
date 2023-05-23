@@ -19,7 +19,7 @@ class EditQuizz extends StatefulWidget {
 
 class _EditQuizzState extends State<EditQuizz> {
   static const String urlupdate =
-      'http://srv4.aptusmaroc.com:8000/courses/quizzes/317/';
+      'http://192.168.1.130:8000/courses/quizzes/317/';
   Future<void> UpdateQuizz(String mytokens) async {
     final String title = _title.text;
     final String description = _descp.text;
@@ -63,12 +63,12 @@ class _EditQuizzState extends State<EditQuizz> {
   }
 
   static const String urldelete =
-      'http://srv4.aptusmaroc.com:8000/courses/quizzes/317/';
+      'http://192.168.1.130:8000/courses/quizzes/317/';
   Future<void> DeleteQuizz(String mytokens) async {
 
 
     void delete;
-    final url = Uri.parse('$urlupdate');
+    final url = Uri.parse('$urldelete');
     await http.delete(url, headers: {
       // 'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -91,13 +91,7 @@ class _EditQuizzState extends State<EditQuizz> {
   final TextEditingController _datefin = TextEditingController();
   final TextEditingController _tempsadt = TextEditingController();
   final TextEditingController _random = TextEditingController();
-  // bool isChecked = false;
-  // bool isChecked2 = false;
-  // bool isChecked3 = false;
-  // bool isChecked4 = false;
-  // bool isChecked5 = false;
-  // bool isChecked6 = false;
-  // bool isChecked7 = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -357,7 +351,7 @@ class _EditQuizzState extends State<EditQuizz> {
                   }),
             ),
             Container(
-              margin: EdgeInsets.only(right: 25),
+              margin: EdgeInsets.only(right: 30),
               child: Row(
                 children: [
                   Iconstext(

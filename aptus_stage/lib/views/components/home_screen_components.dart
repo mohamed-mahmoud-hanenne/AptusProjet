@@ -4,11 +4,14 @@ import 'package:aptus_stage/controllers/providers.dart';
 import 'package:aptus_stage/models/models.dart';
 import 'package:aptus_stage/responsives/desktop.dart';
 import 'package:aptus_stage/services/api.dart';
+import 'package:aptus_stage/views/components/edit_quizz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class QuizzList extends StatefulWidget {
   const QuizzList({super.key});
@@ -18,6 +21,27 @@ class QuizzList extends StatefulWidget {
 }
 
 class _QuizzListState extends State<QuizzList> {
+
+    static const String urldelete =
+      'http://192.168.1.130:8000/courses/quizzes/317/';
+  Future<void> DeleteQuizz(String mytokens) async {
+
+
+    void delete;
+    final url = Uri.parse('$urldelete');
+    await http.delete(url, headers: {
+      // 'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'token $mytokens',
+    }, ).then((response) {
+      print(response.statusCode);
+      print(response.body);
+    }).catchError((error) {
+      print('Error: $error');
+    });
+    return delete;
+  }
+  
   bool creer = false;
   @override
   Widget build(BuildContext context) {
@@ -86,7 +110,14 @@ class _QuizzListState extends State<QuizzList> {
                           color: Color.fromARGB(255, 33, 236, 243),
                           size: 15,
                           ), 
-                          onPressed: (){},)
+                          onPressed: (){
+                     Provider.of<EvaluProvider>(context, listen: false).setEvalu(
+                     !Provider.of<EvaluProvider>(context, listen: false).evalu);
+                      
+                      Provider.of<EvaluProvider>(context, listen: false).setEdit(
+                        !Provider.of<EvaluProvider>(context, listen: false).edit);
+
+                          },)
                       )
                     ),
 
@@ -99,7 +130,10 @@ class _QuizzListState extends State<QuizzList> {
                           Icons.delete, color: Color.fromARGB(255, 33, 236, 243),
                           size: 15,
                           ),
-                           onPressed: (){},)
+                           onPressed: () async{
+                           await DeleteQuizz(storage.getItem('token'));
+                         
+                           },)
                       )
                     ),
                 ]
@@ -128,13 +162,13 @@ class _QuizzListState extends State<QuizzList> {
                   !Provider.of<EvaluProvider>(context,listen: false).creer
                 );
         
-                // await createQuizze(
-                //   storage.getItem('token')
-                // );
+                await createQuizze(
+                  storage.getItem('token')
+                );
                
               }),
               IconsWidget(icon: Icons.download_for_offline, name: 'Importer', callBack: () {
-        
+              
               }),
             ],
           ),

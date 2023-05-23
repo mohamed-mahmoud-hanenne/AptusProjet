@@ -28,47 +28,9 @@ class _MyDesktopState extends State<MyDesktop> {
 //   bool ajouter = false;
 //   bool importer = false;
 
-//   bool isChecked7 = false;
-//   bool param = false;
-//   var statucode = 0;
-//   var statdetail = 0;
 
-//   var selected = "QCM - Une seule réponse";
-//   var select = "Oui";
 
-//   //function update quizz
-//   static const urlupdate = 'http://srv4.aptusmaroc.com:8000/courses/quizzes/10';
-//   Future<void> getUpdate() async{
-//       final String titlequizz = _title.text;
-//       final String descquizz = _descp.text;
-//       final String instquizz = _inst.text;
-//     var update;
-//     final url = Uri.parse('$urlupdate');
 
-//     await http.put(url, headers: {
-//       'Content-Type': 'application/json',
-//       'Accept': 'application/json',
-//       'Authorization': 'token $mytokens',
-
-//     },
-//     body:{
-//       "title": titlequizz,
-//       "description" : descquizz,
-//       "instructions" : instquizz
-//     }
-//     ).then((resp) {
-//       update = jsonDecode(resp.body);
-//       print(resp.statusCode);
-//       print(update);
-//       setState(() {
-//         statdetail = resp.statusCode;
-//       });
-//     }).catchError((error){
-//       print(error);
-//     });
-//      return(update);
-
-//   }
 
 //   @override
 //   void initState() {
@@ -184,6 +146,45 @@ class _MyDesktopState extends State<MyDesktop> {
                   Provider.of<EvaluProvider>(context).evalu
                       ? QuizzList()
                       : SizedBox(),
+                  Provider.of<EvaluProvider>(context).edit 
+                  ? Column(
+                          children: [
+                            Row(
+                              children: [
+                                ParamQuestions(
+                                    name: 'Questions',
+                                    paramQues: () {
+                                      setState(() {
+                                        quest = true;
+                                      });
+                                    }),
+                                ParamQuestions(
+                                    name: 'Paramétrages',
+                                    paramQues: () {
+                                      setState(() {
+                                        quest = false;
+                                      });
+                                    }),
+                              ],
+                            ),
+                            quest
+                                ? Container(
+                                    child: Text("Questions"),
+                                  )
+                                : FutureBuilder(
+                                    future: getdetail(storage.getItem('token')),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        return EditQuizz(
+                                          detail: snapshot.data!,
+                                        );
+                                      } else
+                                        return CupertinoActivityIndicator();
+                                    },
+                                  )
+                          ],
+                        )
+                  : SizedBox(),
                   Provider.of<EvaluProvider>(context).creer
                       ? Column(
                           children: [
@@ -252,6 +253,8 @@ class SousMenu extends StatelessWidget {
               callBack: () {
                 Provider.of<EvaluProvider>(context, listen: false).setEvalu(
                     !Provider.of<EvaluProvider>(context, listen: false).evalu);
+
+
               }),
           SousMenuItem(name: 'Notes', callBack: () {}),
           SousMenuItem(name: 'Ressources', callBack: () {}),

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously, sort_child_properties_last
 
+import 'package:aptus_stage/responsives/desktop.dart';
 import 'package:aptus_stage/views/screens/Home.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -63,58 +64,67 @@ class _LoginState extends State<Login> {
         decoration:
             BoxDecoration(border: Border.all(color: Colors.grey, width: 0.5)),
         width: 300,
-        height: 400,
-        margin: EdgeInsets.fromLTRB(500, 100, 0, 0),
+        height: 450,
+        margin: EdgeInsets.fromLTRB(470, 100, 0, 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              
-              decoration: BoxDecoration(
-                  color: Colors.purple[50],
-                  borderRadius: BorderRadius.circular(10)),
-              width: 250,
-              height: 40,
+            Image.asset(
+              "assets/img/aptu.jpg",
+              width: screenWidth(context) >= 800 ? 70 : 30,
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Padding(
+              padding:  EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: TextField(
                 controller: _username,
                 decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.purple[50],
                   border: InputBorder.none,
                   labelText: 'Username',
+                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.grey)),
                   hintStyle: TextStyle(
                       color: Color.fromARGB(255, 73, 234, 215),
                       fontFamily: "myfont",
                       fontWeight: FontWeight.bold),
-                  prefixIcon: Icon(Icons.person),
+                  prefixIcon: Icon(
+                    Icons.person,
+                    size: 15,
+                  ),
                   prefixIconColor: Color.fromARGB(255, 73, 234, 215),
                 ),
               ),
             ),
             SizedBox(
-              height: 50,
+              height: 15,
             ),
-            Container(
-              
-              decoration: BoxDecoration(
-                  color: Colors.purple[50],
-                  borderRadius: BorderRadius.circular(10)),
-              width: 250,
-              height: 40,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: TextField(
                 controller: _password,
                 decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.purple[50],
                   border: InputBorder.none,
                   labelText: 'password',
+                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.grey)),
                   hintStyle: TextStyle(
                       color: Color.fromARGB(255, 73, 234, 215),
                       fontFamily: "myfont",
                       fontWeight: FontWeight.bold),
-                  prefixIcon: Icon(Icons.lock),
+                  prefixIcon: Icon(
+                    Icons.lock,
+                    size: 15,
+                  ),
                   prefixIconColor: Color.fromARGB(255, 73, 234, 215),
                 ),
               ),
             ),
             SizedBox(
-              height: 120,
+              height: 20,
             ),
             Container(
               decoration: BoxDecoration(
@@ -134,7 +144,29 @@ class _LoginState extends State<Login> {
                       showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                                title: Text("login failed"),
+                                actions: [
+                                  TextButton(
+                                    child: const Text(
+                                      'Réssayer', 
+                                      style: TextStyle(
+                                        color: Color.fromARGB(255, 33, 233, 243),
+                                        fontFamily: "myfont"
+                                        )
+                                        ),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                                icon: Icon(
+                                  Icons.error,
+                                  color: Colors.red,
+                                ),
+                                title: Text(
+                                  "login failed",
+                                  style: TextStyle(
+                                      color: Colors.red, fontFamily: "myfont"),
+                                ),
                               ));
                     }
                   },
@@ -143,13 +175,13 @@ class _LoginState extends State<Login> {
                     style: TextStyle(
                         fontFamily: "myfont",
                         fontWeight: FontWeight.bold,
-                       
                         fontSize: 15),
                   ),
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all(
                           EdgeInsets.symmetric(horizontal: 105, vertical: 15)),
-                      backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 66, 246, 240)),
+                      backgroundColor: MaterialStateProperty.all(
+                          Color.fromARGB(255, 66, 246, 240)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))))),
             ),
