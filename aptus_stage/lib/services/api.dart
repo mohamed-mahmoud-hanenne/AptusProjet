@@ -9,7 +9,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
   
 
 //   //function get all quizz
-   const String host = 'http://192.168.1.130:8000/';
+   const String host = 'http://srv4.aptusmaroc.com:8000/';
   Future<List<Quizz>> getQuizzes(String mytokens) async {
     
     List<Quizz> quizzes = [];
@@ -24,7 +24,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
     });
 
     var json = jsonDecode(response.body) ;
-
+    
 
     for (Map<String,dynamic> jsonQuizz in json) {
      quizzes.add(
@@ -42,7 +42,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
 
 
   //function create quizz
-   const String hosturl = 'http://192.168.1.130:8000/';
+   const String hosturl = 'http://srv4.aptusmaroc.com:8000/';
    Future<void> createQuizze(String mytokens) async {
     var result;
     final url = Uri.parse('$hosturl'+'courses/quizzes/');
@@ -59,8 +59,8 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
     return (result);
   }
 
-  // //function get deatil quizz
-  const String urldeatil = 'http://192.168.1.130:8000/courses/quizzes/317';
+   //function get deatil quizz
+  const String urldeatil = 'http://srv4.aptusmaroc.com:8000/courses/quizzes/317';
   Future<Detail?> getdetail(String mytokens) async {
     Detail? detail;
     final url = Uri.parse('$urldeatil');
@@ -79,4 +79,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
     return detail;
   }
 
-    
+  
+
+  //function get question type
+

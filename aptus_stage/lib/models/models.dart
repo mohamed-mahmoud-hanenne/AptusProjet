@@ -1,5 +1,7 @@
 
 
+import 'package:flutter/material.dart';
+
 class Quizz {
   final String title ;
   final String description;
@@ -19,7 +21,7 @@ class Quizz {
 
 class Detail {
    String title;
-  String description;
+   String description;
    String instructions;
    int? coeff;
    DateTime? publicationDate;
@@ -76,3 +78,11 @@ class Detail {
   }
 }
 
+
+ class Questions{
+  final String username;
+
+  Questions({
+    required this.username
+  });
+ }

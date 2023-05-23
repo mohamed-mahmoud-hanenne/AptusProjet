@@ -2,6 +2,7 @@
 
 import 'package:aptus_stage/controllers/providers.dart';
 import 'package:aptus_stage/services/api.dart';
+import 'package:aptus_stage/views/components/add_question.dart';
 import 'package:aptus_stage/views/components/edit_quizz.dart';
 import 'package:aptus_stage/views/components/home_screen_components.dart';
 import 'package:aptus_stage/views/screens/sidebar.dart';
@@ -168,9 +169,7 @@ class _MyDesktopState extends State<MyDesktop> {
                               ],
                             ),
                             quest
-                                ? Container(
-                                    child: Text("Questions"),
-                                  )
+                                ? AddQuestions()
                                 : FutureBuilder(
                                     future: getdetail(storage.getItem('token')),
                                     builder: (context, snapshot) {
@@ -207,9 +206,7 @@ class _MyDesktopState extends State<MyDesktop> {
                               ],
                             ),
                             quest
-                                ? Container(
-                                    child: Text("Questions"),
-                                  )
+                                ? AddQuestions()
                                 : FutureBuilder(
                                     future: getdetail(storage.getItem('token')),
                                     builder: (context, snapshot) {
