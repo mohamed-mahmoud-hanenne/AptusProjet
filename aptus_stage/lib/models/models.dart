@@ -1,5 +1,6 @@
 
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Quizz {
@@ -85,4 +86,11 @@ class Detail {
   Questions({
     required this.username
   });
+
+  static Questions fromJson(Map<String, dynamic> json) {
+    return Questions(username: json["username"]);
+  }
+  
  }
+ 
+

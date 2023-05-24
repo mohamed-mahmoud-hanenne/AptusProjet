@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, prefer_const_literals_to_create_immutables, prefer_typing_uninitialized_variables, unused_local_variable, unnecessary_string_interpolations
 
 import 'package:aptus_stage/controllers/providers.dart';
+import 'package:aptus_stage/models/models.dart';
 import 'package:aptus_stage/services/api.dart';
 import 'package:aptus_stage/views/components/add_question.dart';
 import 'package:aptus_stage/views/components/edit_quizz.dart';
@@ -28,10 +29,6 @@ class _MyDesktopState extends State<MyDesktop> {
   bool quest = true;
 //   bool ajouter = false;
 //   bool importer = false;
-
-
-
-
 
 //   @override
 //   void initState() {
@@ -147,8 +144,8 @@ class _MyDesktopState extends State<MyDesktop> {
                   Provider.of<EvaluProvider>(context).evalu
                       ? QuizzList()
                       : SizedBox(),
-                  Provider.of<EvaluProvider>(context).edit 
-                  ? Column(
+                  Provider.of<EvaluProvider>(context).edit
+                      ? Column(
                           children: [
                             Row(
                               children: [
@@ -169,7 +166,7 @@ class _MyDesktopState extends State<MyDesktop> {
                               ],
                             ),
                             quest
-                                ? AddQuestions()
+                                ? Container(child: Text("data"),)
                                 : FutureBuilder(
                                     future: getdetail(storage.getItem('token')),
                                     builder: (context, snapshot) {
@@ -183,7 +180,7 @@ class _MyDesktopState extends State<MyDesktop> {
                                   )
                           ],
                         )
-                  : SizedBox(),
+                      : SizedBox(),
                   Provider.of<EvaluProvider>(context).creer
                       ? Column(
                           children: [
@@ -206,7 +203,7 @@ class _MyDesktopState extends State<MyDesktop> {
                               ],
                             ),
                             quest
-                                ? AddQuestions()
+                                ? Container(child: Text("data"),)
                                 : FutureBuilder(
                                     future: getdetail(storage.getItem('token')),
                                     builder: (context, snapshot) {
@@ -250,8 +247,6 @@ class SousMenu extends StatelessWidget {
               callBack: () {
                 Provider.of<EvaluProvider>(context, listen: false).setEvalu(
                     !Provider.of<EvaluProvider>(context, listen: false).evalu);
-
-
               }),
           SousMenuItem(name: 'Notes', callBack: () {}),
           SousMenuItem(name: 'Ressources', callBack: () {}),

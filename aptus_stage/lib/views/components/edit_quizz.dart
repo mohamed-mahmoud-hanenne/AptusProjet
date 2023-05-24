@@ -29,6 +29,7 @@ class _EditQuizzState extends State<EditQuizz> {
     final String datedebut = _datedebut.text;
     final String datefin = _datefin.text;
     final String tempadt = _tempsadt.text;
+    final String randomNb = _random.text;
 
     void update;
     final url = Uri.parse('$urlupdate');
@@ -48,7 +49,7 @@ class _EditQuizzState extends State<EditQuizz> {
       "is_draft": widget.detail.isDraft.toString(),
       "enable_change_after_sending": widget.detail.enableChangeAfterSending.toString(),
       "random_questions": widget.detail.randomQuestions.toString(),
-      "questions_random_number" : widget.detail.questionsRandomNumber.toString(),
+      "questions_random_number" : randomNb,
       "mixed_questions": widget.detail.mixedQuestions.toString(),
       "mixed_responses": widget.detail.mixedResponses.toString(),
       "manual_correction": widget.detail.manualCorrection.toString(),

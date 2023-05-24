@@ -30,7 +30,7 @@ class _LoginState extends State<Login> {
     final String username = _username.text;
     final String password = _password.text;
 
-    final url = Uri.parse('http://srv4.aptusmaroc.com:8000/auth/login/');
+    final url = Uri.parse('http://192.168.0.120:8000/auth/login/');
 
     final response = await http.post(
       url,

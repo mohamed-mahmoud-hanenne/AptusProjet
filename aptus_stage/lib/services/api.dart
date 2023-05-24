@@ -79,6 +79,29 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
     return detail;
   }
 
+     const String urlquestion = 'https://jsonplaceholder.typicode.com/users';
+  Future<List<Questions>> GetQuestions() async{
+
+    List<Questions> quest = [];
+
+    final url = Uri.parse('$urlquestion');
+    await http.get(
+      url
+      ).then((question) {
+      var ques = jsonDecode(question.body) ;
+      print(question.statusCode);
+
+      for(Map<String, dynamic> jsontest in ques){
+        quest.add(
+          Questions.fromJson(jsontest)
+        );
+      }
+ 
+    }).catchError((error){
+      print(error);
+    });
+    return quest;
+  }
   
 
   //function get question type
