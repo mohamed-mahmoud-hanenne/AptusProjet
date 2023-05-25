@@ -19,7 +19,7 @@ class EditQuizz extends StatefulWidget {
 
 class _EditQuizzState extends State<EditQuizz> {
   static const String urlupdate =
-      'http://srv4.aptusmaroc.com:8000/courses/quizzes/317/';
+      'http://192.168.0.120:8000/courses/quizzes/12/';
   Future<void> UpdateQuizz(String mytokens) async {
     final String title = _title.text;
     final String description = _descp.text;
@@ -64,7 +64,7 @@ class _EditQuizzState extends State<EditQuizz> {
   }
 
   static const String urldelete =
-      'http://srv4.aptusmaroc.com:8000/courses/quizzes/317/';
+      'http://192.168.0.120:8000/courses/quizzes/12/';
   Future<void> DeleteQuizz(String mytokens) async {
 
 

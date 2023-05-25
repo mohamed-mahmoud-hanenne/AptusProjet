@@ -23,7 +23,8 @@ class QuizzList extends StatefulWidget {
 class _QuizzListState extends State<QuizzList> {
 
     static const String urldelete =
-      'http://srv4.aptusmaroc.com:8000/courses/quizzes/317/';
+      'http://192.168.0.120:8000/courses/quizzes/12/';
+      
   Future<void> DeleteQuizz(String mytokens) async {
 
 
@@ -60,7 +61,7 @@ class _QuizzListState extends State<QuizzList> {
            storage.getItem('token')
           ),
           builder: (context,snapshot){
-  if (snapshot.hasData && snapshot.data !=null) {
+  if (snapshot.hasData && snapshot.data != null) {
     List<Quizz> quizzes = snapshot.data!;
      return ListView.builder(
       itemCount: quizzes.length,
@@ -161,10 +162,12 @@ class _QuizzListState extends State<QuizzList> {
                  Provider.of<EvaluProvider>(context,listen: false).setCreer(
                   !Provider.of<EvaluProvider>(context,listen: false).creer
                 );
-        
-                // await createQuizze(
-                //   storage.getItem('token')
-                // );
+                
+                await createQuizze(
+                  storage.getItem('token')
+                );
+             
+                
                
               }),
               IconsWidget(icon: Icons.download_for_offline, name: 'Importer', callBack: () {

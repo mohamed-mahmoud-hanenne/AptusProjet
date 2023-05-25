@@ -6,11 +6,10 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
 
   final LocalStorage storage = new LocalStorage('todo_app.json');
   late String mytokens;
-  
 
 //   //function get all quizz
-   const String host = 'http://srv4.aptusmaroc.com:8000/';
-  Future<List<Quizz>> getQuizzes(String mytokens) async {
+   const String host = 'http://192.168.0.120:8000/';
+   Future<List<Quizz>> getQuizzes(String mytokens) async {
     
     List<Quizz> quizzes = [];
 
@@ -23,9 +22,9 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
       'Authorization': 'token $mytokens',
     });
 
-    var json = jsonDecode(response.body) ;
+    var json = jsonDecode(response.body);
     
-
+    
     for (Map<String,dynamic> jsonQuizz in json) {
      quizzes.add(
      Quizz.fromJson(jsonQuizz)
@@ -35,16 +34,14 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
     } catch (e) {
       print(e);
     }
- 
- 
     return quizzes;
   }
 
 
   //function create quizz
-   const String hosturl = 'http://srv4.aptusmaroc.com:8000/';
+   const String hosturl = 'http://192.168.0.120:8000/';
    Future<void> createQuizze(String mytokens) async {
-    var result;
+    
     final url = Uri.parse('$hosturl'+'courses/quizzes/');
 
     await http.post(url, headers: {
@@ -53,14 +50,15 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
       'Authorization': 'token $mytokens',
     }).then((respon) {
       print(respon.body);
+     
     }).catchError((error) {
       print(error);
     });
-    return (result);
+    
   }
 
    //function get deatil quizz
-  const String urldeatil = 'http://srv4.aptusmaroc.com:8000/courses/quizzes/317';
+  const String urldeatil = 'http://192.168.0.120:8000/courses/quizzes/12';
   Future<Detail?> getdetail(String mytokens) async {
     Detail? detail;
     final url = Uri.parse('$urldeatil');
@@ -79,30 +77,30 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
     return detail;
   }
 
-     const String urlquestion = 'https://jsonplaceholder.typicode.com/users';
-  Future<List<Questions>> GetQuestions() async{
+  //    const String urlquestion = 'https://jsonplaceholder.typicode.com/users';
+  // Future<List<Questions>> GetQuestions() async{
 
-    List<Questions> quest = [];
+  //   List<Questions> quest = [];
 
-    final url = Uri.parse('$urlquestion');
-    await http.get(
-      url
-      ).then((question) {
-      var ques = jsonDecode(question.body) ;
-      print(question.statusCode);
+  //   final url = Uri.parse('$urlquestion');
+  //   await http.get(
+  //     url
+  //     ).then((question) {
+  //     var ques = jsonDecode(question.body) ;
+  //     print(question.statusCode);
 
-      for(Map<String, dynamic> jsontest in ques){
-        quest.add(
-          Questions.fromJson(jsontest)
-        );
-      }
+  //     for(Map<String, dynamic> jsontest in ques){
+  //       quest.add(
+  //         Questions.fromJson(jsontest)
+  //       );
+  //     }
  
-    }).catchError((error){
-      print(error);
-    });
-    return quest;
-  }
+  //   }).catchError((error){
+  //     print(error);
+  //   });
+  //   return quest;
+  // }
   
 
-  //function get question type
+
 
