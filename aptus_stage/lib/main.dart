@@ -3,6 +3,7 @@
 import 'package:aptus_stage/views/screens/Home.dart';
 import 'package:aptus_stage/views/screens/login.dart';
 import 'package:aptus_stage/responsives/mobile.dart';
+import 'package:aptus_stage/views/screens/sign.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 // 
@@ -22,7 +23,12 @@ class MyApp extends StatelessWidget {
  
       debugShowCheckedModeBanner: false,
       // builder: DevicePreview.appBuilder,
-      home: Login(),
+  initialRoute: '/',
+  routes: {
+    '/': (context) => const Login(),
+    '/sign': (context) => const Sign(),
+    '/login': (context) => const Login(),
+  },
      
     );
 
