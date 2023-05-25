@@ -103,7 +103,8 @@ class _EditQuizzState extends State<EditQuizz> {
           children: [
             ChampsEdit(
               title: "title",
-              champ: Container(
+              champ: Padding(
+                padding:  EdgeInsets.symmetric(horizontal: 30, vertical: 30),
                 child: TextField(
                   controller: _title,
                   decoration: InputDecoration(
@@ -116,16 +117,14 @@ class _EditQuizzState extends State<EditQuizz> {
             ),
             ChampsEdit(
                 title: "description",
-                champ: Container(
-                  margin: EdgeInsets.only(left: 100),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
-                    child: TextField(
-                      controller: _descp,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: widget.detail.description),
-                    ),
+                champ: Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+                  child: TextField(
+                    controller: _descp,
+                    decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.grey)),
+                        border: InputBorder.none,
+                        hintText: widget.detail.description),
                   ),
                 ))
           ],
@@ -137,7 +136,8 @@ class _EditQuizzState extends State<EditQuizz> {
           children: [
             ChampsEdit(
                 title: "instructions",
-                champ: Container(
+                champ: Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 30, vertical: 30),
                   child: TextField(
                     controller: _inst,
                     decoration: InputDecoration(
@@ -150,7 +150,8 @@ class _EditQuizzState extends State<EditQuizz> {
             ),
             ChampsEdit(
                 title: "coefficient",
-                champ: Container(
+                champ: Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 30, vertical: 30),
                   child: TextField(
                     controller: _coeff,
                     decoration: InputDecoration(
@@ -167,7 +168,8 @@ class _EditQuizzState extends State<EditQuizz> {
           children: [
             ChampsEdit(
                 title: "Date et heure de publication",
-                champ: Container(
+                champ: Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 30, vertical: 30),
                   child: TextField(
                     controller: _datepub,
                     decoration: InputDecoration(
@@ -180,7 +182,8 @@ class _EditQuizzState extends State<EditQuizz> {
             ),
             ChampsEdit(
                 title: "Date et heure de début",
-                champ: Container(
+                champ: Padding(
+                 padding:  EdgeInsets.symmetric(horizontal: 30, vertical: 30),
                   child: TextField(
                     controller: _datedebut,
                     decoration: InputDecoration(
@@ -197,7 +200,8 @@ class _EditQuizzState extends State<EditQuizz> {
           children: [
             ChampsEdit(
                 title: "Date et heure de fin",
-                champ: Container(
+                champ: Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 30, vertical: 30),
                   child: TextField(
                     controller: _datefin,
                     decoration: InputDecoration(
@@ -210,7 +214,8 @@ class _EditQuizzState extends State<EditQuizz> {
             ),
             ChampsEdit(
                 title: "Temps additionnel",
-                champ: Container(
+                champ: Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 30, vertical: 30),
                   child: TextField(
                     controller: _tempsadt,
                     decoration: InputDecoration(
@@ -381,7 +386,7 @@ class ChampsEdit extends StatelessWidget {
   ChampsEdit({super.key, required this.title, required this.champ});
 
   final String title;
-  final Container champ;
+  final Padding champ;
 
   @override
   Widget build(BuildContext context) {
