@@ -23,7 +23,7 @@ class QuizzList extends StatefulWidget {
 class _QuizzListState extends State<QuizzList> {
 
     static const String urldelete =
-      'http://192.168.0.120:8000/courses/quizzes/12/';
+      'http://192.168.1.130:8002/courses/quizzes/12/';
       
   Future<void> DeleteQuizz(String mytokens) async {
 

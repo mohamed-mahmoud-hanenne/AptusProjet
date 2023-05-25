@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, sort_child_properties_last
+// ignore_for_file: unused_field, unnecessary_new
 
 import 'package:aptus_stage/responsives/desktop.dart';
 import 'package:aptus_stage/views/screens/Home.dart';
@@ -18,7 +18,9 @@ class _LoginState extends State<Login> {
   final LocalStorage storage = new LocalStorage('todo_app.json');
 
   final TextEditingController _username = TextEditingController();
-  final TextEditingController _password = TextEditingController();
+  final TextEditingController _firstname = TextEditingController();
+  final TextEditingController _lastname = TextEditingController();
+   final TextEditingController _password = TextEditingController();
   var statu = 0;
   var token = '';
 
@@ -64,7 +66,7 @@ class _LoginState extends State<Login> {
         decoration:
             BoxDecoration(border: Border.all(color: Colors.grey, width: 0.5)),
         width: 300,
-        height: 450,
+        height: 650,
         margin: EdgeInsets.fromLTRB(520, 100, 0, 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -74,7 +76,7 @@ class _LoginState extends State<Login> {
               width: screenWidth(context) >= 800 ? 70 : 30,
             ),
             SizedBox(
-              height: 30,
+              height: 20,
             ),
             Padding(
               padding:  EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -90,16 +92,59 @@ class _LoginState extends State<Login> {
                       color: Color.fromARGB(255, 73, 234, 215),
                       fontFamily: "myfont",
                       fontWeight: FontWeight.bold),
-                  prefixIcon: Icon(
-                    Icons.person,
-                    size: 15,
-                  ),
-                  prefixIconColor: Color.fromARGB(255, 73, 234, 215),
+                 
+               
                 ),
               ),
             ),
             SizedBox(
-              height: 15,
+              height: 10,
+            ),
+
+              Padding(
+              padding:  EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: TextField(
+                controller: _firstname,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.purple[50],
+                  border: InputBorder.none,
+                  labelText: 'First name',
+                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.grey)),
+                  hintStyle: TextStyle(
+                      color: Color.fromARGB(255, 73, 234, 215),
+                      fontFamily: "myfont",
+                      fontWeight: FontWeight.bold),
+                 
+               
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+             Padding(
+              padding:  EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: TextField(
+                controller: _lastname,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.purple[50],
+                  border: InputBorder.none,
+                  labelText: 'Last name',
+                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.grey)),
+                  hintStyle: TextStyle(
+                      color: Color.fromARGB(255, 73, 234, 215),
+                      fontFamily: "myfont",
+                      fontWeight: FontWeight.bold),
+                 
+               
+                ),
+              ),
+            ),
+
+            SizedBox(
+              height: 10,
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -116,11 +161,6 @@ class _LoginState extends State<Login> {
                       color: Color.fromARGB(255, 73, 234, 215),
                       fontFamily: "myfont",
                       fontWeight: FontWeight.bold),
-                  prefixIcon: Icon(
-                    Icons.lock,
-                    size: 15,
-                  ),
-                  prefixIconColor: Color.fromARGB(255, 73, 234, 215),
                 ),
               ),
             ),
@@ -164,7 +204,7 @@ class _LoginState extends State<Login> {
                                   color: Colors.red,
                                 ),
                                 title: Text(
-                                  "login failed",
+                                  "Erreur",
                                   style: TextStyle(
                                       color: Colors.red, fontFamily: "myfont"),
                                 ),
@@ -172,7 +212,7 @@ class _LoginState extends State<Login> {
                     }
                   },
                   child: Text(
-                    "Login",
+                    "Sign Up",
                     style: TextStyle(
                         fontFamily: "myfont",
                         fontWeight: FontWeight.bold,

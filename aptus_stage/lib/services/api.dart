@@ -8,7 +8,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
   late String mytokens;
 
 //   //function get all quizz
-   const String host = 'http://192.168.0.120:8000/';
+   const String host = 'http://192.168.1.130:8002/';
    Future<List<Quizz>> getQuizzes(String mytokens) async {
     
     List<Quizz> quizzes = [];
@@ -39,7 +39,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
 
 
   //function create quizz
-   const String hosturl = 'http://192.168.0.120:8000/';
+   const String hosturl = 'http://192.168.1.130:8002/';
    Future<void> createQuizze(String mytokens) async {
     
     final url = Uri.parse('$hosturl'+'courses/quizzes/');
@@ -58,7 +58,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
   }
 
    //function get deatil quizz
-  const String urldeatil = 'http://192.168.0.120:8000/courses/quizzes/12';
+  const String urldeatil = 'http://192.168.1.130:8002/courses/quizzes/12';
   Future<Detail?> getdetail(String mytokens) async {
     Detail? detail;
     final url = Uri.parse('$urldeatil');

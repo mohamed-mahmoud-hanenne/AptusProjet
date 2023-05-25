@@ -19,7 +19,7 @@ class EditQuizz extends StatefulWidget {
 
 class _EditQuizzState extends State<EditQuizz> {
   static const String urlupdate =
-      'http://192.168.0.120:8000/courses/quizzes/12/';
+      'http://192.168.1.130:8002/courses/quizzes/12/';
   Future<void> UpdateQuizz(String mytokens) async {
     final String title = _title.text;
     final String description = _descp.text;
@@ -31,7 +31,7 @@ class _EditQuizzState extends State<EditQuizz> {
     final String tempadt = _tempsadt.text;
     final String randomNb = _random.text;
 
-    void update;
+    var update;
     final url = Uri.parse('$urlupdate');
     await http.put(url, headers: {
       // 'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ class _EditQuizzState extends State<EditQuizz> {
   }
 
   static const String urldelete =
-      'http://192.168.0.120:8000/courses/quizzes/12/';
+      'http://192.168.1.130:8002/courses/quizzes/12/';
   Future<void> DeleteQuizz(String mytokens) async {
 
 
@@ -118,11 +118,14 @@ class _EditQuizzState extends State<EditQuizz> {
                 title: "description",
                 champ: Container(
                   margin: EdgeInsets.only(left: 100),
-                  child: TextField(
-                    controller: _descp,
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: widget.detail.description),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+                    child: TextField(
+                      controller: _descp,
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: widget.detail.description),
+                    ),
                   ),
                 ))
           ],
