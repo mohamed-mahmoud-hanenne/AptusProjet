@@ -18,70 +18,9 @@ class EditQuizz extends StatefulWidget {
 }
 
 class _EditQuizzState extends State<EditQuizz> {
-  static const String urlupdate =
-      'http://192.168.1.130:8002/courses/quizzes/12/';
-  Future<void> UpdateQuizz(String mytokens) async {
-    final String title = _title.text;
-    final String description = _descp.text;
-    final String instructions = _inst.text;
-    final String coeff = _coeff.text;
-    final String publicationdate = _datepub.text;
-    final String datedebut = _datedebut.text;
-    final String datefin = _datefin.text;
-    final String tempadt = _tempsadt.text;
-    final String randomNb = _random.text;
-
-    var update;
-    final url = Uri.parse('$urlupdate');
-    await http.put(url, headers: {
-      // 'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'token $mytokens',
-    }, body: {
-      "title": title,
-      "description": description,
-      "instructions": instructions,
-      "coeff": coeff,
-      "publication_date": publicationdate,
-      "started_at": datedebut,
-      "ended_at": datefin,
-      "additional_time": tempadt,
-      "is_draft": widget.detail.isDraft.toString(),
-      "enable_change_after_sending": widget.detail.enableChangeAfterSending.toString(),
-      "random_questions": widget.detail.randomQuestions.toString(),
-      "questions_random_number" : randomNb,
-      "mixed_questions": widget.detail.mixedQuestions.toString(),
-      "mixed_responses": widget.detail.mixedResponses.toString(),
-      "manual_correction": widget.detail.manualCorrection.toString(),
-      "publication_correction": widget.detail.publicationCorrection.toString()
-    }).then((response) {
-      print(response.statusCode);
-      print(response.body);
-    }).catchError((error) {
-      print('Error: $error');
-    });
-    return update;
-  }
-
-  static const String urldelete =
-      'http://192.168.1.130:8002/courses/quizzes/12/';
-  Future<void> DeleteQuizz(String mytokens) async {
 
 
-    void delete;
-    final url = Uri.parse('$urldelete');
-    await http.delete(url, headers: {
-      // 'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'token $mytokens',
-    }, ).then((response) {
-      print(response.statusCode);
-      print(response.body);
-    }).catchError((error) {
-      print('Error: $error');
-    });
-    return delete;
-  }
+
 
   final TextEditingController _title = TextEditingController();
   final TextEditingController _descp = TextEditingController();
@@ -99,28 +38,33 @@ class _EditQuizzState extends State<EditQuizz> {
     return Container(
       margin: EdgeInsets.fromLTRB(20, 20, 0, 0),
       child: Column(children: [
-        Row(
-          children: [
-            ChampsEdit(
-              title: "title",
-              champ: TextField( 
-                controller: _title,
-                decoration: InputDecoration(
-                    border: InputBorder.none, hintText: widget.detail.title),
-              ),
-            ),
-            SizedBox(
-              width: 40,
-            ),
-            ChampsEdit(
-                title: "description",
-                champ: TextField(
-                  controller: _descp,
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Row(
+            children: [
+              ChampsEdit(
+                title: "title",
+                champ: TextField( 
+                  controller: _title,
                   decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: widget.detail.description),
-                ))
-          ],
+                      border: InputBorder.none, hintText: widget.detail.title),
+                ),
+              ),
+              SizedBox(
+                width: 40,
+              ),
+              ChampsEdit(
+                  title: "description",
+                  champ: TextField(
+                    controller: _descp,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: widget.detail.description),
+                  ))
+            ],
+          ),
         ),
         SizedBox(
           height: 30,
@@ -342,7 +286,31 @@ class _EditQuizzState extends State<EditQuizz> {
                       icon: Icons.save,
                       name: "Enrégistrer",
                       callBack: () async {
-                        await UpdateQuizz(storage.getItem('token'));
+                        try{
+                            Detail newDetail =
+                    Detail(
+                      title: _title.text, 
+                      description: _descp.text, 
+                      instructions: _inst.text, 
+                      coeff: double.parse(_coeff.text).toInt(), 
+                      publicationDate: DateTime.tryParse(_datepub.text), 
+                      startedAt: DateTime.tryParse(_datedebut.text), 
+                      endedAt: DateTime.tryParse(_datefin.text), 
+                      isDraft: widget.detail.isDraft, 
+                      enableChangeAfterSending: widget.detail.enableChangeAfterSending, 
+                      additionalTime: widget.detail.additionalTime, 
+                      randomQuestions: widget.detail.randomQuestions, 
+                      questionsRandomNumber: double.parse(_random.text).toInt(), 
+                      mixedQuestions: widget.detail.mixedQuestions, 
+                      mixedResponses: widget.detail.mixedResponses, 
+                      manualCorrection: widget.detail.manualCorrection, 
+                      publicationCorrection: widget.detail.publicationCorrection);
+                      await UpdateQuizz(storage.getItem('token'), newDetail);
+                        }catch(e){
+                          print(e);
+                        }
+
+                     
                       }),
                   Iconstext(icon: Icons.clear, name: "Annuler", callBack: () async{
                     await DeleteQuizz(storage.getItem('token'));

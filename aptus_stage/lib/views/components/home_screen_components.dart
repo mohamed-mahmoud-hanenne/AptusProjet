@@ -22,26 +22,6 @@ class QuizzList extends StatefulWidget {
 
 class _QuizzListState extends State<QuizzList> {
 
-    static const String urldelete =
-      'http://192.168.1.130:8002/courses/quizzes/12/';
-      
-  Future<void> DeleteQuizz(String mytokens) async {
-
-
-    void delete;
-    final url = Uri.parse('$urldelete');
-    await http.delete(url, headers: {
-      // 'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'token $mytokens',
-    }, ).then((response) {
-      print(response.statusCode);
-      print(response.body);
-    }).catchError((error) {
-      print('Error: $error');
-    });
-    return delete;
-  }
   
   bool creer = false;
   @override
@@ -50,14 +30,13 @@ class _QuizzListState extends State<QuizzList> {
       Container(
         margin: EdgeInsets.only(top: 10),
           alignment: Alignment.center,
-          width: screenWidth(context) >= 800 ? 1100 : 600,
+          width: screenWidth(context) >= 800 ? 1300 : 600,
           height: screenWidth(context) >= 800 ? 200 : 200,
           decoration: BoxDecoration(
             color: Colors.white,
           ),
          child: FutureBuilder(
           future: getQuizzes(
-         
            storage.getItem('token')
           ),
           builder: (context,snapshot){

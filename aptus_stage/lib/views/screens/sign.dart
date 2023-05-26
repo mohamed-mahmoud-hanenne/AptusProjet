@@ -66,195 +66,228 @@ class _SIgnState extends State<Sign> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration:
-            BoxDecoration(border: Border.all(color: Colors.grey, width: 0.5)),
-        width: 300,
-        height: 700,
-        margin: EdgeInsets.fromLTRB(520, 50, 0, 0),
-        child: SingleChildScrollView(
-          
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+      backgroundColor: Colors.grey.withOpacity(0.2),
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(15)
+            ),
+            margin: EdgeInsets.all(15),
+            width: 1100,
+            height: 900,
+            child: Row(
+              children: [
               Image.asset(
-                "assets/img/aptu.jpg",
-                width: screenWidth(context) >= 800 ? 70 : 30,
+              "assets/img/login.png",
+              width: screenWidth(context) >= 800 ? 450 : 300,
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: TextField(
-                  controller: _username,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.purple[50],
-                    border: InputBorder.none,
-                    labelText: 'Username',
-                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.grey)),
-                    hintStyle: TextStyle(
-                        color: Color.fromARGB(255, 73, 234, 215),
-                        fontFamily: "myfont",
-                        fontWeight: FontWeight.bold),
-                   
+            Container(
+              
+              decoration:
+                  BoxDecoration(border: Border.all(color: Colors.grey, width: 0.5),
+                  borderRadius: BorderRadius.circular(15),
                  
                   ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-        
-                Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: TextField(
-                  controller: _firstname,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.purple[50],
-                    border: InputBorder.none,
-                    labelText: 'First name',
-                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.grey)),
-                    hintStyle: TextStyle(
-                        color: Color.fromARGB(255, 73, 234, 215),
-                        fontFamily: "myfont",
-                        fontWeight: FontWeight.bold),
-                   
-                 
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-               Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: TextField(
-                  controller: _lastname,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.purple[50],
-                    border: InputBorder.none,
-                    labelText: 'Last name',
-                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.grey)),
-                    hintStyle: TextStyle(
-                        color: Color.fromARGB(255, 73, 234, 215),
-                        fontFamily: "myfont",
-                        fontWeight: FontWeight.bold),
-                   
-                 
-                  ),
-                ),
-              ),
-        
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: TextField(
-                 obscureText: true,
-                  controller: _password,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.purple[50],
-                    border: InputBorder.none,
-                    labelText: 'password',
-                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.grey)),
-                    hintStyle: TextStyle(
-                        color: Color.fromARGB(255, 73, 234, 215),
-                        fontFamily: "myfont",
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    color: Colors.purple[50],
-                    borderRadius: BorderRadius.circular(10)),
-                width: 250,
-                height: 40,
-                child: ElevatedButton(
-                    onPressed: () async {
-                      await login();
-                      if (statu == 200) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const Home()),
-                        );
-                      } else {
-                        showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                                  actions: [
-                                    TextButton(
-                                      child: const Text(
-                                        'Réssayer', 
-                                        style: TextStyle(
-                                          color: Color.fromARGB(255, 33, 233, 243),
-                                          fontFamily: "myfont"
-                                          )
+                  
+              width: screenWidth(context) >= 800 ? 400 : 200,
+              height: screenWidth(context) >= 800 ? 580 : 300,
+              margin: EdgeInsets.fromLTRB(200, 20, 0, 0),
+              child: SingleChildScrollView(
+                
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      "assets/img/aptu.jpg",
+                      width: screenWidth(context) >= 800 ? 70 : 30,
+                    ),
+                    SizedBox(
+                      height: screenWidth(context) >= 800 ? 20 : 10,
+                    ),
+                    Padding(
+                      padding:  EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                      child: TextField(
+                        controller: _username,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.purple[50],
+                          border: InputBorder.none,
+                          labelText: 'Username',
+                          labelStyle: TextStyle(fontFamily: 'myfont'),
+                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.grey)),
+                          hintStyle: TextStyle(
+                              color: Color.fromARGB(255, 73, 234, 215),
+                              fontFamily: "myfont",
+                              fontWeight: FontWeight.bold),
+                         
+                       
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+              
+                      Padding(
+                      padding:  EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                      child: TextField(
+                        controller: _firstname,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.purple[50],
+                          border: InputBorder.none,
+                          labelText: 'First name',
+                          labelStyle: TextStyle(fontFamily: 'myfont'),
+                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.grey)),
+                          hintStyle: TextStyle(
+                              color: Color.fromARGB(255, 73, 234, 215),
+                              fontFamily: "myfont",
+                              fontWeight: FontWeight.bold),
+                         
+                       
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                     Padding(
+                      padding:  EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                      child: TextField(
+                        controller: _lastname,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.purple[50],
+                          border: InputBorder.none,
+                          labelText: 'Last name',
+                          labelStyle: TextStyle(fontFamily: 'myfont'),
+                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.grey)),
+                          hintStyle: TextStyle(
+                              color: Color.fromARGB(255, 73, 234, 215),
+                              fontFamily: "myfont",
+                              fontWeight: FontWeight.bold),
+                         
+                       
+                        ),
+                      ),
+                    ),
+              
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                      child: TextField(
+                       obscureText: true,
+                        controller: _password,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.purple[50],
+                          border: InputBorder.none,
+                          labelText: 'password',
+                          labelStyle: TextStyle(fontFamily: 'myfont'),
+                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.grey)),
+                          hintStyle: TextStyle(
+                              color: Color.fromARGB(255, 73, 234, 215),
+                              fontFamily: "myfont",
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.purple[50],
+                          borderRadius: BorderRadius.circular(10)),
+                      width: screenWidth(context) >= 800 ? 250 : 100,
+                      height: screenWidth(context) >= 800 ? 40 : 20,
+                      child: ElevatedButton(
+                          onPressed: () async {
+                            await login();
+                            if (statu == 200) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const Home()),
+                              );
+                            } else {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                        actions: [
+                                          TextButton(
+                                            child: const Text(
+                                              'Réssayer', 
+                                              style: TextStyle(
+                                                color: Color.fromARGB(255, 33, 233, 243),
+                                                fontFamily: "myfont"
+                                                )
+                                                ),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
                                           ),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                  icon: Icon(
-                                    Icons.error,
-                                    color: Colors.red,
-                                  ),
-                                  title: Text(
-                                    "Erreur",
-                                    style: TextStyle(
-                                        color: Colors.red, fontFamily: "myfont"),
-                                  ),
-                                ));
-                      }
-                    },
-                    child: Text(
-                      "Sign Up",
-                      style: TextStyle(
-                          fontFamily: "myfont",
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10),
-                    ),
-                    style: ButtonStyle(
-                        padding: MaterialStateProperty.all(
-                            EdgeInsets.symmetric(horizontal: 105, vertical: 15)),
-                        backgroundColor: MaterialStateProperty.all(
-                            Color.fromARGB(255, 66, 246, 240)),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))))),
-              ),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Vous avez un compte aptus? ",
-                              style: TextStyle(color: Colors.purple)),
-
-
-                   GestureDetector(
-                    child: Text(
-                            " Log in ",
+                                        ],
+                                        icon: Icon(
+                                          Icons.error,
+                                          color: Colors.red,
+                                        ),
+                                        title: Text(
+                                          "Erreur",
+                                          style: TextStyle(
+                                              color: Colors.red, fontFamily: "myfont"),
+                                        ),
+                                      ));
+                            }
+                          },
+                          child: Text(
+                            "Sign Up",
                             style: TextStyle(
-                                color: Colors.purple[800],
                                 fontFamily: "myfont",
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
                           ),
-                    onTap: () {Navigator.pushNamed(context, "/login");},
+                          style: ButtonStyle(
+                              padding: MaterialStateProperty.all(
+                                  EdgeInsets.symmetric(horizontal: 90, vertical: 10)),
+                              backgroundColor: MaterialStateProperty.all(
+                                  Color.fromARGB(255, 66, 246, 240)),
+                              shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10))))),
                     ),
-                        ],
-                      )
-            ],
-          ),
-        ),
+                
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("Vous avez un compte aptus? ",
+                                    style: TextStyle(color: Colors.purple, fontFamily: 'myfont')),
+                
+                
+                         GestureDetector(
+                          child: Text(
+                                  " Log in ",
+                                  style: TextStyle(
+                                      color: Colors.purple[800],
+                                      fontFamily: "myfont",
+                                      fontWeight: FontWeight.bold),
+                                ),
+                          onTap: () {Navigator.pushNamed(context, "/login");},
+                          ),
+                              ],
+                            )
+                  ],
+                ),
+              ),
+            )
+              ],
+            ),
+          )
+,
+        ],
       ),
     );
   }

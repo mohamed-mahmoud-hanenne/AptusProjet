@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:aptus_stage/views/screens/Acceuil.dart';
 import 'package:aptus_stage/views/screens/Home.dart';
 import 'package:aptus_stage/views/screens/login.dart';
 import 'package:aptus_stage/responsives/mobile.dart';
@@ -25,9 +26,10 @@ class MyApp extends StatelessWidget {
       // builder: DevicePreview.appBuilder,
   initialRoute: '/',
   routes: {
-    '/': (context) => const Login(),
+    '/': (context) => const Accueil(),
     '/sign': (context) => const Sign(),
     '/login': (context) => const Login(),
+    
   },
      
     );
