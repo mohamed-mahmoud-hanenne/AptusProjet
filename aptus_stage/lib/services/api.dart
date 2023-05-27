@@ -14,7 +14,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
   }
 
 
-//   //function get all quizz
+//function get all quizz
    const String host = 'http://192.168.0.120:8002/';
    Future<List<Quizz>> getQuizzes(String mytokens) async {
     
@@ -44,7 +44,36 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
     return quizzes;
   }
 
+       //function get question type
+   const String hostques = 'http://192.168.0.120:8002/init/';
+   Future<Questions?> gettypeques(String mytokens) async {
+    
+  Questions? question;
 
+    try {
+       final url = Uri.parse('$hostques'+'courses_init');
+    final response =
+    await http.get(url, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'token $mytokens',
+    });
+
+    var jsonques = jsonDecode(response.body);
+    print(response.statusCode);
+    print(jsonques);
+
+    question=
+        Questions.fromJson(jsonques)
+      ;
+    
+    } catch (e) {
+      print(e);
+      question =null;
+    }
+    
+    return question;
+  }
   //function create quizz
    const String hosturl = 'http://192.168.0.120:8002/';
    Future<int> createQuizze(String mytokens) async {
@@ -171,3 +200,4 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
     });
     return detail;
   }
+

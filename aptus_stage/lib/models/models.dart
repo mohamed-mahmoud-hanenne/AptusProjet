@@ -23,8 +23,39 @@ class Quizz {
 }
 
 
+class Questions{
+  final String qcmsingle ;
+  final String qcmmultiple;
+  final String longanswer;
+  final String shortanswer;
+  final String matching ;
+  final String numerical;
+  final String fillin;
 
 
+    Questions({
+    required this.qcmsingle,
+    required this.qcmmultiple,
+    required this.longanswer,
+    required this.shortanswer,
+    required this.matching,
+    required this.numerical,
+    required this.fillin,
+  });
+  
+    static Questions fromJson(Map<String,dynamic> ques){
+    return  Questions(
+      qcmsingle: ques['qcm_single'], 
+      qcmmultiple: ques['qcm_multiple'], 
+      longanswer: ques['long_answer'], 
+      shortanswer: ques['short_answer'], 
+      matching: ques['matching'], 
+      numerical: ques['numerical'], 
+      fillin: ques['fill_in_the_blank']
+      );
+}
+
+}
 
 class Detail {
    String title;
@@ -86,17 +117,6 @@ class Detail {
 }
 
 
- class Questions{
-  final String username;
-
-  Questions({
-    required this.username
-  });
-
-  static Questions fromJson(Map<String, dynamic> json) {
-    return Questions(username: json["username"]);
-  }
-  
- }
+ 
  
 

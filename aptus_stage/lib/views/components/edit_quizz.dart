@@ -34,7 +34,7 @@ class _EditQuizzState extends State<EditQuizz> {
   Widget build(BuildContext context) {
     return Container(
           width: screenWidth(context) >= 800 ? 1300 : 800,
-          height: screenWidth(context) >= 800 ? 900 : 700,
+          height: screenWidth(context) >= 800 ? 700 : 600,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: Colors.white

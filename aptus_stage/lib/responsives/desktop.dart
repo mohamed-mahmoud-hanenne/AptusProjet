@@ -31,12 +31,14 @@ class _MyDesktopState extends State<MyDesktop> {
 //   bool ajouter = false;
 //   bool importer = false;
 
-//   @override
-//   void initState() {
-//     super.initState();
-//     mytokens
-//     getdetail();
-//   }
+  @override
+  void initState() {
+    super.initState();
+    
+    gettypeques(
+      storage.getItem('token')
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +169,7 @@ class _MyDesktopState extends State<MyDesktop> {
                               ],
                             ),
                             quest
-                                ? Container(child: Text("data"),)
+                                ? QuesTest()
                                 : FutureBuilder(
                                     future:  getdetail(storage.getItem('token'), idquizz),
                                     builder: (context, snapshot) {
@@ -204,7 +206,7 @@ class _MyDesktopState extends State<MyDesktop> {
                               ],
                             ),
                             quest
-                                ? Container(child: Text("data"),)
+                                ? QuesTest()
                                 : FutureBuilder(
                                     future: getdetail(storage.getItem('token'), storage.getItem('id')),
                                     builder: (context, snapshot) {

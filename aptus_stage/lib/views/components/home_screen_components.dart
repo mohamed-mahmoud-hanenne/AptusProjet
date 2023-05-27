@@ -81,13 +81,13 @@ class _QuizzListState extends State<QuizzList> {
                       )
                     ),
 
-                    TableCell(
-                    verticalAlignment: TableCellVerticalAlignment.middle,
-                    child: Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Text(quizzes[index].id.toString(), style: TextStyle(fontFamily: "myfont"),)
-                      )
-                    ),
+                    // TableCell(
+                    // verticalAlignment: TableCellVerticalAlignment.middle,
+                    // child: Padding(
+                    //   padding: EdgeInsets.all(5),
+                    //   child: Text(quizzes[index].id.toString(), style: TextStyle(fontFamily: "myfont"),)
+                    //   )
+                    // ),
 
                     TableCell(
                     verticalAlignment: TableCellVerticalAlignment.middle,
@@ -155,9 +155,9 @@ class _QuizzListState extends State<QuizzList> {
                   !Provider.of<EvaluProvider>(context,listen: false).creer
                 );
                 
-                await createQuizze(
-                  storage.getItem('token')
-                );
+                // await createQuizze(
+                //   storage.getItem('token')
+                // );
              
                 
                
