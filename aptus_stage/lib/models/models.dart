@@ -7,18 +7,24 @@ class Quizz {
   final String title ;
   final String description;
   final int coeff;
+  final int id;
 
   Quizz({
     required this.title,
     required this.description,
-    required this.coeff
+    required this.coeff,
+    required this.id
   });
 
  static Quizz fromJson(Map<String,dynamic> json){
-    return  Quizz(title: json['title'], description: json['description'], coeff: json['coeff']);
+    return  Quizz(title: json['title'], description: json['description'], coeff: json['coeff'], id: json['id']);
   }
 
 }
+
+
+
+
 
 class Detail {
    String title;

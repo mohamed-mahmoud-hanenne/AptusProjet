@@ -1,5 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_import
-
+import 'package:aptus_stage/controllers/providers.dart';
 import 'package:aptus_stage/models/models.dart';
 import 'package:aptus_stage/responsives/desktop.dart';
 import 'package:aptus_stage/services/api.dart';
@@ -9,15 +8,17 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class EditQuizz extends StatefulWidget {
-  const EditQuizz({super.key, required this.detail});
+import 'package:provider/provider.dart';
+
+class EditQuizzId extends StatefulWidget {
+  const EditQuizzId({super.key, required this.detail});
   final Detail detail;
 
   @override
-  State<EditQuizz> createState() => _EditQuizzState();
+  State<EditQuizzId> createState() => _EditQuizzIdState();
 }
 
-class _EditQuizzState extends State<EditQuizz> {
+class _EditQuizzIdState extends State<EditQuizzId> {
 
   final TextEditingController _title = TextEditingController();
   final TextEditingController _descp = TextEditingController();
@@ -304,15 +305,16 @@ class _EditQuizzState extends State<EditQuizz> {
                       mixedResponses: widget.detail.mixedResponses, 
                       manualCorrection: widget.detail.manualCorrection, 
                       publicationCorrection: widget.detail.publicationCorrection);
-                      await UpdateQuizz(storage.getItem('token'), newDetail, storage.getItem('id'));
+                      await UpdateQuizz(storage.getItem('token'), newDetail, idquizz);
                         }catch(e){
                           print(e);
                         }
 
                      
                       }),
-                  Iconstext(icon: Icons.clear, name: "Annuler", callBack: () async{
-                    await DeleteQuizz(storage.getItem('token'), storage.getItem('id'));
+                  Iconstext(icon: Icons.clear, name: "Annuler", callBack: () {
+                     Provider.of<EvaluProvider>(context, listen: false).setEvalu(
+                     !Provider.of<EvaluProvider>(context, listen: false).evalu);
                   })
                 ],
               ),

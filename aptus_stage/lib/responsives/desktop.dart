@@ -5,6 +5,7 @@ import 'package:aptus_stage/models/models.dart';
 import 'package:aptus_stage/services/api.dart';
 import 'package:aptus_stage/views/components/add_question.dart';
 import 'package:aptus_stage/views/components/edit_quizz.dart';
+import 'package:aptus_stage/views/components/edit_quizz_id.dart';
 import 'package:aptus_stage/views/components/home_screen_components.dart';
 import 'package:aptus_stage/views/screens/sidebar.dart';
 import 'package:flutter/cupertino.dart';
@@ -149,14 +150,14 @@ class _MyDesktopState extends State<MyDesktop> {
                           children: [
                             Row(
                               children: [
-                                ParamQuestions(
+                                ParamQuestionsEdit(
                                     name: 'Questions',
                                     paramQues: () {
                                       setState(() {
                                         quest = true;
                                       });
                                     }),
-                                ParamQuestions(
+                                ParamQuestionsEdit(
                                     name: 'Paramétrages',
                                     paramQues: () {
                                       setState(() {
@@ -168,10 +169,10 @@ class _MyDesktopState extends State<MyDesktop> {
                             quest
                                 ? Container(child: Text("data"),)
                                 : FutureBuilder(
-                                    future: getdetail(storage.getItem('token')),
+                                    future:  getdetail(storage.getItem('token'), idquizz),
                                     builder: (context, snapshot) {
                                       if (snapshot.hasData) {
-                                        return EditQuizz(
+                                        return EditQuizzId(
                                           detail: snapshot.data!,
                                         );
                                       } else
@@ -205,7 +206,7 @@ class _MyDesktopState extends State<MyDesktop> {
                             quest
                                 ? Container(child: Text("data"),)
                                 : FutureBuilder(
-                                    future: getdetail(storage.getItem('token')),
+                                    future: getdetail(storage.getItem('token'), storage.getItem('id')),
                                     builder: (context, snapshot) {
                                       if (snapshot.hasData) {
                                         return EditQuizz(
@@ -281,6 +282,33 @@ class SousMenuItem extends StatelessWidget {
 
 class ParamQuestions extends StatelessWidget {
   const ParamQuestions(
+      {super.key, required this.name, required this.paramQues});
+
+  final String name;
+  final Function paramQues;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          margin: EdgeInsets.fromLTRB(20, 10, 0, 0),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              border: Border.all(color: Colors.grey, width: 0.2)),
+          child: TextButton(
+            child: Text(name),
+            onPressed: () {
+              paramQues();
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class ParamQuestionsEdit extends StatelessWidget {
+  const ParamQuestionsEdit(
       {super.key, required this.name, required this.paramQues});
 
   final String name;

@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:localstorage/localstorage.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -22,7 +23,7 @@ class QuizzList extends StatefulWidget {
 
 class _QuizzListState extends State<QuizzList> {
 
-  
+  int id = 0;
   bool creer = false;
   @override
   Widget build(BuildContext context) {
@@ -84,21 +85,33 @@ class _QuizzListState extends State<QuizzList> {
                     verticalAlignment: TableCellVerticalAlignment.middle,
                     child: Padding(
                       padding: EdgeInsets.all(5),
+                      child: Text(quizzes[index].id.toString(), style: TextStyle(fontFamily: "myfont"),)
+                      )
+                    ),
+
+                    TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: Padding(
+                      padding: EdgeInsets.all(5),
                       child: IconButton(
                         icon: Icon(
                           Icons.edit, 
                           color: Color.fromARGB(255, 33, 236, 243),
                           size: 15,
-                          ), 
-                          onPressed: (){
+                          ),
+                         
+                          onPressed: () {
                      Provider.of<EvaluProvider>(context, listen: false).setEvalu(
                      !Provider.of<EvaluProvider>(context, listen: false).evalu);
                       
                       Provider.of<EvaluProvider>(context, listen: false).setEdit(
                         !Provider.of<EvaluProvider>(context, listen: false).edit);
 
+
+                              idquizz = quizzes[index].id;
+                          
                           },)
-                      )
+                      )   
                     ),
 
                     TableCell(
@@ -111,7 +124,7 @@ class _QuizzListState extends State<QuizzList> {
                           size: 15,
                           ),
                            onPressed: () async{
-                           await DeleteQuizz(storage.getItem('token'));
+                           await DeleteQuizz(storage.getItem('token'), idquizz);
                          
                            },)
                       )
@@ -142,9 +155,9 @@ class _QuizzListState extends State<QuizzList> {
                   !Provider.of<EvaluProvider>(context,listen: false).creer
                 );
                 
-                // await createQuizze(
-                //   storage.getItem('token')
-                // );
+                await createQuizze(
+                  storage.getItem('token')
+                );
              
                 
                

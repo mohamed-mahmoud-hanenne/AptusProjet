@@ -1,11 +1,18 @@
 import 'package:aptus_stage/models/models.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:localstorage/localstorage.dart';
 import 'package:aptus_stage/views/components/edit_quizz.dart';
 
   final LocalStorage storage = new LocalStorage('todo_app.json');
-  late String mytokens;
+  
+  late int idquizz;
+  
+  _saveToStorage(int id) {
+    storage.setItem('id', id);
+  }
+
 
 //   //function get all quizz
    const String host = 'http://192.168.0.120:8002/';
@@ -40,8 +47,9 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
 
   //function create quizz
    const String hosturl = 'http://192.168.0.120:8002/';
-   Future<void> createQuizze(String mytokens) async {
+   Future<int> createQuizze(String mytokens) async {
     
+   int id =0;
     final url = Uri.parse('$hosturl'+'courses/quizzes/');
 
     await http.post(url, headers: {
@@ -49,19 +57,29 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
       'Accept': 'application/json',
       'Authorization': 'token $mytokens',
     }).then((respon) {
-      print(respon.body);
      
+     
+    Map<String,dynamic> create = jsonDecode(respon.body);
+     print(create);
+     id = create['id'];
+    
+    int idcreate = create['id'];
+     _saveToStorage(idcreate);
     }).catchError((error) {
       print(error);
     });
     
+    return id;
+    
   }
 
+
+
    //function get deatil quizz
-  const String urldeatil = 'http://192.168.0.120:8002/courses/quizzes/12';
-  Future<Detail?> getdetail(String mytokens) async {
+  const String urldeatil = 'http://192.168.0.120:8002/courses/quizzes/';
+  Future<Detail?> getdetail(String mytokens, int idquizz) async {
     Detail? detail;
-    final url = Uri.parse('$urldeatil');
+    final url = Uri.parse('$urldeatil'+ idquizz.toString());
     await http.get(url, headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -69,8 +87,8 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
     }).then((response) {
       detail = Detail.fromJson(jsonDecode(response.body));
       
-      // print(response.statusCode);
-      // print(detail);
+      print(response.statusCode);
+      print(response.body);
     }).catchError((error) {
       print('Error: $error');
     });
@@ -78,13 +96,11 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
   }
 
      const String urlupdate =
-      'http://192.168.0.120:8002/courses/quizzes/12/';
-  Future<void> UpdateQuizz(String mytokens,Detail detail ) async {
+      'http://192.168.0.120:8002/courses/quizzes/';
+  Future<void> UpdateQuizz(String mytokens,Detail detail , int idquizz) async {
    
-   print("jj");
     var update;
-    final url = Uri.parse('$urlupdate');
-    print('lll');
+    final url = Uri.parse('$urlupdate'+ idquizz.toString() + '/');
     await http.put(url, headers: {
       // 'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -117,12 +133,12 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
   
 
    const String urldelete =
-      'http://192.168.0.120:8002/courses/quizzes/16/';
-  Future<void> DeleteQuizz(String mytokens) async {
+      'http://192.168.0.120:8002/courses/quizzes/';
+  Future<void> DeleteQuizz(String mytokens, int idquizz) async {
 
 
     void delete;
-    final url = Uri.parse('$urldelete');
+    final url = Uri.parse('$urldelete'+ idquizz.toString() + '/');
     await http.delete(url, headers: {
       // 'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -134,4 +150,24 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
       print('Error: $error');
     });
     return delete;
+  }
+
+
+   const String urldeat = 'http://192.168.0.120:8002/courses/quizzes/';
+  Future<Detail?> getdeta(String mytokens, int idquizz) async {
+    Detail? detail;
+    final url = Uri.parse('$urldeatil'+ idquizz.toString());
+    await http.get(url, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'token $mytokens',
+    }).then((response) {
+      detail = Detail.fromJson(jsonDecode(response.body));
+      
+      print(response.statusCode);
+      print(response.body);
+    }).catchError((error) {
+      print('Error: $error');
+    });
+    return detail;
   }
