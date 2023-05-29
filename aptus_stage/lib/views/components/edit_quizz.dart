@@ -1,5 +1,6 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_import
+// ignore_for_file: prefer_const_constructors, unnecessary_import, implementation_imports, unused_import, use_build_context_synchronously
 
+import 'package:aptus_stage/controllers/providers.dart';
 import 'package:aptus_stage/models/models.dart';
 import 'package:aptus_stage/responsives/desktop.dart';
 import 'package:aptus_stage/services/api.dart';
@@ -8,6 +9,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:provider/provider.dart';
 
 class EditQuizz extends StatefulWidget {
   const EditQuizz({super.key, required this.detail});
@@ -313,6 +316,8 @@ class _EditQuizzState extends State<EditQuizz> {
                       }),
                   Iconstext(icon: Icons.clear, name: "Annuler", callBack: () async{
                     await DeleteQuizz(storage.getItem('token'), storage.getItem('id'));
+                     Provider.of<EvaluProvider>(context, listen: false).setEvalu(
+                     !Provider.of<EvaluProvider>(context, listen: false).evalu);
                   })
                 ],
               ),

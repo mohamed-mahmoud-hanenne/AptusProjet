@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, implementation_imports, prefer_const_constructors, unnecessary_new
-
 import 'package:aptus_stage/controllers/providers.dart';
 import 'package:aptus_stage/models/models.dart';
 import 'package:aptus_stage/responsives/desktop.dart';
@@ -15,15 +13,15 @@ import 'dart:convert';
 
 import 'package:provider/provider.dart';
 
-class AddQuestions extends StatefulWidget {
-  AddQuestions({super.key, required this.quest,});
+class AddQuestionsId extends StatefulWidget {
+  AddQuestionsId({super.key, required this.quest,});
   final String quest;
   
   @override
-  State<AddQuestions> createState() => _AddQuestionsState();
+  State<AddQuestionsId> createState() => _AddQuestionsIdState();
 }
 
-class _AddQuestionsState extends State<AddQuestions> {
+class _AddQuestionsIdState extends State<AddQuestionsId> {
   
   List<Widget> repone = [];
   List<Widget> Bonrepone = [];
@@ -220,13 +218,16 @@ class _AddQuestionsState extends State<AddQuestions> {
                                   "point": 1,
                                   "shuffle_choices": check.toString()
                                 });
-                                await addquestions(storage.getItem('token'), newquestions, storage.getItem('id'));
+                                await addquestions(storage.getItem('token'), newquestions, idquizz);
                               }catch(e){
                                 print(e);
                               }
                           }),
                       IconsWidget(
-                          icon: Icons.clear, name: 'Annuler', callBack: () {})
+                          icon: Icons.clear, name: 'Annuler', callBack: () {
+                     Provider.of<EvaluProvider>(context, listen: false).setEvalu(
+                     !Provider.of<EvaluProvider>(context, listen: false).evalu);
+                          })
                     ],
                   ),
                 )

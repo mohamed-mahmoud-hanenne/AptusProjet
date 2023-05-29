@@ -45,13 +45,13 @@ class Questions{
   
     static Questions fromJson(Map<String,dynamic> ques){
     return  Questions(
-      qcmsingle: ques['qcm_single'], 
-      qcmmultiple: ques['qcm_multiple'], 
-      longanswer: ques['long_answer'], 
-      shortanswer: ques['short_answer'], 
-      matching: ques['matching'], 
-      numerical: ques['numerical'], 
-      fillin: ques['fill_in_the_blank']
+      qcmsingle: ques['question_types']['qcm_single'], 
+      qcmmultiple: ques['question_types']['qcm_multiple'], 
+      longanswer: ques['question_types']['long_answer'], 
+      shortanswer: ques['question_types']['short_answer'], 
+      matching: ques['question_types']['matching'], 
+      numerical: ques['question_types']['numerical'], 
+      fillin: ques['question_types']['fill_in_the_blank']
       );
 }
 
@@ -119,4 +119,36 @@ class Detail {
 
  
  
+
+class Question {
+  String questionText;
+  String questionType;
+  Map<String, dynamic> data;
+  Map<String, dynamic> questionParams;
+
+  Question({
+    required this.questionText,
+    required this.questionType,
+    required this.data,
+    required this.questionParams,
+  });
+
+  factory Question.fromJson(Map<String, dynamic> json) {
+    return Question(
+      questionText: json['question_text'],
+      questionType: json['question_type'],
+      data: json['data'],
+      questionParams: json['questions_params'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'question_text': questionText,
+      'question_type': questionType,
+      'data': data,
+      'questions_params': questionParams,
+    };
+  }
+}
 

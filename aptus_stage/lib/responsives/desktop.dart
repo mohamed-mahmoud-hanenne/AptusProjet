@@ -4,6 +4,7 @@ import 'package:aptus_stage/controllers/providers.dart';
 import 'package:aptus_stage/models/models.dart';
 import 'package:aptus_stage/services/api.dart';
 import 'package:aptus_stage/views/components/add_question.dart';
+import 'package:aptus_stage/views/components/add_question_id.dart';
 import 'package:aptus_stage/views/components/edit_quizz.dart';
 import 'package:aptus_stage/views/components/edit_quizz_id.dart';
 import 'package:aptus_stage/views/components/home_screen_components.dart';
@@ -28,16 +29,14 @@ class MyDesktop extends StatefulWidget {
 
 class _MyDesktopState extends State<MyDesktop> {
   bool quest = true;
-//   bool ajouter = false;
-//   bool importer = false;
 
   @override
   void initState() {
     super.initState();
-    
-    gettypeques(
-      storage.getItem('token')
-    );
+
+    // gettypeques(
+    //   storage.getItem('token')
+    // );
   }
 
   @override
@@ -142,86 +141,96 @@ class _MyDesktopState extends State<MyDesktop> {
         body: ChangeNotifierProvider(
             create: (context) => EvaluProvider(),
             builder: (context, child) => SingleChildScrollView(
-                    child: Column(children: [
-                  SousMenu(),
-                  Provider.of<EvaluProvider>(context).evalu
-                      ? QuizzList()
-                      : SizedBox(),
-                  Provider.of<EvaluProvider>(context).edit
-                      ? Column(
-                          children: [
-                            Row(
-                              children: [
-                                ParamQuestionsEdit(
-                                    name: 'Questions',
-                                    paramQues: () {
-                                      setState(() {
-                                        quest = true;
-                                      });
-                                    }),
-                                ParamQuestionsEdit(
-                                    name: 'Paramétrages',
-                                    paramQues: () {
-                                      setState(() {
-                                        quest = false;
-                                      });
-                                    }),
-                              ],
-                            ),
-                            quest
-                                ? QuesTest()
-                                : FutureBuilder(
-                                    future:  getdetail(storage.getItem('token'), idquizz),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.hasData) {
-                                        return EditQuizzId(
-                                          detail: snapshot.data!,
-                                        );
-                                      } else
-                                        return CupertinoActivityIndicator();
-                                    },
-                                  )
-                          ],
-                        )
-                      : SizedBox(),
-                  Provider.of<EvaluProvider>(context).creer
-                      ? Column(
-                          children: [
-                            Row(
-                              children: [
-                                ParamQuestions(
-                                    name: 'Questions',
-                                    paramQues: () {
-                                      setState(() {
-                                        quest = true;
-                                      });
-                                    }),
-                                ParamQuestions(
-                                    name: 'Paramétrages',
-                                    paramQues: () {
-                                      setState(() {
-                                        quest = false;
-                                      });
-                                    }),
-                              ],
-                            ),
-                            quest
-                                ? QuesTest()
-                                : FutureBuilder(
-                                    future: getdetail(storage.getItem('token'), storage.getItem('id')),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.hasData) {
-                                        return EditQuizz(
-                                          detail: snapshot.data!,
-                                        );
-                                      } else
-                                        return CupertinoActivityIndicator();
-                                    },
-                                  )
-                          ],
-                        )
-                      : SizedBox()
-                ]))));
+                    child: Container(
+                  color: Colors.grey[200],
+                  child: Column(children: [
+                    SousMenu(),
+                    Provider.of<EvaluProvider>(context).evalu
+                        ? QuizzList()
+                        : SizedBox(),
+                    Provider.of<EvaluProvider>(context).edit
+                        ? Column(
+                            children: [
+                              Row(
+                                children: [
+                                  ParamQuestionsEdit(
+                                      name: 'Questions',
+                                      paramQues: () {
+                                        setState(() {
+                                          quest = true;
+                                        });
+                                      }),
+                                  ParamQuestionsEdit(
+                                      name: 'Paramétrages',
+                                      paramQues: () {
+                                        setState(() {
+                                          quest = false;
+                                        });
+                                      }),
+                                ],
+                              ),
+                              quest
+                                  ? AddQuestionsId(
+                                      quest: "Questions",
+                                    )
+                                  : FutureBuilder(
+                                      future: getdetail(
+                                          storage.getItem('token'), idquizz),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasData) {
+                                          return EditQuizzId(
+                                            detail: snapshot.data!,
+                                          );
+                                        } else
+                                          return CupertinoActivityIndicator();
+                                      },
+                                    )
+                            ],
+                          )
+                        : SizedBox(),
+                    Provider.of<EvaluProvider>(context).creer
+                        ? Column(
+                            children: [
+                              Row(
+                                children: [
+                                  ParamQuestions(
+                                      name: 'Questions',
+                                      paramQues: () {
+                                        setState(() {
+                                          quest = true;
+                                        });
+                                      }),
+                                  ParamQuestions(
+                                      name: 'Paramétrages',
+                                      paramQues: () {
+                                        setState(() {
+                                          quest = false;
+                                        });
+                                      }),
+                                ],
+                              ),
+                              quest
+                                  ? AddQuestions(
+                                      quest: "Questions",
+                                    )
+                                  : FutureBuilder(
+                                      future: getdetail(
+                                          storage.getItem('token'),
+                                          storage.getItem('id')),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasData) {
+                                          return EditQuizz(
+                                            detail: snapshot.data!,
+                                          );
+                                        } else
+                                          return CupertinoActivityIndicator();
+                                      },
+                                    )
+                            ],
+                          )
+                        : SizedBox()
+                  ]),
+                ))));
   }
 }
 

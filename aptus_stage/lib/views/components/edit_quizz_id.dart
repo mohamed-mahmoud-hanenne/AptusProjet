@@ -2,6 +2,7 @@ import 'package:aptus_stage/controllers/providers.dart';
 import 'package:aptus_stage/models/models.dart';
 import 'package:aptus_stage/responsives/desktop.dart';
 import 'package:aptus_stage/services/api.dart';
+import 'package:aptus_stage/views/components/home_screen_components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -40,7 +41,7 @@ class _EditQuizzIdState extends State<EditQuizzId> {
             borderRadius: BorderRadius.circular(15),
             color: Colors.white
           ),
-      margin: EdgeInsets.fromLTRB(20, 20, 0, 0),
+      margin: EdgeInsets.all(40),
       child: Column(children: [
         Row(
           children: [
@@ -49,7 +50,8 @@ class _EditQuizzIdState extends State<EditQuizzId> {
               champ: TextField( 
                 controller: _title,
                 decoration: InputDecoration(
-                    border: InputBorder.none, hintText: widget.detail.title),
+                    border: OutlineInputBorder(), 
+                    hintText: widget.detail.title),
               ),
             ),
             SizedBox(
@@ -60,7 +62,7 @@ class _EditQuizzIdState extends State<EditQuizzId> {
                 champ: TextField(
                   controller: _descp,
                   decoration: InputDecoration(
-                      border: InputBorder.none,
+                      border: OutlineInputBorder(),
                       hintText: widget.detail.description),
                 ))
           ],
@@ -75,7 +77,7 @@ class _EditQuizzIdState extends State<EditQuizzId> {
                 champ: TextField(
                   controller: _inst,
                   decoration: InputDecoration(
-                      border: InputBorder.none,
+                      border: OutlineInputBorder(),
                       hintText: widget.detail.instructions),
                 )),
             SizedBox(
@@ -86,7 +88,7 @@ class _EditQuizzIdState extends State<EditQuizzId> {
                 champ: TextField(
                   controller: _coeff,
                   decoration: InputDecoration(
-                      border: InputBorder.none,
+                      border: OutlineInputBorder(),
                       hintText: widget.detail.coeff.toString()),
                 )),
           ],
@@ -101,7 +103,7 @@ class _EditQuizzIdState extends State<EditQuizzId> {
                 champ: TextField(
                   controller: _datepub,
                   decoration: InputDecoration(
-                      border: InputBorder.none,
+                      border: OutlineInputBorder(),
                       hintText: widget.detail.publicationDate.toString()),
                 )),
             SizedBox(
@@ -112,7 +114,7 @@ class _EditQuizzIdState extends State<EditQuizzId> {
                 champ: TextField(
                   controller: _datedebut,
                   decoration: InputDecoration(
-                      border: InputBorder.none,
+                      border: OutlineInputBorder(),
                       hintText: widget.detail.startedAt.toString()),
                 ))
           ],
@@ -127,7 +129,7 @@ class _EditQuizzIdState extends State<EditQuizzId> {
                 champ: TextField(
                   controller: _datefin,
                   decoration: InputDecoration(
-                      border: InputBorder.none,
+                      border: OutlineInputBorder(),
                       hintText: widget.detail.endedAt.toString()),
                 )),
             SizedBox(
@@ -138,7 +140,7 @@ class _EditQuizzIdState extends State<EditQuizzId> {
                 champ: TextField(
                   controller: _tempsadt,
                   decoration: InputDecoration(
-                      border: InputBorder.none,
+                      border: OutlineInputBorder(),
                       hintText: widget.detail.additionalTime.toString()),
                 )),
           ],
@@ -312,7 +314,7 @@ class _EditQuizzIdState extends State<EditQuizzId> {
 
                      
                       }),
-                  Iconstext(icon: Icons.clear, name: "Annuler", callBack: () {
+                  IconsWidget(icon: Icons.clear, name: "Annuler", callBack: () {
                      Provider.of<EvaluProvider>(context, listen: false).setEvalu(
                      !Provider.of<EvaluProvider>(context, listen: false).evalu);
                   })
@@ -348,7 +350,7 @@ class ChampsEdit extends StatelessWidget {
           width: screenWidth(context) >= 800 ? 50 : 20,
         ),
         Container(
-            padding: EdgeInsets.only(bottom: 8),
+            
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey, width: 0.2)),
             width: screenWidth(context) >= 800 ? 140 : 100,

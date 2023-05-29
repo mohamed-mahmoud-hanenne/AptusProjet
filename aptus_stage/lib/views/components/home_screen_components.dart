@@ -125,7 +125,7 @@ class _QuizzListState extends State<QuizzList> {
                           ),
                            onPressed: () async{
                            await DeleteQuizz(storage.getItem('token'), idquizz);
-                         
+                          
                            },)
                       )
                     ),
@@ -155,9 +155,9 @@ class _QuizzListState extends State<QuizzList> {
                   !Provider.of<EvaluProvider>(context,listen: false).creer
                 );
                 
-                // await createQuizze(
-                //   storage.getItem('token')
-                // );
+                await createQuizze(
+                  storage.getItem('token')
+                );
              
                 
                
