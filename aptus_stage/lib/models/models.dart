@@ -23,39 +23,7 @@ class Quizz {
 }
 
 
-class Questions{
-  final String qcmsingle ;
-  final String qcmmultiple;
-  final String longanswer;
-  final String shortanswer;
-  final String matching ;
-  final String numerical;
-  final String fillin;
 
-
-    Questions({
-    required this.qcmsingle,
-    required this.qcmmultiple,
-    required this.longanswer,
-    required this.shortanswer,
-    required this.matching,
-    required this.numerical,
-    required this.fillin,
-  });
-  
-    static Questions fromJson(Map<String,dynamic> ques){
-    return  Questions(
-      qcmsingle: ques['question_types']['qcm_single'], 
-      qcmmultiple: ques['question_types']['qcm_multiple'], 
-      longanswer: ques['question_types']['long_answer'], 
-      shortanswer: ques['question_types']['short_answer'], 
-      matching: ques['question_types']['matching'], 
-      numerical: ques['question_types']['numerical'], 
-      fillin: ques['question_types']['fill_in_the_blank']
-      );
-}
-
-}
 
 class Detail {
    String title;
@@ -117,38 +85,122 @@ class Detail {
 }
 
 
- 
+ class Questions{
+  final String qcmsingle ;
+  final String qcmmultiple;
+  final String longanswer;
+  final String shortanswer;
+  final String matching ;
+  final String numerical;
+  final String fillin;
+
+
+    Questions({
+    required this.qcmsingle,
+    required this.qcmmultiple,
+    required this.longanswer,
+    required this.shortanswer,
+    required this.matching,
+    required this.numerical,
+    required this.fillin,
+  });
+  
+    static Questions fromJson(Map<String,dynamic> ques){
+    return  Questions(
+      qcmsingle: ques['question_types']['qcm_single'], 
+      qcmmultiple: ques['question_types']['qcm_multiple'], 
+      longanswer: ques['question_types']['long_answer'], 
+      shortanswer: ques['question_types']['short_answer'], 
+      matching: ques['question_types']['matching'], 
+      numerical: ques['question_types']['numerical'], 
+      fillin: ques['question_types']['fill_in_the_blank']
+      );
+}
+
+}
  
 
 class Question {
   String questionText;
   String questionType;
-  Map<String, dynamic> data;
-  Map<String, dynamic> questionParams;
+  List<String> choices;
+  String correctanswer;
+  int point;
+  bool shufflechoices;
 
   Question({
     required this.questionText,
     required this.questionType,
-    required this.data,
-    required this.questionParams,
+    required this.choices,
+    required this.correctanswer,
+    required this.point,
+    required this.shufflechoices
   });
 
   factory Question.fromJson(Map<String, dynamic> json) {
     return Question(
       questionText: json['question_text'],
       questionType: json['question_type'],
-      data: json['data'],
-      questionParams: json['questions_params'],
+      choices: json['data']['choices'],
+      correctanswer: json['data']['correct_answer'],
+      point: json['questions_params']['point'],
+      shufflechoices: json['questions_params']['shuffle_choices']
+
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'question_text': questionText,
-      'question_type': questionType,
-      'data': data,
-      'questions_params': questionParams,
-    };
-  }
+  // Map<String, dynamic> toJson() {
+  //   return {
+  //     'question_text': questionText,
+  //     'question_type': questionType,
+  //     'data': data,
+  //     'questions_params': questionParams,
+  //   };
+  // }
 }
+
+// void main() {
+//   Map<String, dynamic> jsonData = {
+//     "question_text": "What is the official language of Mauritania?",
+//     "question_type": "qcm_single",
+//     "data": {
+//       "choices": ["French", "Arabic", "English", "Spanish"],
+//       "correct_answer": "Arabic"
+//     },
+//     "questions_params": {"point": 1, "shuffle_choices": true}
+//   };
+
+//   Question question = Question.fromJson(jsonData);
+
+//   // Accessing the question data
+//   String questionText = question.questionText;
+//   String questionType = question.questionType;
+//   List<String> choices = List<String>.from(question.data['choices']);
+//   String correctAnswer = question.data['correct_answer'];
+//   int point = question.questionParams['point'];
+//   bool shuffleChoices = question.questionParams['shuffle_choices'];
+
+//   // Shuffle choices if required
+//   if (shuffleChoices) {
+//     choices.shuffle();
+//   }
+
+//   // Display the question
+//   print(questionText);
+  
+//   // Display the choices
+//   for (int i = 0; i < choices.length; i++) {
+//     print('${i + 1}. ${choices[i]}');
+//   }
+
+//   // Check the answer
+//   int userAnswer = /* Get user's answer */;
+//   String userChoice = choices[userAnswer - 1];
+
+//   if (userChoice == correctAnswer) {
+//     print("Correct answer! You scored $point point.");
+//   } else {
+//     print("Incorrect answer. The correct answer is: $correctAnswer");
+//   }
+// }
 

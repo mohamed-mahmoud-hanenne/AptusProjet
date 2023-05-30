@@ -16,15 +16,17 @@ import 'dart:convert';
 import 'package:provider/provider.dart';
 
 class AddQuestions extends StatefulWidget {
-  AddQuestions({super.key, required this.quest,});
+  AddQuestions({
+    super.key,
+    required this.quest,
+  });
   final String quest;
-  
+
   @override
   State<AddQuestions> createState() => _AddQuestionsState();
 }
 
 class _AddQuestionsState extends State<AddQuestions> {
-  
   List<Widget> repone = [];
   List<Widget> Bonrepone = [];
 
@@ -69,9 +71,10 @@ class _AddQuestionsState extends State<AddQuestions> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData && snapshot.data != null) {
                         Questions question = snapshot.data!;
-                        return ListView.builder(
+                         return ListView.builder(
                             itemCount: 7,
                             itemBuilder: (context, index) {
+                       
                               return DropdownButton(
                                 style: TextStyle(
                                     fontFamily: "myfont",
@@ -156,7 +159,8 @@ class _AddQuestionsState extends State<AddQuestions> {
                               },
                               child: Text(
                                 "Enregistrer la paramétre",
-                                style: TextStyle(color: Color.fromARGB(255, 39, 237, 224)),
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 39, 237, 224)),
                               )),
                         ],
                       ),
@@ -173,7 +177,9 @@ class _AddQuestionsState extends State<AddQuestions> {
                             ? Column(
                                 children: [
                                   BonneReponse(gval: 1),
-                                  SizedBox(height: 20,),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
                                   CheckEdit(
                                     text: "Mélanger les réponses",
                                     check: Checkbox(
@@ -198,32 +204,31 @@ class _AddQuestionsState extends State<AddQuestions> {
                       IconsWidget(
                           icon: Icons.add,
                           name: 'Ajouter',
-                          callBack: () async{
-                            print(
-                                Provider.of<EvaluProvider>(context, listen: false)
-                                    .questions[0]);
+                          callBack: () async {
+                            print(Provider.of<EvaluProvider>(context,
+                                    listen: false)
+                                .questions[0]);
 
-                              try{
-                                Question newquestions = 
-                                Question(
-                                  questionText: _uneseule.text, 
-                                questionType: selected.toString(), 
-                                data: {
-                                  "choices":[
-                                     Provider.of<EvaluProvider>(context, listen: false)
-                                    .questions.length
-                                  ],
-                                  "correct_answer": Provider.of<EvaluProvider>(context, listen: false)
-                                    .questions[0]
-                                }, 
-                                questionParams: {
-                                  "point": 1,
-                                  "shuffle_choices": check.toString()
-                                });
-                                await addquestions(storage.getItem('token'), newquestions, storage.getItem('id'));
-                              }catch(e){
-                                print(e);
-                              }
+                            try {
+                              Question question = Question(
+                                  questionText: _uneseule.text,
+                                  questionType: "qcm_single",
+                                  choices: Provider.of<EvaluProvider>(context,
+                                          listen: false)
+                                      .questions,
+                                  correctanswer: Provider.of<EvaluProvider>(
+                                          context,
+                                          listen: false)
+                                      .questions[0],
+                                  point: Provider.of<EvaluProvider>(context,
+                                          listen: false)
+                                      .textfield,
+                                  shufflechoices: check);
+                              await addquestions(storage.getItem('token'),
+                                  question, storage.getItem('id'));
+                            } catch (e) {
+                              print(e);
+                            }
                           }),
                       IconsWidget(
                           icon: Icons.clear, name: 'Annuler', callBack: () {})

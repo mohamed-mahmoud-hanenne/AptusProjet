@@ -9,13 +9,14 @@ class EvaluProvider extends ChangeNotifier{
   bool _radioSelected = false ;
   List<String> questions = [];
   int _correctAnswer = 0;
-  
+int _textfield = 0;
 
   bool get evalu => _evalu;
   bool get creer => _creer;
   bool get edit => _edit;
   bool get  radioSelected => _radioSelected;
   int  get correctAnswer => _correctAnswer;
+  int get textfield => _textfield;
 
 
  void setCorrectAnswer(int newCorrectAnswer){
@@ -48,6 +49,12 @@ class EvaluProvider extends ChangeNotifier{
 
   void setEdit(newVa) {
     _edit = newVa;
+    notifyListeners();
+  }
+
+   void setField(int newVal) {
+    
+    _textfield= newVal;
     notifyListeners();
   }
 }

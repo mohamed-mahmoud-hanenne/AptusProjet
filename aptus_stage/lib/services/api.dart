@@ -185,23 +185,35 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
 
 
 
- const String urladdques = 'http://192.168.0.120:8002/courses/quizzes/';
+ const String urladdques = 'http://192.168.1.130:8002/courses/quizzes/';
  Future<void> addquestions(String mytokens, Question  question, int idquizz) async{
-
+ 
   final url = Uri.parse('$urladdques'+ idquizz.toString() + '/add_question/');
 
+    Map<String,dynamic> data = {
+      'question_text':question.questionText,
+      'question_type':question.questionType,
+       'data': {
+        'choices':[
+          question.choices.map((e) => '$e').join(',')
+        ],
+        'correct_answer': question.correctanswer
+      },
+      'questions_params' : {
+        "point" : question.point,
+        "shuffle_choices" : question.shufflechoices
+      }
+
+    };
   await http.post(url, headers: {
-      // 'Content-Type': 'application/json',
+      'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization': 'token $mytokens',
+     
     },
-    body: {
-      "question_text": question.questionText,
-      "question_type": question.questionType,
-      "data" : question.data,
-      "questionParams":question.questionParams
-    }
+    body: jsonEncode(data)
     ).then((question) {
+      
       Map<String,dynamic> add = jsonDecode(question.body);
       print(question.statusCode);
       print(question.body);
@@ -209,3 +221,46 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
       print(error);
  });
  }
+
+
+
+
+// void sendQuestion() async {
+//   String url = 'https://example.com/api/endpoint'; // Remplacez par l'URL de votre endpoint
+
+//   Map<String, dynamic> jsonData = {
+//     "question_text": "What is the official language of Mauritania?",
+//     "question_type": "qcm_single",
+//     "data": {
+//       "choices": [
+//         "French",
+//         "Arabic",
+//         "English",
+//         "Spanish"
+//       ],
+//       "correct_answer": "Arabic"
+//     },
+//     "questions_params": {
+//       "point": 1,
+//       "shuffle_choices": true
+//     }
+//   };
+
+//   // Convertir les données en JSON
+//   String requestBody = jsonEncode(jsonData);
+
+//   // Envoyer la requête POST
+//   http.Response response = await http.post(
+//     Uri.parse(url),
+//     headers: {"Content-Type": "application/json"},
+//     body: requestBody,
+//   );
+
+//   // Vérifier le statut de la réponse
+//   if (response.statusCode == 200) {
+//     print("Question envoyée avec succès !");
+//     print("Réponse du serveur : ${response.body}");
+//   } else {
+//     print("Erreur lors de l'envoi de la question. Statut de la réponse : ${response.statusCode}");
+//   }
+// }

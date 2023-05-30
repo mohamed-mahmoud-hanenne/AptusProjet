@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:aptus_stage/controllers/providers.dart';
 import 'package:aptus_stage/models/models.dart';
 import 'package:aptus_stage/responsives/desktop.dart';
@@ -67,9 +69,23 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData && snapshot.data != null) {
                         Questions question = snapshot.data!;
+                              //    final questionTypes = {
+                              //   'qcm_single': question.qcmsingle,
+                              //   'qcm_multiple': question.qcmmultiple,
+                              //   'long_answer': question.longanswer,
+                              //   'short_answer': question.shortanswer,
+                              //   'matching': question.matching,
+                              //   'numerical': question.numerical,
+                              //   'fill_in_the_blank': question.fillin,
+                              // };
+
+                              // final questionTypeKeys =
+                              //     questionTypes.keys.toList();
+                              //     print(questionTypeKeys);
                         return ListView.builder(
                             itemCount: 7,
                             itemBuilder: (context, index) {
+                       
                               return DropdownButton(
                                 style: TextStyle(
                                     fontFamily: "myfont",
@@ -202,37 +218,56 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
                                     .questions[0]);
 
                               try{
-                                Question newquestions = 
+                                
+                                Question question = 
                                 Question(
-                                  questionText: _uneseule.text, 
-                                questionType: selected.toString(), 
-                                data: {
-                                  "choices":[
-                                     Provider.of<EvaluProvider>(context, listen: false)
-                                    .questions.length
-                                  ],
-                                  "correct_answer": Provider.of<EvaluProvider>(context, listen: false)
-                                    .questions[0]
-                                }, 
-                                questionParams: {
-                                  "point": 1,
-                                  "shuffle_choices": check.toString()
-                                });
-                                await addquestions(storage.getItem('token'), newquestions, idquizz);
+                                 questionText :_uneseule.text,
+                                 questionType: "qcm_single", 
+                                 choices: Provider.of<EvaluProvider>(context, listen: false)
+                                    .questions,
+                                 correctanswer: Provider.of<EvaluProvider>(context, listen: false)
+                                    .questions[0],
+                                 point: Provider.of<EvaluProvider>(context,listen: false).textfield,
+                                 shufflechoices: check
+                               );
+                                await addquestions(storage.getItem('token'), question, idquizz,);
                               }catch(e){
                                 print(e);
                               }
                           }),
                       IconsWidget(
                           icon: Icons.clear, name: 'Annuler', callBack: () {
-                     Provider.of<EvaluProvider>(context, listen: false).setEvalu(
+                    Provider.of<EvaluProvider>(context, listen: false).setEvalu(
                      !Provider.of<EvaluProvider>(context, listen: false).evalu);
                           })
                     ],
                   ),
-                )
+                ),
+
+                 if (selected == 'Long answer')
+                 Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(100, 30, 0, 0),
+                      width: 400,
+                      padding: EdgeInsets.all(20),
+                      child: TextField(
+                        controller: _uneseule,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: "Ajouter une question",
+                          filled: true,
+                        ),
+                      ),
+                    )
+                  ],
+                 )
+
+
               ],
             ),
+
+          
         ],
       ),
     );
@@ -395,11 +430,17 @@ class _BonneReponseState extends State<BonneReponse> {
               SizedBox(
                 width: 10,
               ),
+          
               Container(
                   width: 300,
                   margin: EdgeInsets.only(left: 50),
                   child: TextField(
-                    controller: _param,
+                  onChanged: (value) {
+                    Provider.of<EvaluProvider>(context, listen: false).setField(
+                     int.parse(value)
+                    );
+                    
+                  },
                     decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Ecrire le paramétre'),
