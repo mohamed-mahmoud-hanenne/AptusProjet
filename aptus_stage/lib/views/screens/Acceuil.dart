@@ -1,9 +1,10 @@
 
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sort_child_properties_last, camel_case_types
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sort_child_properties_last, camel_case_types, implementation_imports, unnecessary_import, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:footer/footer.dart';
 
 class Accueil extends StatefulWidget {
   const Accueil({super.key});
@@ -41,7 +42,11 @@ class _accueilState extends State<Accueil> {
             TextButton(
             onPressed: (){
               setState(() {
-                solu = true;
+                         Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const Solutions()),
+                                );
               });
             }, 
             child: Text(
@@ -112,7 +117,7 @@ class _accueilState extends State<Accueil> {
               width: 1380,
               height: 80,
               decoration: BoxDecoration(
-                color: Colors.black,
+                color: Color.fromARGB(255, 66, 246, 240),
                
               ),
              child: Row(
@@ -197,22 +202,221 @@ class _accueilState extends State<Accueil> {
               ),
             ),
             SizedBox(height: 50,),
-            solu ?
-            Row(
-              children: [
-                Container(
-                  width: 200,
-                  height: 200,
-                  decoration: BoxDecoration(
-                    color: Colors.amber
-                  ),
-                )
-              ],
-            )
-            : SizedBox()
+            //  Footer(
+            //   alignment: Alignment.center,
+            //   backgroundColor: Color.fromARGB(255, 0, 0, 0),
+            //   child: Column(
+            //     mainAxisAlignment: MainAxisAlignment.start,
+            //     children: [
+            //       Container(
+            //         height: 200,
+            //         child: Row(
+            //           crossAxisAlignment: CrossAxisAlignment.start,
+            //           children: [
+                        
+            //            Image.asset(
+            //             "assets/img/aptu.jpg",
+            //             width: 100,
+            //             height: 50,
+            //             ),
+
+            //             Text("Aptus consulting"),
+
+
+            //           ],
+            //         ),
+            //       ),
+            //      Container(
+            //       child: Divider(color: Colors.white,),
+            //       margin: EdgeInsets.only(bottom: 150),
+            //       )
+            //     ],
+            //   )
+              
+            //   )
           ],
         ),
+      ),
+
+      bottomNavigationBar: Footer(),
+      
+    );
+  }
+}
+
+
+class Solutions extends StatefulWidget {
+  const Solutions ({super.key});
+
+  @override
+  State<Solutions> createState() => _SolutionsState();
+}
+
+class _SolutionsState extends State<Solutions > {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+            appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Image.asset(
+          'assets/img/APTUS-Software.png',
+          width: 150,
+          height: 80,
+          ),
+        actions: [
+          TextButton(
+            onPressed: (){
+              setState(() {
+               
+              });
+            }, 
+            child: Text(
+              "Accueil",
+              style: TextStyle(fontFamily: 'myfont', color: Colors.grey[800],  fontWeight: FontWeight.bold),
+
+              )
+            ),
+             SizedBox(width: 30,),
+            TextButton(
+            onPressed: (){
+              setState(() {
+        
+              });
+            }, 
+            child: Text(
+              "Solutions",
+              style: TextStyle(fontFamily: 'myfont', color: Colors.grey[800], fontWeight: FontWeight.bold),
+              )
+            ),
+             SizedBox(width: 30,),
+            TextButton(
+            onPressed: (){}, 
+            child: Text(
+              "À propos",
+              style: TextStyle(fontFamily: 'myfont', color: Colors.grey[800], fontWeight: FontWeight.bold),
+              )
+            ),
+             SizedBox(width: 30,),
+            TextButton(
+            onPressed: (){}, 
+            child: Text(
+              "Contact",
+              style: TextStyle(fontFamily: 'myfont', color: Colors.grey[800], fontWeight: FontWeight.bold),
+              )
+            ),
+           SizedBox(width: 520,),
+            TextButton(
+            onPressed: (){
+              Navigator.pushNamed(context, "/login");
+            }, 
+            child: Text(
+              "Login",
+              style: TextStyle(fontFamily: 'myfont', color: Colors.grey[800], fontWeight: FontWeight.bold),
+              )
+            ),
+             SizedBox(width: 50,),
+            Container(
+              margin: EdgeInsets.all(10),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, "/sign");
+                }, 
+                child: Text(
+                  "Sign in",
+                  style: TextStyle(fontFamily: 'myfont', color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                   style: ButtonStyle(
+                                  padding: MaterialStateProperty.all(
+                                      EdgeInsets.symmetric(
+                                          horizontal: 40, vertical: 10)),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Color.fromARGB(255, 66, 246, 240)),
+                                  shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10))))
+                ),
+            )
+
+        ],
+      ),
+
+      body: Column(
+        children: [
+          Container(
+              width: 1380,
+              height: 80,
+              decoration: BoxDecoration(
+                color: Colors.black,
+              ),
+
+          )
+        ],
+      ),
+
+
+    );
+  }
+}
+
+
+
+
+
+
+class Footer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 80.0,
+      color: Colors.grey[900],
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Aptus Consulting',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Row(
+            
+            children: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.facebook,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  // Add functionality here
+                },
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  // Add functionality here
+                },
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.settings,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  // Add functionality here
+                },
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
 }
+

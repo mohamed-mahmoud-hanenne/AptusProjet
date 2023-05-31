@@ -40,6 +40,7 @@ dependencies:
   provider: ^6.0.5
   localstorage: ^4.0.1+2
   http: 
+  footer: ^0.0.4
 
 dev_dependencies:
   flutter_test:

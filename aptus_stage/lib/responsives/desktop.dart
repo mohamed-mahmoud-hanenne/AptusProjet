@@ -142,11 +142,15 @@ class _MyDesktopState extends State<MyDesktop> {
             create: (context) => EvaluProvider(),
             builder: (context, child) => SingleChildScrollView(
                     child: Container(
-                  color: Colors.grey[200],
+                  
                   child: Column(children: [
                     SousMenu(),
                     Provider.of<EvaluProvider>(context).evalu
-                        ? QuizzList()
+                        ? Container(
+                          child: QuizzList(),
+                          margin: EdgeInsets.only(top: 120),
+                          
+                          )
                         : SizedBox(),
                     Provider.of<EvaluProvider>(context).edit
                         ? Column(
