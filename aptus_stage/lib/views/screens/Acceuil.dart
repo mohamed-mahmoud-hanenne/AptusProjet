@@ -96,7 +96,7 @@ class _accueilState extends State<Accueil> {
                                       EdgeInsets.symmetric(
                                           horizontal: 40, vertical: 10)),
                                   backgroundColor: MaterialStateProperty.all(
-                                      Color.fromARGB(255, 66, 246, 240)),
+                                      Colors.black),
                                   shape: MaterialStateProperty.all(
                                       RoundedRectangleBorder(
                                           borderRadius:
@@ -188,7 +188,7 @@ class _accueilState extends State<Accueil> {
                                       EdgeInsets.symmetric(
                                           horizontal: 30, vertical: 20)),
                                   backgroundColor: MaterialStateProperty.all(
-                                      Color.fromARGB(255, 66, 246, 240)),
+                                      Colors.black),
                                   shape: MaterialStateProperty.all(
                                       RoundedRectangleBorder(
                                           borderRadius:
@@ -238,7 +238,7 @@ class _accueilState extends State<Accueil> {
         ),
       ),
 
-      bottomNavigationBar: Footer(),
+      // bottomNavigationBar: Footer(),
       
     );
   }

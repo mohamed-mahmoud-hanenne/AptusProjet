@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, avoid_unnecessary_containers
 
 import 'package:aptus_stage/controllers/providers.dart';
 import 'package:aptus_stage/models/models.dart';
@@ -16,15 +16,17 @@ import 'dart:convert';
 import 'package:provider/provider.dart';
 
 class AddQuestionsId extends StatefulWidget {
-  AddQuestionsId({super.key, required this.quest,});
+  AddQuestionsId({
+    super.key,
+    required this.quest,
+  });
   final String quest;
-  
+
   @override
   State<AddQuestionsId> createState() => _AddQuestionsIdState();
 }
 
 class _AddQuestionsIdState extends State<AddQuestionsId> {
-  
   List<Widget> repone = [];
   List<Widget> Bonrepone = [];
 
@@ -39,11 +41,18 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(40),
-      width: screenWidth(context) >= 800 ? 1300 : 800,
+      padding: EdgeInsets.all(40),
+      margin: EdgeInsets.all(20),
+      width: screenWidth(context) >= 800 ? 1100 : 700,
       height: screenWidth(context) >= 800 ? 700 : 600,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15), color: Colors.white),
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.5),
+          spreadRadius: 2,
+          blurRadius: 2,
+          offset: Offset(0, 3),
+        ),
+      ], borderRadius: BorderRadius.circular(15), color: Colors.white),
       child: Column(
         children: [
           Row(
@@ -69,23 +78,22 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData && snapshot.data != null) {
                         Questions question = snapshot.data!;
-                              //    final questionTypes = {
-                              //   'qcm_single': question.qcmsingle,
-                              //   'qcm_multiple': question.qcmmultiple,
-                              //   'long_answer': question.longanswer,
-                              //   'short_answer': question.shortanswer,
-                              //   'matching': question.matching,
-                              //   'numerical': question.numerical,
-                              //   'fill_in_the_blank': question.fillin,
-                              // };
+                        //    final questionTypes = {
+                        //   'qcm_single': question.qcmsingle,
+                        //   'qcm_multiple': question.qcmmultiple,
+                        //   'long_answer': question.longanswer,
+                        //   'short_answer': question.shortanswer,
+                        //   'matching': question.matching,
+                        //   'numerical': question.numerical,
+                        //   'fill_in_the_blank': question.fillin,
+                        // };
 
-                              // final questionTypeKeys =
-                              //     questionTypes.keys.toList();
-                              //     print(questionTypeKeys);
+                        // final questionTypeKeys =
+                        //     questionTypes.keys.toList();
+                        //     print(questionTypeKeys);
                         return ListView.builder(
                             itemCount: 7,
                             itemBuilder: (context, index) {
-                       
                               return DropdownButton(
                                 style: TextStyle(
                                     fontFamily: "myfont",
@@ -133,6 +141,9 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
                       child: TextField(
                         controller: _uneseule,
                         decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 9, 212, 212))),
                           border: OutlineInputBorder(),
                           hintText: "Ajouter une question",
                           filled: true,
@@ -170,7 +181,8 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
                               },
                               child: Text(
                                 "Enregistrer la paramétre",
-                                style: TextStyle(color: Color.fromARGB(255, 39, 237, 224)),
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 39, 237, 224)),
                               )),
                         ],
                       ),
@@ -187,7 +199,9 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
                             ? Column(
                                 children: [
                                   BonneReponse(gval: 1),
-                                  SizedBox(height: 20,),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
                                   CheckEdit(
                                     text: "Mélanger les réponses",
                                     check: Checkbox(
@@ -212,62 +226,103 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
                       IconsWidget(
                           icon: Icons.add,
                           name: 'Ajouter',
-                          callBack: () async{
-                            print(
-                                Provider.of<EvaluProvider>(context, listen: false)
-                                    .questions[0]);
+                          callBack: () async {
+                            print(Provider.of<EvaluProvider>(context,
+                                    listen: false)
+                                .questions[0]);
 
-                              try{
-                                
-                                Question question = 
-                                Question(
-                                 questionText :_uneseule.text,
-                                 questionType: "qcm_single", 
-                                 choices: Provider.of<EvaluProvider>(context, listen: false)
-                                    .questions,
-                                 correctanswer: Provider.of<EvaluProvider>(context, listen: false)
-                                    .questions[0],
-                                 point: Provider.of<EvaluProvider>(context,listen: false).textfield,
-                                 shufflechoices: check
-                               );
-                                await addquestions(storage.getItem('token'), question, idquizz,);
-                              }catch(e){
-                                print(e);
-                              }
+                            try {
+                              Question question = Question(
+                                  questionText: _uneseule.text,
+                                  questionType: "qcm_single",
+                                  choices: Provider.of<EvaluProvider>(context,
+                                          listen: false)
+                                      .questions,
+                                  correctanswer: Provider.of<EvaluProvider>(
+                                          context,
+                                          listen: false)
+                                      .questions[0],
+                                  point: Provider.of<EvaluProvider>(context,
+                                          listen: false)
+                                      .textfield,
+                                  shufflechoices: check);
+                              await addquestions(
+                                storage.getItem('token'),
+                                question,
+                                idquizz,
+                              );
+                            } catch (e) {
+                              print(e);
+                            }
                           }),
                       IconsWidget(
-                          icon: Icons.clear, name: 'Annuler', callBack: () {
-                    Provider.of<EvaluProvider>(context, listen: false).setEvalu(
-                     !Provider.of<EvaluProvider>(context, listen: false).evalu);
+                          icon: Icons.clear,
+                          name: 'Annuler',
+                          callBack: () {
+                            Provider.of<EvaluProvider>(context, listen: false)
+                                .setEvalu(!Provider.of<EvaluProvider>(context,
+                                        listen: false)
+                                    .evalu);
                           })
                     ],
                   ),
                 ),
-
-                 if (selected == 'Long answer')
-                 Row(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.fromLTRB(100, 30, 0, 0),
-                      width: 400,
-                      padding: EdgeInsets.all(20),
-                      child: TextField(
-                        controller: _uneseule,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: "Ajouter une question",
-                          filled: true,
-                        ),
-                      ),
-                    )
-                  ],
-                 )
-
-
               ],
             ),
 
-          
+              if (selected == 'Long answer')
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.fromLTRB(100, 30, 0, 0),
+                            width: 400,
+                            padding: EdgeInsets.all(20),
+                            child: TextField(
+                              controller: _uneseule,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: "Ajouter une question",
+                                filled: true,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                              Container(
+                              margin: EdgeInsets.fromLTRB(30, 30, 0, 0),
+                                child: TextButton(
+                                onPressed: () {
+                                  setState(() {
+                                   ajouter = true; 
+                                  });
+                                },
+                                child: Text(
+                                  "Ajouter les réponses",
+                                  style: TextStyle(
+                                      color: Color.fromARGB(255, 39, 237, 224)),
+                                )),
+                              ),
+
+                        ajouter?  Container(
+                        margin: EdgeInsets.fromLTRB(30, 30, 0, 0),
+                        width: 400,
+                        height: 200,
+                        padding: EdgeInsets.all(20),
+                        child: TextField(
+                          controller: _uneseule,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            filled: true,
+                          ),
+                        ),
+                      ) 
+                      :SizedBox()
+                    ],
+                  )
         ],
       ),
     );
@@ -359,6 +414,9 @@ class _ReponseWidgetState extends State<ReponseWidget> {
                       }
                     },
                     decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 9, 212, 212))),
                       border: OutlineInputBorder(),
                     ),
                   ))
@@ -430,18 +488,19 @@ class _BonneReponseState extends State<BonneReponse> {
               SizedBox(
                 width: 10,
               ),
-          
+
               Container(
                   width: 300,
                   margin: EdgeInsets.only(left: 50),
                   child: TextField(
-                  onChanged: (value) {
-                    Provider.of<EvaluProvider>(context, listen: false).setField(
-                     int.parse(value)
-                    );
-                    
-                  },
+                    onChanged: (value) {
+                      Provider.of<EvaluProvider>(context, listen: false)
+                          .setField(int.parse(value));
+                    },
                     decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 9, 212, 212))),
                         border: OutlineInputBorder(),
                         hintText: 'Ecrire le paramétre'),
                   ))

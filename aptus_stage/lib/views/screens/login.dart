@@ -32,7 +32,7 @@ class _LoginState extends State<Login> {
     final String password = _password.text;
 
     
-    final url = Uri.parse('http://192.168.0.120:8002/auth/login/');
+    final url = Uri.parse('http://192.168.1.130:8002/auth/login/');
 
     final response = await http.post(
       url,

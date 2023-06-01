@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, implementation_imports, prefer_const_constructors, unnecessary_new
+// ignore_for_file: prefer_const_literals_to_create_immutables, implementation_imports, prefer_const_constructors, unnecessary_new, prefer_const_constructors_in_immutables
 
 import 'package:aptus_stage/controllers/providers.dart';
 import 'package:aptus_stage/models/models.dart';
@@ -41,8 +41,9 @@ class _AddQuestionsState extends State<AddQuestions> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(40),
-      width: screenWidth(context) >= 800 ? 1300 : 800,
+      padding: EdgeInsets.all(40),
+      margin: EdgeInsets.all(20),
+      width: screenWidth(context) >= 800 ? 1100 : 700,
       height: screenWidth(context) >= 800 ? 700 : 600,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15), color: Colors.white),
@@ -71,10 +72,9 @@ class _AddQuestionsState extends State<AddQuestions> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData && snapshot.data != null) {
                         Questions question = snapshot.data!;
-                         return ListView.builder(
+                        return ListView.builder(
                             itemCount: 7,
                             itemBuilder: (context, index) {
-                       
                               return DropdownButton(
                                 style: TextStyle(
                                     fontFamily: "myfont",
@@ -122,6 +122,9 @@ class _AddQuestionsState extends State<AddQuestions> {
                       child: TextField(
                         controller: _uneseule,
                         decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 9, 212, 212))),
                           border: OutlineInputBorder(),
                           hintText: "Ajouter une question",
                           filled: true,
@@ -328,6 +331,9 @@ class _ReponseWidgetState extends State<ReponseWidget> {
                       }
                     },
                     decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 9, 212, 212))),
                       border: OutlineInputBorder(),
                     ),
                   ))
@@ -405,6 +411,9 @@ class _BonneReponseState extends State<BonneReponse> {
                   child: TextField(
                     controller: _param,
                     decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 9, 212, 212))),
                         border: OutlineInputBorder(),
                         hintText: 'Ecrire le paramétre'),
                   ))

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:aptus_stage/controllers/providers.dart';
 import 'package:aptus_stage/models/models.dart';
 import 'package:aptus_stage/responsives/desktop.dart';
@@ -20,7 +22,6 @@ class EditQuizzId extends StatefulWidget {
 }
 
 class _EditQuizzIdState extends State<EditQuizzId> {
-
   final TextEditingController _title = TextEditingController();
   final TextEditingController _descp = TextEditingController();
   final TextEditingController _inst = TextEditingController();
@@ -31,26 +32,37 @@ class _EditQuizzIdState extends State<EditQuizzId> {
   final TextEditingController _tempsadt = TextEditingController();
   final TextEditingController _random = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
-          width: screenWidth(context) >= 800 ? 1300 : 800,
-          height: screenWidth(context) >= 800 ? 700 : 600,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: Colors.white
+      padding: EdgeInsets.all(40),
+      width: screenWidth(context) >= 800 ? 1100 : 700,
+      height: screenWidth(context) >= 800 ? 700 : 600,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.8),
+            spreadRadius: 2,
+            blurRadius: 2,
+            offset: Offset(0, 3),
           ),
-      margin: EdgeInsets.all(40),
+        ],
+      ),
+      margin: EdgeInsets.all(20),
       child: Column(children: [
         Row(
           children: [
             ChampsEdit(
               title: "title",
-              champ: TextField( 
+              champ: TextField(
                 controller: _title,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(), 
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 9, 212, 212))),
+                    border: OutlineInputBorder(),
                     hintText: widget.detail.title),
               ),
             ),
@@ -62,6 +74,9 @@ class _EditQuizzIdState extends State<EditQuizzId> {
                 champ: TextField(
                   controller: _descp,
                   decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 9, 212, 212))),
                       border: OutlineInputBorder(),
                       hintText: widget.detail.description),
                 ))
@@ -77,6 +92,9 @@ class _EditQuizzIdState extends State<EditQuizzId> {
                 champ: TextField(
                   controller: _inst,
                   decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 9, 212, 212))),
                       border: OutlineInputBorder(),
                       hintText: widget.detail.instructions),
                 )),
@@ -88,6 +106,9 @@ class _EditQuizzIdState extends State<EditQuizzId> {
                 champ: TextField(
                   controller: _coeff,
                   decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 9, 212, 212))),
                       border: OutlineInputBorder(),
                       hintText: widget.detail.coeff.toString()),
                 )),
@@ -103,6 +124,9 @@ class _EditQuizzIdState extends State<EditQuizzId> {
                 champ: TextField(
                   controller: _datepub,
                   decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 9, 212, 212))),
                       border: OutlineInputBorder(),
                       hintText: widget.detail.publicationDate.toString()),
                 )),
@@ -114,6 +138,9 @@ class _EditQuizzIdState extends State<EditQuizzId> {
                 champ: TextField(
                   controller: _datedebut,
                   decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 9, 212, 212))),
                       border: OutlineInputBorder(),
                       hintText: widget.detail.startedAt.toString()),
                 ))
@@ -129,6 +156,9 @@ class _EditQuizzIdState extends State<EditQuizzId> {
                 champ: TextField(
                   controller: _datefin,
                   decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 9, 212, 212))),
                       border: OutlineInputBorder(),
                       hintText: widget.detail.endedAt.toString()),
                 )),
@@ -140,6 +170,9 @@ class _EditQuizzIdState extends State<EditQuizzId> {
                 champ: TextField(
                   controller: _tempsadt,
                   decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 9, 212, 212))),
                       border: OutlineInputBorder(),
                       hintText: widget.detail.additionalTime.toString()),
                 )),
@@ -196,11 +229,11 @@ class _EditQuizzIdState extends State<EditQuizzId> {
                               height: screenWidth(context) >= 800 ? 20 : 20,
                               child: TextField(
                                 controller: _random,
-                                decoration:
-                                    InputDecoration(
-                                      border: InputBorder.none,
-                                       hintText: widget.detail.questionsRandomNumber.toString()
-                                    ),
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: widget
+                                        .detail.questionsRandomNumber
+                                        .toString()),
                               )),
                           SizedBox(
                             width: 20,
@@ -279,7 +312,9 @@ class _EditQuizzIdState extends State<EditQuizzId> {
                     });
                   }),
             ),
-            SizedBox(height: 30,),
+            SizedBox(
+              height: 30,
+            ),
             Container(
               margin: EdgeInsets.only(right: 30),
               child: Row(
@@ -288,36 +323,42 @@ class _EditQuizzIdState extends State<EditQuizzId> {
                       icon: Icons.save,
                       name: "Enrégistrer",
                       callBack: () async {
-                        try{
-                            Detail newDetail =
-                    Detail(
-                      title: _title.text, 
-                      description: _descp.text, 
-                      instructions: _inst.text, 
-                      coeff: double.parse(_coeff.text).toInt(), 
-                      publicationDate: DateTime.tryParse(_datepub.text), 
-                      startedAt: DateTime.tryParse(_datedebut.text), 
-                      endedAt: DateTime.tryParse(_datefin.text), 
-                      isDraft: widget.detail.isDraft, 
-                      enableChangeAfterSending: widget.detail.enableChangeAfterSending, 
-                      additionalTime: widget.detail.additionalTime, 
-                      randomQuestions: widget.detail.randomQuestions, 
-                      questionsRandomNumber: double.parse(_random.text).toInt(), 
-                      mixedQuestions: widget.detail.mixedQuestions, 
-                      mixedResponses: widget.detail.mixedResponses, 
-                      manualCorrection: widget.detail.manualCorrection, 
-                      publicationCorrection: widget.detail.publicationCorrection);
-                      await UpdateQuizz(storage.getItem('token'), newDetail, idquizz);
-                        }catch(e){
+                        try {
+                          Detail newDetail = Detail(
+                              title: _title.text,
+                              description: _descp.text,
+                              instructions: _inst.text,
+                              coeff: double.parse(_coeff.text).toInt(),
+                              publicationDate: DateTime.tryParse(_datepub.text),
+                              startedAt: DateTime.tryParse(_datedebut.text),
+                              endedAt: DateTime.tryParse(_datefin.text),
+                              isDraft: widget.detail.isDraft,
+                              enableChangeAfterSending:
+                                  widget.detail.enableChangeAfterSending,
+                              additionalTime: widget.detail.additionalTime,
+                              randomQuestions: widget.detail.randomQuestions,
+                              questionsRandomNumber:
+                                  double.parse(_random.text).toInt(),
+                              mixedQuestions: widget.detail.mixedQuestions,
+                              mixedResponses: widget.detail.mixedResponses,
+                              manualCorrection: widget.detail.manualCorrection,
+                              publicationCorrection:
+                                  widget.detail.publicationCorrection);
+                          await UpdateQuizz(
+                              storage.getItem('token'), newDetail, idquizz);
+                        } catch (e) {
                           print(e);
                         }
-
-                     
                       }),
-                  IconsWidget(icon: Icons.clear, name: "Annuler", callBack: () {
-                     Provider.of<EvaluProvider>(context, listen: false).setEvalu(
-                     !Provider.of<EvaluProvider>(context, listen: false).evalu);
-                  })
+                  IconsWidget(
+                      icon: Icons.clear,
+                      name: "Annuler",
+                      callBack: () {
+                        Provider.of<EvaluProvider>(context, listen: false)
+                            .setEvalu(!Provider.of<EvaluProvider>(context,
+                                    listen: false)
+                                .evalu);
+                      })
                 ],
               ),
             )
@@ -350,7 +391,6 @@ class ChampsEdit extends StatelessWidget {
           width: screenWidth(context) >= 800 ? 50 : 20,
         ),
         Container(
-            
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey, width: 0.2)),
             width: screenWidth(context) >= 800 ? 140 : 100,
@@ -468,7 +508,7 @@ class Iconstext extends StatelessWidget {
             Icon(
               icon,
               color: Color.fromARGB(255, 84, 211, 239),
-              size: 15,
+              size: 20,
             ),
             TextButton(
               child: Text(
@@ -476,7 +516,7 @@ class Iconstext extends StatelessWidget {
                 style: TextStyle(
                   color: Color.fromARGB(255, 84, 211, 239),
                   fontFamily: 'myfont',
-                  fontSize: screenWidth(context) >= 800 ? 12 : 8,
+                  fontSize: screenWidth(context) >= 800 ? 15 : 8,
                 ),
               ),
               onPressed: () async {

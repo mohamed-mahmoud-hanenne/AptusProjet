@@ -159,18 +159,33 @@ class _QuizzListState extends State<QuizzList> {
                                           TableCellVerticalAlignment.middle,
                                       child: Padding(
                                           padding: EdgeInsets.all(5),
-                                          child: IconButton(
-                                            icon: Icon(
-                                              Icons.delete,
-                                              color: Color.fromARGB(
-                                                  255, 33, 236, 243),
-                                              size: 15,
+                                          child: Container(
+                                              decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.grey
+                                                      .withOpacity(0.2),
+                                                  spreadRadius: 2,
+                                                  blurRadius: 2,
+                                                  offset: Offset(0, 2),
+                                                ),
+                                              ],
                                             ),
-                                            onPressed: () async {
-                                              await DeleteQuizz(
-                                                  storage.getItem('token'),
-                                                  idquizz);
-                                            },
+                                            child: IconButton(
+                                              icon: Icon(
+                                                Icons.delete,
+                                                color: Color.fromARGB(
+                                                    255, 33, 236, 243),
+                                                size: 15,
+                                              ),
+                                              onPressed: () async {
+                                                await DeleteQuizz(
+                                                    storage.getItem('token'),
+                                                    idquizz);
+                                              },
+                                            ),
                                           ))),
                                 ])
                           ],
@@ -197,7 +212,7 @@ class _QuizzListState extends State<QuizzList> {
                       !Provider.of<EvaluProvider>(context, listen: false)
                           .creer);
 
-                  await createQuizze(storage.getItem('token'));
+                  // await createQuizze(storage.getItem('token'));
                 }),
             IconsWidget(
                 icon: Icons.download_for_offline,
