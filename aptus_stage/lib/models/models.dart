@@ -148,59 +148,28 @@ class Question {
 
     );
   }
-
-  // Map<String, dynamic> toJson() {
-  //   return {
-  //     'question_text': questionText,
-  //     'question_type': questionType,
-  //     'data': data,
-  //     'questions_params': questionParams,
-  //   };
-  // }
 }
 
-// void main() {
-//   Map<String, dynamic> jsonData = {
-//     "question_text": "What is the official language of Mauritania?",
-//     "question_type": "qcm_single",
-//     "data": {
-//       "choices": ["French", "Arabic", "English", "Spanish"],
-//       "correct_answer": "Arabic"
-//     },
-//     "questions_params": {"point": 1, "shuffle_choices": true}
-//   };
 
-//   Question question = Question.fromJson(jsonData);
+class QuestionLong{
+  String questionText;
+  String questiontype;
+  String data;
+  int point;
 
-//   // Accessing the question data
-//   String questionText = question.questionText;
-//   String questionType = question.questionType;
-//   List<String> choices = List<String>.from(question.data['choices']);
-//   String correctAnswer = question.data['correct_answer'];
-//   int point = question.questionParams['point'];
-//   bool shuffleChoices = question.questionParams['shuffle_choices'];
+  QuestionLong({
+   required this.questionText,
+   required this.questiontype,
+   required this.data,
+   required this.point
+  });
 
-//   // Shuffle choices if required
-//   if (shuffleChoices) {
-//     choices.shuffle();
-//   }
-
-//   // Display the question
-//   print(questionText);
-  
-//   // Display the choices
-//   for (int i = 0; i < choices.length; i++) {
-//     print('${i + 1}. ${choices[i]}');
-//   }
-
-//   // Check the answer
-//   int userAnswer = /* Get user's answer */;
-//   String userChoice = choices[userAnswer - 1];
-
-//   if (userChoice == correctAnswer) {
-//     print("Correct answer! You scored $point point.");
-//   } else {
-//     print("Incorrect answer. The correct answer is: $correctAnswer");
-//   }
-// }
-
+  factory QuestionLong.fromJson(Map<String, dynamic> jsonques){
+    return QuestionLong(
+      questionText: jsonques['question_text'], 
+      questiontype: jsonques['question_type'], 
+      data: jsonques['data'], 
+      point: jsonques['questions_params']['point']
+      );
+  }
+}

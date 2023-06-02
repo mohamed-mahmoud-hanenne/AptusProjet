@@ -113,15 +113,7 @@ class _QuizzListState extends State<QuizzList> {
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(5),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.grey
-                                                      .withOpacity(0.2),
-                                                  spreadRadius: 2,
-                                                  blurRadius: 2,
-                                                  offset: Offset(0, 2),
-                                                ),
-                                              ],
+                                              
                                             ),
                                             child: IconButton(
                                               icon: Icon(
@@ -163,15 +155,7 @@ class _QuizzListState extends State<QuizzList> {
                                               decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(5),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.grey
-                                                      .withOpacity(0.2),
-                                                  spreadRadius: 2,
-                                                  blurRadius: 2,
-                                                  offset: Offset(0, 2),
-                                                ),
-                                              ],
+                                             
                                             ),
                                             child: IconButton(
                                               icon: Icon(
@@ -212,7 +196,7 @@ class _QuizzListState extends State<QuizzList> {
                       !Provider.of<EvaluProvider>(context, listen: false)
                           .creer);
 
-                  // await createQuizze(storage.getItem('token'));
+                  await createQuizze(storage.getItem('token'));
                 }),
             IconsWidget(
                 icon: Icons.download_for_offline,

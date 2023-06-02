@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings, unnecessary_string_interpolations, unused_local_variable
+
 import 'package:aptus_stage/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -15,7 +17,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
 
 
 //function get all quizz
-   const String host = 'http://192.168.1.130:8002/';
+   const String host = 'http://192.168.0.120:8002/';
    Future<List<Quizz>> getQuizzes(String mytokens) async {
     
     List<Quizz> quizzes = [];
@@ -45,7 +47,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
   }
 
        //function get question type
-   const String hostques = 'http://192.168.1.130:8002/init/';
+   const String hostques = 'http://192.168.0.120:8002/init/';
    Future<Questions?> gettypeques(String mytokens) async {
     
   Questions? question;
@@ -77,7 +79,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
     return question;
   }
   //function create quizz
-   const String hosturl = 'http://192.168.1.130:8002/';
+   const String hosturl = 'http://192.168.0.120:8002/';
    Future<int> createQuizze(String mytokens) async {
     
    int id =0;
@@ -107,7 +109,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
 
 
    //function get deatil quizz
-  const String urldeatil = 'http://192.168.1.130:8002/courses/quizzes/';
+  const String urldeatil = 'http://192.168.0.120:8002/courses/quizzes/';
   Future<Detail?> getdetail(String mytokens, int idquizz) async {
     Detail? detail;
     final url = Uri.parse('$urldeatil'+ idquizz.toString());
@@ -127,7 +129,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
   }
 
      const String urlupdate =
-      'http://192.168.1.130:8002/courses/quizzes/';
+      'http://192.168.0.120:8002/courses/quizzes/';
   Future<void> UpdateQuizz(String mytokens,Detail detail , int idquizz) async {
    
     var update;
@@ -164,7 +166,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
   
 
    const String urldelete =
-      'http://192.168.1.130:8002/courses/quizzes/';
+      'http://192.168.0.120:8002/courses/quizzes/';
   Future<void> DeleteQuizz(String mytokens, int idquizz) async {
 
 
@@ -183,9 +185,37 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
     
   }
 
+const String urladdlong = 'http://192.168.0.120:8002/courses/quizzes/';
+Future<void> addlong(String mytokens, QuestionLong queslong , int idquizz) async{
+  final url = Uri.parse('$urladdlong' + idquizz.toString() + '/add_question/');
 
+  Map<String, dynamic> dataques = {
+    'question_text' : queslong.questionText,
+    'question_type' : queslong.questiontype,
+    'data' : {
+      queslong.data
+    },
+    'questions_params' : {
+      "point" : queslong.point
+    }
+  };
+  await http.post(url, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'token $mytokens',
+  },
+  body: jsonEncode(dataques)
+  ).then((queslongue) {
+   Map<String, dynamic> addques = jsonDecode(queslongue.body);
+   print(queslongue.statusCode);
+   print(queslongue.body);
+  }).catchError((error){
+    print(error);
+  });
 
- const String urladdques = 'http://192.168.1.130:8002/courses/quizzes/';
+}
+
+ const String urladdques = 'http://192.168.0.120:8002/courses/quizzes/';
  Future<void> addquestions(String mytokens, Question  question, int idquizz) async{
  
   final url = Uri.parse('$urladdques'+ idquizz.toString() + '/add_question/');
@@ -224,43 +254,3 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
 
 
 
-
-// void sendQuestion() async {
-//   String url = 'https://example.com/api/endpoint'; // Remplacez par l'URL de votre endpoint
-
-//   Map<String, dynamic> jsonData = {
-//     "question_text": "What is the official language of Mauritania?",
-//     "question_type": "qcm_single",
-//     "data": {
-//       "choices": [
-//         "French",
-//         "Arabic",
-//         "English",
-//         "Spanish"
-//       ],
-//       "correct_answer": "Arabic"
-//     },
-//     "questions_params": {
-//       "point": 1,
-//       "shuffle_choices": true
-//     }
-//   };
-
-//   // Convertir les données en JSON
-//   String requestBody = jsonEncode(jsonData);
-
-//   // Envoyer la requête POST
-//   http.Response response = await http.post(
-//     Uri.parse(url),
-//     headers: {"Content-Type": "application/json"},
-//     body: requestBody,
-//   );
-
-//   // Vérifier le statut de la réponse
-//   if (response.statusCode == 200) {
-//     print("Question envoyée avec succès !");
-//     print("Réponse du serveur : ${response.body}");
-//   } else {
-//     print("Erreur lors de l'envoi de la question. Statut de la réponse : ${response.statusCode}");
-//   }
-// }

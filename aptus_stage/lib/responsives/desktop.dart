@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, sort_child_properties_last, prefer_const_literals_to_create_immutables, prefer_typing_uninitialized_variables, unused_local_variable, unnecessary_string_interpolations
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last, prefer_const_literals_to_create_immutables, prefer_typing_uninitialized_variables, unused_local_variable, unnecessary_string_interpolations, curly_braces_in_flow_control_structures
 
 import 'package:aptus_stage/controllers/providers.dart';
 import 'package:aptus_stage/models/models.dart';
@@ -148,7 +148,7 @@ class _MyDesktopState extends State<MyDesktop> {
                     Provider.of<EvaluProvider>(context).evalu
                         ? Container(
                           child: QuizzList(),
-                          margin: EdgeInsets.only(top: 120),
+                          margin: EdgeInsets.only(top: 30),
                           
                           )
                         : SizedBox(),

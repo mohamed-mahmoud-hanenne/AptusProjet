@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, avoid_unnecessary_containers
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables
 
 import 'package:aptus_stage/controllers/providers.dart';
 import 'package:aptus_stage/models/models.dart';
@@ -35,6 +35,7 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
   bool ajouter = false;
   bool bonrep = false;
   bool check = false;
+  bool param = false;
 
   final TextEditingController _uneseule = TextEditingController();
 
@@ -44,7 +45,7 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
       padding: EdgeInsets.all(40),
       margin: EdgeInsets.all(20),
       width: screenWidth(context) >= 800 ? 1100 : 700,
-      height: screenWidth(context) >= 800 ? 700 : 600,
+      height: screenWidth(context) >= 800 ? 900 : 700,
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
           color: Colors.grey.withOpacity(0.5),
@@ -135,12 +136,14 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
                   // mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
+                      color: Colors.white,
                       margin: EdgeInsets.fromLTRB(100, 30, 0, 0),
                       width: 400,
                       padding: EdgeInsets.all(20),
                       child: TextField(
                         controller: _uneseule,
                         decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(vertical: 30),
                           focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: Color.fromARGB(255, 9, 212, 212))),
@@ -269,60 +272,80 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
                 ),
               ],
             ),
-
-              if (selected == 'Long answer')
-                  Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.fromLTRB(100, 30, 0, 0),
-                            width: 400,
-                            padding: EdgeInsets.all(20),
-                            child: TextField(
-                              controller: _uneseule,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: "Ajouter une question",
-                                filled: true,
-                              ),
-                            ),
-                          ),
-                        ],
+          if (selected == 'Long answer')
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(100, 30, 0, 0),
+                      width: 400,
+                      padding: EdgeInsets.all(20),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(vertical: 20),
+                          border: OutlineInputBorder(),
+                          hintText: "Ajouter une question",
+                          filled: true,
+                        ),
                       ),
-
-                              Container(
-                              margin: EdgeInsets.fromLTRB(30, 30, 0, 0),
-                                child: TextButton(
-                                onPressed: () {
-                                  setState(() {
-                                   ajouter = true; 
-                                  });
-                                },
-                                child: Text(
-                                  "Ajouter les réponses",
-                                  style: TextStyle(
-                                      color: Color.fromARGB(255, 39, 237, 224)),
-                                )),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(110, 30, 0, 0),
+                      child: TextButton(
+                          onPressed: () {
+                            setState(() {
+                              ajouter = true;
+                            });
+                          },
+                          child: Text(
+                            "Ajouter les réponses",
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 39, 237, 224)),
+                          )),
+                    ),
+                    SizedBox(width: 30,),
+                  ],
+                ),
+                        ajouter
+                        ? Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                                margin: EdgeInsets.fromLTRB(120, 30, 0, 0),
+                                width: 380,
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.symmetric(vertical: 60),
+                                    border: OutlineInputBorder(),
+                                    hintText: "Ecrire le réponse",
+                                    filled: true,
+                                  ),
+                                ),
                               ),
-
-                        ajouter?  Container(
-                        margin: EdgeInsets.fromLTRB(30, 30, 0, 0),
-                        width: 400,
-                        height: 200,
-                        padding: EdgeInsets.all(20),
-                        child: TextField(
-                          controller: _uneseule,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            filled: true,
+                          ],
+                        )
+                        : SizedBox(),
+          
+      
+                        Container(
+                          margin: EdgeInsets.fromLTRB(110, 30, 0, 0),
+                          child: Row(
+                            children: [
+                              IconsWidget(icon: Icons.add, name: 'Ajouter', callBack: () {}),
+                              IconsWidget(icon: Icons.clear, name: 'Annuler', callBack: () {})
+                            ],
                           ),
                         ),
-                      ) 
-                      :SizedBox()
-                    ],
-                  )
+                        
+              ],
+            )
         ],
       ),
     );
