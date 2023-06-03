@@ -38,6 +38,10 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
   bool param = false;
 
   final TextEditingController _uneseule = TextEditingController();
+  final TextEditingController _queslong = TextEditingController();
+  final TextEditingController _replong = TextEditingController();
+  final TextEditingController _point = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -279,10 +283,12 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
+                     
                       margin: EdgeInsets.fromLTRB(100, 30, 0, 0),
                       width: 400,
                       padding: EdgeInsets.all(20),
                       child: TextField(
+                        controller: _queslong,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(vertical: 20),
                           border: OutlineInputBorder(),
@@ -305,7 +311,7 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
                             });
                           },
                           child: Text(
-                            "Ajouter les réponses",
+                            "Ajouter une réponse longue",
                             style: TextStyle(
                                 color: Color.fromARGB(255, 39, 237, 224)),
                           )),
@@ -321,6 +327,7 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
                                 margin: EdgeInsets.fromLTRB(120, 30, 0, 0),
                                 width: 380,
                                 child: TextField(
+                                  controller: _replong,
                                   decoration: InputDecoration(
                                     contentPadding: EdgeInsets.symmetric(vertical: 60),
                                     border: OutlineInputBorder(),
@@ -332,14 +339,70 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
                           ],
                         )
                         : SizedBox(),
-          
-      
+
+                  Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(110, 30, 0, 0),
+                      child: TextButton(
+                          onPressed: () {
+                            setState(() {
+                              param = true;
+                            });
+                          },
+                          child: Text(
+                            "Ajouter la paramétre",
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 39, 237, 224)),
+                          )),
+                    ),
+                    SizedBox(width: 30,),
+                  ],
+                ),
+
+                  param ? Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                                margin: EdgeInsets.fromLTRB(120, 30, 0, 0),
+                                width: 380,
+                                child: TextField(
+                                  controller: _point,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    hintText: "Ecrire la point",
+                                    filled: true,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        )
+                        :SizedBox(),
+
                         Container(
-                          margin: EdgeInsets.fromLTRB(110, 30, 0, 0),
+                          margin: EdgeInsets.fromLTRB(100, 30, 0, 0),
                           child: Row(
                             children: [
-                              IconsWidget(icon: Icons.add, name: 'Ajouter', callBack: () {}),
-                              IconsWidget(icon: Icons.clear, name: 'Annuler', callBack: () {})
+                              IconsWidget(icon: Icons.add, name: 'Ajouter', callBack: () async{
+                                try{
+                                  QuestionLong queslong = QuestionLong(
+                                    questionText: _queslong.text, 
+                                    questiontype: "long_answer", 
+                                    data: _replong.text, 
+                                    point: _point.text
+                                    );
+                                    await addlong(storage.getItem('token'), queslong, idquizz);
+                                }catch(e){
+                                  print(e);
+                                }
+
+                              }),
+                              IconsWidget(icon: Icons.clear, name: 'Annuler', callBack: () {
+                                Provider.of<EvaluProvider>(context, listen: false).setEvalu(
+                                  !Provider.of<EvaluProvider>(context, listen: false).evalu
+                                );
+                              })
                             ],
                           ),
                         ),

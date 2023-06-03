@@ -155,7 +155,7 @@ class QuestionLong{
   String questionText;
   String questiontype;
   String data;
-  int point;
+  String point;
 
   QuestionLong({
    required this.questionText,

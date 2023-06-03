@@ -17,13 +17,14 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
 
 
 //function get all quizz
-   const String host = 'http://192.168.0.120:8002/';
+   const String host = 'https://3611-196-200-191-18.ngrok-free.app';
    Future<List<Quizz>> getQuizzes(String mytokens) async {
     
     List<Quizz> quizzes = [];
-
+    final url = Uri.parse('$host'+'/courses/quizzes/');
+    print(url);
     try {
-       final url = Uri.parse('$host'+'courses/quizzes');
+       
     final response =
     await http.get(url, headers: {
       'Content-Type': 'application/json',
@@ -32,7 +33,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
     });
 
     var json = jsonDecode(response.body);
-    
+   
     
     for (Map<String,dynamic> jsonQuizz in json) {
      quizzes.add(
@@ -47,13 +48,13 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
   }
 
        //function get question type
-   const String hostques = 'http://192.168.0.120:8002/init/';
+   const String hostques = 'https://9c24-196-200-191-18.ngrok-free.app/init/courses_init/';
    Future<Questions?> gettypeques(String mytokens) async {
     
   Questions? question;
 
     try {
-       final url = Uri.parse('$hostques'+'courses_init');
+       final url = Uri.parse('$hostques');
     final response =
     await http.get(url, headers: {
       'Content-Type': 'application/json',
@@ -79,7 +80,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
     return question;
   }
   //function create quizz
-   const String hosturl = 'http://192.168.0.120:8002/';
+   const String hosturl = 'https://9c24-196-200-191-18.ngrok-free.app/';
    Future<int> createQuizze(String mytokens) async {
     
    int id =0;
@@ -109,7 +110,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
 
 
    //function get deatil quizz
-  const String urldeatil = 'http://192.168.0.120:8002/courses/quizzes/';
+  const String urldeatil = 'https://9c24-196-200-191-18.ngrok-free.app/courses/quizzes/';
   Future<Detail?> getdetail(String mytokens, int idquizz) async {
     Detail? detail;
     final url = Uri.parse('$urldeatil'+ idquizz.toString());
@@ -129,7 +130,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
   }
 
      const String urlupdate =
-      'http://192.168.0.120:8002/courses/quizzes/';
+      'https://9c24-196-200-191-18.ngrok-free.app/courses/quizzes/';
   Future<void> UpdateQuizz(String mytokens,Detail detail , int idquizz) async {
    
     var update;
@@ -166,7 +167,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
   
 
    const String urldelete =
-      'http://192.168.0.120:8002/courses/quizzes/';
+      'https://9c24-196-200-191-18.ngrok-free.app/courses/quizzes/';
   Future<void> DeleteQuizz(String mytokens, int idquizz) async {
 
 
@@ -185,7 +186,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
     
   }
 
-const String urladdlong = 'http://192.168.0.120:8002/courses/quizzes/';
+const String urladdlong = 'https://9c24-196-200-191-18.ngrok-free.app/courses/quizzes/';
 Future<void> addlong(String mytokens, QuestionLong queslong , int idquizz) async{
   final url = Uri.parse('$urladdlong' + idquizz.toString() + '/add_question/');
 
@@ -215,7 +216,7 @@ Future<void> addlong(String mytokens, QuestionLong queslong , int idquizz) async
 
 }
 
- const String urladdques = 'http://192.168.0.120:8002/courses/quizzes/';
+ const String urladdques = 'https://9c24-196-200-191-18.ngrok-free.app/courses/quizzes/';
  Future<void> addquestions(String mytokens, Question  question, int idquizz) async{
  
   final url = Uri.parse('$urladdques'+ idquizz.toString() + '/add_question/');
