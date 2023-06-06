@@ -153,23 +153,24 @@ class Question {
 
 class QuestionLong{
   String questionText;
-  String questiontype;
-  String data;
-  String point;
+  String questionType;
+  Map<String, dynamic> data;
+  Map<String, dynamic> questionParams;
 
   QuestionLong({
-   required this.questionText,
-   required this.questiontype,
-   required this.data,
-   required this.point
+    required this.questionText,
+    required this.questionType,
+    required this.data,
+    required this.questionParams,
   });
+  
 
-  factory QuestionLong.fromJson(Map<String, dynamic> jsonques){
+ factory QuestionLong.fromJson(Map<String, dynamic> json) {
     return QuestionLong(
-      questionText: jsonques['question_text'], 
-      questiontype: jsonques['question_type'], 
-      data: jsonques['data'], 
-      point: jsonques['questions_params']['point']
-      );
+      questionText: json['question_text'],
+      questionType: json['question_type'],
+      data: json['data'] ?? {},
+      questionParams: json['questions_params'] ?? {},
+    );
   }
 }

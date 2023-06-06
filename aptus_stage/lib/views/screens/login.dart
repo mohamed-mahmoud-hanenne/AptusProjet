@@ -32,7 +32,7 @@ class _LoginState extends State<Login> {
     final String password = _password.text;
 
     
-    final url = Uri.parse('https://3611-196-200-191-18.ngrok-free.app/auth/login/');
+    final url = Uri.parse('http://192.168.0.120:8002/auth/login/');
 
     final response = await http.post(
       url,

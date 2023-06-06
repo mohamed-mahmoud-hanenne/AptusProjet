@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sort_child_properties_last, camel_case_types, implementation_imports, unnecessary_import, avoid_unnecessary_containers
 
+import 'package:aptus_stage/views/screens/apropos.dart';
+import 'package:aptus_stage/views/screens/contacts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -61,7 +63,15 @@ class _accueilState extends State<Accueil> {
             width: 30,
           ),
           TextButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                                   Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>  Apropos()),
+                                );
+                });
+              },
               child: Text(
                 "À propos",
                 style: TextStyle(
@@ -73,7 +83,15 @@ class _accueilState extends State<Accueil> {
             width: 30,
           ),
           TextButton(
-              onPressed: () {},
+              onPressed: () {
+                  // setState(() {
+                  //   Navigator.push(
+                  //                 context,
+                  //                 MaterialPageRoute(
+                  //                     builder: (context) =>  CompanyPropsPage()),
+                  //               );
+                  // });
+              },
               child: Text(
                 "Contact",
                 style: TextStyle(

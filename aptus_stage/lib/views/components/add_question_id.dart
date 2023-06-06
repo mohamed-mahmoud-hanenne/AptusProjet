@@ -36,11 +36,17 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
   bool bonrep = false;
   bool check = false;
   bool param = false;
+  bool ajoutershort = false;
+  bool paramshort = false;
 
   final TextEditingController _uneseule = TextEditingController();
   final TextEditingController _queslong = TextEditingController();
   final TextEditingController _replong = TextEditingController();
   final TextEditingController _point = TextEditingController();
+
+  final TextEditingController _quesshort = TextEditingController();
+  final TextEditingController _repshort = TextEditingController();
+  final TextEditingController _pointshort = TextEditingController();
 
 
   @override
@@ -387,10 +393,14 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
                               IconsWidget(icon: Icons.add, name: 'Ajouter', callBack: () async{
                                 try{
                                   QuestionLong queslong = QuestionLong(
-                                    questionText: _queslong.text, 
-                                    questiontype: "long_answer", 
-                                    data: _replong.text, 
-                                    point: _point.text
+                                  questionText: _queslong.text, 
+                                    questionType: "long_answer", 
+                                    data: {
+                                      "reponse_long" : _replong.text
+                                    }, 
+                                    questionParams: {
+                                      "point" : _point.text
+                                    },
                                     );
                                     await addlong(storage.getItem('token'), queslong, idquizz);
                                 }catch(e){
@@ -408,7 +418,147 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
                         ),
                         
               ],
-            )
+            ),
+
+              if (selected == 'Short answer')
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                     
+                      margin: EdgeInsets.fromLTRB(100, 30, 0, 0),
+                      width: 400,
+                      padding: EdgeInsets.all(20),
+                      child: TextField(
+                        controller: _quesshort,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(vertical: 20),
+                          border: OutlineInputBorder(),
+                          hintText: "Ajouter une question",
+                          filled: true,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(110, 30, 0, 0),
+                      child: TextButton(
+                          onPressed: () {
+                            setState(() {
+                              ajoutershort = true;
+                            });
+                          },
+                          child: Text(
+                            "Ajouter une réponse courte",
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 39, 237, 224)),
+                          )),
+                    ),
+                    SizedBox(width: 30,),
+                  ],
+                ),
+                        ajoutershort
+                        ? Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                                margin: EdgeInsets.fromLTRB(120, 30, 0, 0),
+                                width: 380,
+                                child: TextField(
+                                  controller: _repshort,
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.symmetric(vertical: 20),
+                                    border: OutlineInputBorder(),
+                                    hintText: "Ecrire le réponse",
+                                    filled: true,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        )
+                        : SizedBox(),
+
+                  Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(110, 30, 0, 0),
+                      child: TextButton(
+                          onPressed: () {
+                            setState(() {
+                              paramshort = true;
+                            });
+                          },
+                          child: Text(
+                            "Ajouter la paramétre",
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 39, 237, 224)),
+                          )),
+                    ),
+                    SizedBox(width: 30,),
+                  ],
+                ),
+
+                  paramshort ? Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                                margin: EdgeInsets.fromLTRB(120, 30, 0, 0),
+                                width: 380,
+                                child: TextField(
+                                  controller: _pointshort,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    hintText: "Ecrire la point",
+                                    filled: true,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        )
+                        :SizedBox(),
+
+                        Container(
+                          margin: EdgeInsets.fromLTRB(100, 30, 0, 0),
+                          child: Row(
+                            children: [
+                              IconsWidget(icon: Icons.add, name: 'Ajouter', callBack: () async{
+                                try{
+                                  QuestionLong queslong = QuestionLong(
+                                    questionText: _quesshort.text, 
+                                    questionType: "short_answer", 
+                                    data: {
+                                      "correct_answer" : _repshort.text
+                                    }, 
+                                    questionParams: {
+                                      "point" : _pointshort.text
+                                    },
+                                    );
+                                    await addlong(storage.getItem('token'), queslong, idquizz);
+                                }catch(e){
+                                  print(e);
+                                }
+
+                              }),
+                              IconsWidget(icon: Icons.clear, name: 'Annuler', callBack: () {
+                                Provider.of<EvaluProvider>(context, listen: false).setEvalu(
+                                  !Provider.of<EvaluProvider>(context, listen: false).evalu
+                                );
+                              })
+                            ],
+                          ),
+                        ),
+                        
+              ],
+            ),
+
+           
         ],
       ),
     );
