@@ -113,14 +113,13 @@ class _QuizzListState extends State<QuizzList> {
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(5),
-                                              
                                             ),
                                             child: IconButton(
                                               icon: Icon(
                                                 Icons.edit,
                                                 color: Color.fromARGB(
                                                     255, 33, 236, 243),
-                                                size: 15,
+                                                size: 20,
                                               ),
                                               onPressed: () {
                                                 Provider.of<EvaluProvider>(
@@ -152,17 +151,16 @@ class _QuizzListState extends State<QuizzList> {
                                       child: Padding(
                                           padding: EdgeInsets.all(5),
                                           child: Container(
-                                              decoration: BoxDecoration(
+                                            decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(5),
-                                             
                                             ),
                                             child: IconButton(
                                               icon: Icon(
                                                 Icons.delete,
                                                 color: Color.fromARGB(
                                                     255, 33, 236, 243),
-                                                size: 15,
+                                                size: 20,
                                               ),
                                               onPressed: () async {
                                                 await DeleteQuizz(
@@ -171,7 +169,9 @@ class _QuizzListState extends State<QuizzList> {
                                               },
                                             ),
                                           ))),
+                              
                                 ])
+                              
                           ],
                         ),
                       );
@@ -186,6 +186,7 @@ class _QuizzListState extends State<QuizzList> {
         child: Row(
           children: [
             IconsWidget(
+              
                 icon: Icons.create,
                 name: 'Créer',
                 callBack: () async {
@@ -214,16 +215,20 @@ class IconsWidget extends StatelessWidget {
       {super.key,
       required this.icon,
       required this.name,
-      required this.callBack});
+      required this.callBack,
+      
+      });
 
   final IconData icon;
   final String name;
   final Function callBack;
+  
   @override
   Widget build(BuildContext context) {
     return Row(children: [
       Container(
         decoration: BoxDecoration(
+          
             borderRadius: BorderRadius.circular(5),
             border: Border.all(
                 color: Color.fromARGB(255, 84, 211, 239), width: 0.5)),
@@ -237,6 +242,7 @@ class IconsWidget extends StatelessWidget {
               icon,
               color: Color.fromARGB(255, 84, 211, 239),
               size: 20,
+              
             ),
             TextButton(
               child: Text(

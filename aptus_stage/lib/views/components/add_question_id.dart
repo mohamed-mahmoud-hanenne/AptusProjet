@@ -237,6 +237,7 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
                   child: Row(
                     children: [
                       IconsWidget(
+                        
                           icon: Icons.add,
                           name: 'Ajouter',
                           callBack: () async {
@@ -269,6 +270,7 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
                             }
                           }),
                       IconsWidget(
+                        
                           icon: Icons.clear,
                           name: 'Annuler',
                           callBack: () {
@@ -390,7 +392,7 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
                           margin: EdgeInsets.fromLTRB(100, 30, 0, 0),
                           child: Row(
                             children: [
-                              IconsWidget(icon: Icons.add, name: 'Ajouter', callBack: () async{
+                              IconsWidget(icon: Icons.add, name: 'Ajouter',callBack: () async{
                                 try{
                                   QuestionLong queslong = QuestionLong(
                                   questionText: _queslong.text, 
@@ -528,7 +530,7 @@ class _AddQuestionsIdState extends State<AddQuestionsId> {
                           margin: EdgeInsets.fromLTRB(100, 30, 0, 0),
                           child: Row(
                             children: [
-                              IconsWidget(icon: Icons.add, name: 'Ajouter', callBack: () async{
+                              IconsWidget(icon: Icons.add, name: 'Ajouter',  callBack: () async{
                                 try{
                                   QuestionLong queslong = QuestionLong(
                                     questionText: _quesshort.text, 

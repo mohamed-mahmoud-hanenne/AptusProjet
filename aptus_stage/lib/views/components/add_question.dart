@@ -216,6 +216,7 @@ class _AddQuestionsState extends State<AddQuestions> {
                   child: Row(
                     children: [
                       IconsWidget(
+                        
                           icon: Icons.add,
                           name: 'Ajouter',
                           callBack: () async {
@@ -498,7 +499,7 @@ class _AddQuestionsState extends State<AddQuestions> {
                           margin: EdgeInsets.fromLTRB(100, 30, 0, 0),
                           child: Row(
                             children: [
-                              IconsWidget(icon: Icons.add, name: 'Ajouter', callBack: () async{
+                              IconsWidget(icon: Icons.add, name: 'Ajouter' ,callBack: () async{
                                 try{
                                   QuestionLong queslong = QuestionLong(
                                     questionText: _quesshort.text, 
@@ -516,7 +517,7 @@ class _AddQuestionsState extends State<AddQuestions> {
                                 }
 
                               }),
-                              IconsWidget(icon: Icons.clear, name: 'Annuler', callBack: () {
+                              IconsWidget(icon: Icons.clear, name: 'Annuler',  callBack: () {
                                 Provider.of<EvaluProvider>(context, listen: false).setEvalu(
                                   !Provider.of<EvaluProvider>(context, listen: false).evalu
                                 );

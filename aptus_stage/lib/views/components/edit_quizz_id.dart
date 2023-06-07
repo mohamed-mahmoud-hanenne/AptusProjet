@@ -351,6 +351,7 @@ class _EditQuizzIdState extends State<EditQuizzId> {
                         }
                       }),
                   IconsWidget(
+                   
                       icon: Icons.clear,
                       name: "Annuler",
                       callBack: () {
