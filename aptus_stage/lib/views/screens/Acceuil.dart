@@ -89,7 +89,7 @@ class _accueilState extends State<Accueil> {
                   //   Navigator.push(
                   //                 context,
                   //                 MaterialPageRoute(
-                  //                     builder: (context) =>  CompanyPropsPage()),
+                  //                     builder: (context) =>  HomePage()),
                   //               );
                   // });
               },
@@ -133,7 +133,7 @@ class _accueilState extends State<Accueil> {
                 style: ButtonStyle(
                     padding: MaterialStateProperty.all(
                         EdgeInsets.symmetric(horizontal: 40, vertical: 10)),
-                    backgroundColor: MaterialStateProperty.all(Colors.black),
+                    backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 66, 246, 240)),
                     shape: MaterialStateProperty.all(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10))))),
           )
@@ -147,7 +147,7 @@ class _accueilState extends State<Accueil> {
               width: 1380,
               height: 80,
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 66, 246, 240),
+                color: Colors.black,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -184,7 +184,7 @@ class _accueilState extends State<Accueil> {
                     decoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(20)),
                     child: Image.asset(
-                      "assets/img/learn.jpg",
+                      "assets/img/student.jpg",
                       width: 600,
                       height: 400,
                     ),
@@ -218,13 +218,13 @@ class _accueilState extends State<Accueil> {
                           SizedBox(
                             height: 30,
                           ),
-                          Text(
-                            "conçoit des solutions ludiques et innovantes dédiées à l’enseignement et qui permettent de relever les défis de la gestion administrative pédagogique et de la formation Nous fournissons une expérience plus simple et puissante avec des fonctionnalités flexibles qui vous aident dans votre approche pédagogique",
-                            style: TextStyle(
-                                fontFamily: 'myfont',
-                                fontSize: 15,
-                                color: Colors.grey[700]),
-                          ),
+                          // Text(
+                          //   "conçoit des solutions ludiques et innovantes dédiées à l’enseignement et qui permettent de relever les défis de la gestion administrative pédagogique et de la formation Nous fournissons une expérience plus simple et puissante avec des fonctionnalités flexibles qui vous aident dans votre approche pédagogique",
+                          //   style: TextStyle(
+                          //       fontFamily: 'myfont',
+                          //       fontSize: 15,
+                          //       color: Colors.grey[700]),
+                          // ),
                           SizedBox(
                             height: 30,
                           ),
@@ -236,7 +236,7 @@ class _accueilState extends State<Accueil> {
                                       EdgeInsets.symmetric(
                                           horizontal: 30, vertical: 20)),
                                   backgroundColor:
-                                      MaterialStateProperty.all(Colors.black),
+                                      MaterialStateProperty.all(Color.fromARGB(255, 66, 246, 240)),
                                   shape: MaterialStateProperty.all(
                                       RoundedRectangleBorder(
                                           borderRadius:
@@ -247,44 +247,60 @@ class _accueilState extends State<Accueil> {
               ),
             ),
             SizedBox(
-              height: 50,
+              height: 100,
             ),
-            //  Footer(
-            //   alignment: Alignment.center,
-            //   backgroundColor: Color.fromARGB(255, 0, 0, 0),
-            //   child: Column(
-            //     mainAxisAlignment: MainAxisAlignment.start,
-            //     children: [
-            //       Container(
-            //         height: 200,
-            //         child: Row(
-            //           crossAxisAlignment: CrossAxisAlignment.start,
-            //           children: [
 
-            //            Image.asset(
-            //             "assets/img/aptu.jpg",
-            //             width: 100,
-            //             height: 50,
-            //             ),
-
-            //             Text("Aptus consulting"),
-
-            //           ],
-            //         ),
-            //       ),
-            //      Container(
-            //       child: Divider(color: Colors.white,),
-            //       margin: EdgeInsets.only(bottom: 150),
-            //       )
-            //     ],
-            //   )
-
-            //   )
+            Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      child: Image.asset(
+                        "assets/img/dec-aptus.png",
+                        width: 600,
+                        height: 500,
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(150, 150, 0, 0),
+                      width: 400,
+                      height: 400,
+                      child: Column(
+                        children: [
+                          
+                          Text(
+                            "Aptus Consulting conçoit des solutions ludiques et innovantes dédiées à l’enseignement et qui permettent de relever les défis de la gestion administrative, pédagogique et de la formation Nous fournissons une expérience plus simple et puissante avec des fonctionnalités flexibles qui vous aident dans votre approche pédagogique",
+                             style: TextStyle(fontFamily: "myfont"),
+                            )
+                        ],
+                      ),
+                    ),
+                    
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 60,),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Container(
+                    width: 1370,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.black
+                    ),
+                  ),
+                ],
+              ),
+            )
+    
           ],
         ),
       ),
 
-      // bottomNavigationBar: Footer(),
+      
     );
   }
 }
