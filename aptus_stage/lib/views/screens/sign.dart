@@ -81,7 +81,7 @@ class _SIgnState extends State<Sign> {
             child: Row(
               children: [
               Image.asset(
-              "assets/img/login.png",
+              "assets/img/student-sign.jpg",
               width: screenWidth(context) >= 800 ? 450 : 300,
               ),
             Container(

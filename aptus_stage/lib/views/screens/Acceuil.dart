@@ -16,6 +16,7 @@ class Accueil extends StatefulWidget {
 }
 
 class _accueilState extends State<Accueil> {
+ 
   bool solu = false;
   @override
   Widget build(BuildContext context) {
@@ -152,7 +153,7 @@ class _accueilState extends State<Accueil> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Pour plusieus informations",
+                  Text("Pour plus d'infos",
                       style:
                           TextStyle(color: Colors.white, fontFamily: 'myfont')),
                   SizedBox(
@@ -175,16 +176,16 @@ class _accueilState extends State<Accueil> {
             ),
             Container(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    margin: EdgeInsets.all(15),
-                    width: 600,
-                    height: 400,
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                  // FadeTransition(
+                  //   opacity: ,
+                  //   child: Text("data"),
+                  //   ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.only(topRight: Radius.circular(15)),
                     child: Image.asset(
-                      "assets/img/student.jpg",
+                      "assets/img/acc-img.png",
                       width: 600,
                       height: 400,
                     ),
@@ -192,43 +193,69 @@ class _accueilState extends State<Accueil> {
                   SizedBox(
                     width: 30,
                   ),
-                  Container(
-                    width: 600,
-                    height: 400,
-                    child: Column(
+
+                  Column(
+                    children: [
+                      Container(
+                        
+                        alignment: Alignment.center,
+                        child: Text(
+                          "L'enseignement est facile avec",
+                          style: TextStyle(
+                              fontFamily: 'myfont',
+                              fontSize: 30,
+                              color: Colors.black),
+                        ),
+                        
+                      ),
+                      SizedBox(height: 20,),
+                      Text(
+                          "aptus consulting",
+                          style: TextStyle(
+                              fontFamily: 'myfont',
+                              fontSize: 30,
+                              color: Color.fromARGB(255, 66, 246, 240)),
+                        ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 100,
+            ),
+
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      child: Image.asset(
+                        "assets/img/etudiant.png",
+                         width: 600,
+                        height: 500,
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(150, 180, 0, 0),
+                      width: 400,
+                      height: 400,
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "L'enseignement est plus facile avec aptus",
-                            style: TextStyle(
-                                fontFamily: 'myfont',
-                                fontSize: 40,
-                                color: Colors.black),
+                            "Découvrez APTUS",
+                            style: TextStyle(fontFamily: "myfont", fontSize: 20),
                           ),
-                          SizedBox(
-                            height: 30,
-                          ),
+                          SizedBox(height: 30,),
                           Text(
-                            "Avec nos solutions informatique nous vous facilitons votre travail",
-                            style: TextStyle(
-                                fontFamily: 'myfont',
-                                fontSize: 15,
-                                color: Colors.black),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          // Text(
-                          //   "conçoit des solutions ludiques et innovantes dédiées à l’enseignement et qui permettent de relever les défis de la gestion administrative pédagogique et de la formation Nous fournissons une expérience plus simple et puissante avec des fonctionnalités flexibles qui vous aident dans votre approche pédagogique",
-                          //   style: TextStyle(
-                          //       fontFamily: 'myfont',
-                          //       fontSize: 15,
-                          //       color: Colors.grey[700]),
-                          // ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          ElevatedButton(
+                            "Aptus Consulting conçoit des solutions ludiques et innovantes dédiées à l’enseignement et qui permettent de relever les défis de la gestion administrative, pédagogique et de la formation Nous fournissons une expérience plus simple et puissante avec des fonctionnalités flexibles qui vous aident dans votre approche pédagogique",
+                             style: TextStyle(fontFamily: "myfont"),
+                            ),
+
+                            SizedBox(height: 30,),
+                                 ElevatedButton(
                               onPressed: () {},
                               child: Text("En Savoir plus"),
                               style: ButtonStyle(
@@ -241,43 +268,49 @@ class _accueilState extends State<Accueil> {
                                       RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(10)))))
-                        ]),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 100,
-            ),
-
-            Column(
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      child: Image.asset(
-                        "assets/img/dec-aptus.png",
-                        width: 600,
-                        height: 500,
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(150, 150, 0, 0),
-                      width: 400,
-                      height: 400,
-                      child: Column(
-                        children: [
-                          
-                          Text(
-                            "Aptus Consulting conçoit des solutions ludiques et innovantes dédiées à l’enseignement et qui permettent de relever les défis de la gestion administrative, pédagogique et de la formation Nous fournissons une expérience plus simple et puissante avec des fonctionnalités flexibles qui vous aident dans votre approche pédagogique",
-                             style: TextStyle(fontFamily: "myfont"),
-                            )
                         ],
                       ),
                     ),
                     
                   ],
                 ),
+              ],
+            ),
+
+               SizedBox(
+              height: 100,
+            ),
+
+            Column(
+              children: [
+                Row(
+                  
+                  children: [
+                    Image.asset(
+                      "assets/img/dec-aptus.png",
+                        width: 600,
+                        height: 500,
+                    ),
+
+                     Container(
+                      margin: EdgeInsets.only(left: 150),
+                       child: Column(
+                         children: [
+                           Text(
+                                  "Avec nos solutions et nos experiences",
+                                  style: TextStyle(fontFamily: "myfont", fontSize: 20),
+                                ),
+
+                                  Text(
+                                  "Nous offrons des solutions efficaces",
+                                  style: TextStyle(fontFamily: "myfont", fontSize: 20),
+                                ),
+
+                         ],
+                       ),
+                     ),
+                  ],
+                )
               ],
             ),
             SizedBox(height: 60,),
