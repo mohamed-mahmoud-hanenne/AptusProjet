@@ -73,16 +73,21 @@ class _SIgnState extends State<Sign> {
           Container(
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(15)
+              borderRadius: BorderRadius.circular(15),
+              
             ),
             margin: EdgeInsets.all(15),
             width: 1100,
             height: 900,
             child: Row(
               children: [
-              Image.asset(
-              "assets/img/student-sign.jpg",
-              width: screenWidth(context) >= 800 ? 450 : 300,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.asset(
+                "assets/img/sig-ap.png",
+                width: screenWidth(context) >= 800 ? 450 : 300,
+               
+                ),
               ),
             Container(
               
@@ -94,7 +99,7 @@ class _SIgnState extends State<Sign> {
                   
               width: screenWidth(context) >= 800 ? 400 : 200,
               height: screenWidth(context) >= 800 ? 580 : 300,
-              margin: EdgeInsets.fromLTRB(200, 20, 0, 0),
+              margin: EdgeInsets.fromLTRB(100, 20, 0, 0),
               child: SingleChildScrollView(
                 
                 child: Column(
