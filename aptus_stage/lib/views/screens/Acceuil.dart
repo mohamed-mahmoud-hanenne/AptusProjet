@@ -70,7 +70,7 @@ class _accueilState extends State<Accueil> {
                                    Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>  Apropos()),
+                                      builder: (context) =>  MyHomePage()),
                                 );
                 });
               },
@@ -324,6 +324,13 @@ class _accueilState extends State<Accueil> {
                     decoration: BoxDecoration(
                       color: Colors.black
                     ),
+                    child: Container(
+                      margin: EdgeInsets.only(left: 600),
+                        child: ListTile(
+                          title: Text("2023 SFE", style: TextStyle(color: Colors.white, fontFamily: "myfont"),),
+                          leading: Icon(Icons.copyright, color: Colors.white,),
+                        ),
+                      ),
                   ),
                 ],
               ),

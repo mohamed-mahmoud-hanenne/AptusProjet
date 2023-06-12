@@ -624,7 +624,9 @@ class _ReponseWidgetState extends State<ReponseWidget> {
                               color: Color.fromARGB(255, 9, 212, 212))),
                       border: OutlineInputBorder(),
                     ),
-                  ))
+                  )),
+                   SizedBox(width: 20,),
+              Icon(Icons.clear, color: Colors.red,)
             ],
           ),
         ),

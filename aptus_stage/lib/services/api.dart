@@ -17,7 +17,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
 
 
 //function get all quizz
-   const String host = 'http://192.168.1.130:8002/';
+   const String host = 'http://192.168.0.120:8002/';
    Future<List<Quizz>> getQuizzes(String mytokens) async {
     
     List<Quizz> quizzes = [];
@@ -47,7 +47,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
   }
 
        //function get question type
-   const String hostques = 'http://192.168.1.130:8002/init/';
+   const String hostques = 'http://192.168.0.120:8002/init/';
    Future<Questions?> gettypeques(String mytokens) async {
     
   Questions? question;
@@ -79,7 +79,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
     return question;
   }
   //function create quizz
-   const String hosturl = 'http://192.168.1.130:8002/';
+   const String hosturl = 'http://192.168.0.120:8002/';
    Future<int> createQuizze(String mytokens) async {
     
    int id =0;
@@ -109,7 +109,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
 
 
    //function get deatil quizz
-  const String urldeatil = 'http://192.168.1.130:8002/courses/quizzes/';
+  const String urldeatil = 'http://192.168.0.120:8002/courses/quizzes/';
   Future<Detail?> getdetail(String mytokens, int idquizz) async {
     Detail? detail;
     final url = Uri.parse('$urldeatil'+ idquizz.toString());
@@ -129,7 +129,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
   }
 
      const String urlupdate =
-      'http://192.168.1.130:8002/courses/quizzes/';
+      'http://192.168.0.120:8002/courses/quizzes/';
   Future<void> UpdateQuizz(String mytokens,Detail detail , int idquizz) async {
    
     var update;
@@ -166,7 +166,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
   
 
    const String urldelete =
-      'http://192.168.1.130:8002/courses/quizzes/';
+      'http://192.168.0.120:8002/courses/quizzes/';
   Future<void> DeleteQuizz(String mytokens, int idquizz) async {
 
 
@@ -185,7 +185,7 @@ import 'package:aptus_stage/views/components/edit_quizz.dart';
     
   }
 
-const String urladdlong = 'http://192.168.1.130:8002/courses/quizzes/';
+const String urladdlong = 'http://192.168.0.120:8002/courses/quizzes/';
 Future<void> addlong(String mytokens, QuestionLong queslong , int idquizz) async{
   final url = Uri.parse('$urladdlong' + idquizz.toString() + '/add_question/');
 
@@ -215,7 +215,7 @@ Future<void> addlong(String mytokens, QuestionLong queslong , int idquizz) async
 
 }
 
- const String urladdques = 'http://192.168.1.130:8002/courses/quizzes/';
+ const String urladdques = 'http://192.168.0.120:8002/courses/quizzes/';
  Future<void> addquestions(String mytokens, Question  question, int idquizz) async{
  
   final url = Uri.parse('$urladdques'+ idquizz.toString() + '/add_question/');
